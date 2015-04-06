@@ -1,0 +1,6 @@
+#switchSlider::handle:horizontal
+{
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #8e8, stop:1 #292);
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}

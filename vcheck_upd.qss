@@ -1,0 +1,8 @@
+#vcheckButton
+{
+	background-color: #C90;
+}
+#vcheckButton:hover
+{
+	background-color: #FB1;
+}

@@ -1,0 +1,278 @@
+QWidget
+{
+    background-color: #333;
+}
+
+QTabWidget::pane
+{
+    position: absolute;
+    border: 2px solid #a33;
+    top: -15px;
+}
+
+QTabWidget::tab-bar
+{
+    alignment: center;
+}
+
+QTabBar
+{
+    font-weight: bold; /* On définit le gras sur le parent pour eviter le troncage */
+    outline: none;
+}
+QTabBar::tab
+{
+    background-color: #444;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+QTabBar::tab:hover
+{
+    background-color: #999;
+}
+QTabBar::tab:selected
+{
+    background-color: #699;
+}
+
+QPushButton
+{
+    background-color: #333;
+}
+
+QLabel
+{
+    margin-bottom: 2px;
+}
+
+QGroupBox
+{
+    margin-top: 10px;
+    padding-top: 20px;
+    border: 2px solid #a33;
+}
+QGroupBox::title
+{
+    background-color: #444;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 5px;
+    border: 2px solid #a33;
+    color: white;
+    width: 150px;
+    font-weight: bold;
+}
+
+QSlider::handle:horizontal
+{
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #ddd, stop:1 #777);
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#applyButton
+{
+    border: none;
+    outline: none;
+    font-weight: bold;
+    background-color: #282;
+    color: white;
+    border-radius: 12px;
+    padding-bottom: 2px;
+}
+#applyButton:hover
+{
+    background-color: #2a2;
+}
+
+#cancelButton
+{
+    border: none;
+    outline: none;
+    font-weight: bold;
+    background-color: #822;
+    color: white;
+    border-radius: 12px;
+    padding-bottom: 2px;
+}
+#cancelButton:hover
+{
+    background-color: #a22;
+}
+
+
+#primaryQTab > QTabBar::tab
+{
+    background-color: #444;
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 10px;
+    width: 150px;
+}
+#primaryQTab > QTabBar::tab:hover
+{
+    background-color: #555;
+}
+#primaryQTab > QTabBar::tab:selected
+{
+    background-color: #585;
+}
+#primaryQTab::pane
+{
+    border-radius: 10px;
+}
+#primaryQTab > QTabBar::tab:first
+{
+    border-radius: 0px;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    border: 2px solid #a33;
+    border-right: 1px solid #a33;
+    background-color: #444;
+}
+#primaryQTab > QTabBar::tab:first:hover
+{
+    background-color: #555;
+}
+#primaryQTab > QTabBar::tab:first:selected
+{
+    background-color: #666;
+}
+#primaryQTab > QTabBar::tab:last
+{
+    border-radius: 0px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border: 2px solid #a33;
+    border-left: 1px solid #a33;
+    background-color: #444;
+}
+#primaryQTab > QTabBar::tab:last:hover
+{
+    background-color: #555;
+}
+#primaryQTab > QTabBar::tab:last:selected
+{
+    background-color: #666;
+}
+
+
+#secondaryQTab > QTabBar::tab
+{
+    background-color: #444;
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 10px;
+    width: 100px;
+}
+#secondaryQTab > QTabBar::tab:hover
+{
+    background-color: #999;
+}
+#secondaryQTab > QTabBar::tab:selected
+{
+    background-color: #aaa;
+}
+#secondaryQTab::pane
+{
+    border: 0;
+    border-radius: 0px;
+    position: absolute;
+    top: -0.5em;
+}
+#secondaryQTab::tab-bar
+{
+    alignment: center;
+}
+#secondaryQTab > QTabBar::tab:first
+{
+    border-radius: 0px;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    border: 2px solid #a33;
+    border-right: 0;
+    background-color: #444;
+}
+#secondaryQTab > QTabBar::tab:first:hover
+{
+    background-color: #555;
+}
+#secondaryQTab > QTabBar::tab:first:selected
+{
+    background-color: #666;
+}
+#secondaryQTab > QTabBar::tab:middle
+{
+    border-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: 2px solid #a33;
+    background-color: #444;
+}
+#secondaryQTab > QTabBar::tab:middle:hover
+{
+    background-color: #555;
+}
+#secondaryQTab > QTabBar::tab:middle:selected
+{
+    background-color: #666;
+}
+#secondaryQTab > QTabBar::tab:last
+{
+    border-radius: 0px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border: 2px solid #a33;
+    border-left: 0;
+    background-color: #444;
+}
+#secondaryQTab > QTabBar::tab:last:hover
+{
+    background-color: #555;
+}
+#secondaryQTab > QTabBar::tab:last:selected
+{
+    background-color: #666;
+}
+
+
+#titleEEButton
+{
+    border: none;
+    outline: none;
+    color: black;
+    font-weight: bold;
+    background-color: #aaa;
+    padding: 4px;
+    border-radius: 12px;
+}
+#titleEEButton:hover
+{
+    background-color: #fff;
+}
+
+#closeButton
+{
+    border: none;
+    outline: none;
+    font-weight: bold;
+    background-color: #a22;
+    color: white;
+    border-radius: 12px;
+    font-size: 15px;
+    padding-bottom: 2px;
+}
+#closeButton:hover
+{
+    background-color: #f22;
+}

@@ -1,0 +1,343 @@
+QComboBox
+{
+    border: 1px solid grey;
+}
+QComboBox::drop-down
+{
+    border-left: 1px solid grey;
+}
+QComboBox::down-arrow
+{
+    image: url(":/misc/arrow");
+}
+QComboBox::down-arrow:on
+{
+    left: 1px;
+    top: 1px;
+}
+
+QDialog
+{
+    background-color: blue;
+    border-radius: 5px;
+}
+
+QGroupBox
+{
+    margin-top: 10px;
+    padding-top: 20px;
+    border: 2px solid #aaa;
+}
+QGroupBox::title
+{
+    background-color: #aaa;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 5px;
+    border: 2px solid #aaa;
+    color: black;
+}
+
+QWidget
+{
+    background-color: #333;
+    border-radius: 20px;
+    color: white;
+}
+
+QPushButton
+{
+    border: none;
+    outline: none;
+    font-weight: bold;
+    background-color: #55a;
+    color: white;
+    border-radius: 12px;
+}
+QPushButton:hover
+{
+    background-color: #33a;
+}
+
+#mTab
+{
+    background-color: blue;
+    border-radius: 4px;
+    border: none;
+    color: black;
+}
+
+#titleButton
+{
+    border: none;
+    outline: none;
+    color: black;
+    font-weight: bold;
+    background-color: #aaa;
+    padding: 4px;
+    border-radius: 12px;
+}
+
+#minimizeButton
+{
+    border: none;
+    outline: none;
+    font-weight: bold;
+    background-color: #363;
+    color: white;
+    border-radius: 12px;
+    font-size: 20px;
+    padding-bottom: 2px;
+}
+#minimizeButton:hover
+{
+    background-color: #3a3;
+}
+
+#edenButton
+{
+    border: none;
+    outline: none;
+    font-weight: bold;
+    background-color: #379;
+    color: white;
+    border-radius: 12px;
+}
+#edenButton:hover
+{
+    background-color: #59c;
+}
+
+#auraButton, #fantaButton, #wolfButton, #s4Button, #shaiyaButton
+{
+    border: none;
+    outline: none;
+    font-weight: bold;
+    background-color: #555;
+    color: white;
+    border-radius: 12px;
+}
+
+#closeButton
+{
+    border: none;
+    outline: none;
+    font-weight: bold;
+    background-color: #a22;
+    color: white;
+    border-radius: 12px;
+    font-size: 15px;
+    padding-bottom: 2px;
+}
+#closeButton:hover
+{
+    background-color: #f22;
+}
+
+#settingsButton, #updateButton, #infoButton
+{
+    border: none;
+    outline: none;
+    font-weight: bold;
+    background-color: #aaa;
+    border-radius: 12px;
+}
+
+#colapseButton
+{
+    border: none;
+    outline: none;
+    font-weight: bold;
+    background-color: #aaa;
+    border-radius: 12px;
+    padding-top: 1px;
+}
+#colapseButton:hover
+{
+    background-color: #b77;
+}
+
+#localButton, #onlineButton
+{
+    border: none;
+    outline: none;
+    font-weight: bold;
+    background-color: #aaa;
+    border-radius: 12px;
+    text-align:left;
+    padding-left: 10px;
+    color: black;
+}
+
+#vcheckButton
+{
+    border: none;
+    outline: none;
+    font-weight: bold;
+    background-color: #255;
+    border-radius: 12px;
+    margin-right: 5px;
+}
+
+#titleButton:hover, #settingsButton:hover, #updateButton:hover, #infoButton:hover, #colapseButton:hover
+{
+    background-color: #fff;
+}
+
+#nameLabel
+{
+    font-weight:  bold;
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #4A4;
+    background-color: #444;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 15px;
+}
+#avatarButton
+{
+    border-radius: none;
+    outline: none;
+}
+#avatarButton:focus
+{
+    border: none;
+    outline: none;
+}
+
+#pseudoLabel
+{
+    font-weight:  bold;
+    margin-left: 4px;
+}
+
+QMessageBox QPushButton, QMessageBox QLabel, QMessageBox QPixmap
+{
+    background-color: #333;
+}
+QMessageBox QPushButton
+{
+    border: none;
+    outline: none;
+    font-weight: bold;
+    background-color: #55a;
+    color: white;
+    border-radius: 12px;
+}
+QMessageBox QPushButton:hover
+{
+    background-color: #33a;
+}
+
+QMessageBox
+{
+    border-radius: 5px;
+    background-color: #333;
+}
+
+#wipBox QLabel
+{
+    color: white;
+}
+
+#wipButton
+{
+    border: none;
+    outline: none;
+    font-weight: bold;
+    background-color: #2a2;
+    color: white;
+    border-radius: 12px;
+    padding-bottom: 2px;
+}
+#wipButton:hover
+{
+    background-color: #2f2;
+}
+
+
+#gamenameLabel
+{
+    color: white;
+    padding: 5px;
+	padding-bottom: 7px;
+    background-color: #37A;
+    font-weight: bold;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+#gamenameEdit
+{
+    padding: 5px;
+    background-color: #666;
+    border-top: 2px solid #37A;
+    border-bottom: 2px solid #37A;
+    font-weight: bold;
+    border-left: none;
+}
+
+#gamenameButton
+{
+    border-radius: none;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    width: 50px;
+    padding-top: 4px;
+    padding-bottom: 8px;
+    background-color: #555;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+#gamenameButtonE
+{
+    border-radius: none;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    width: 50px;
+    padding-top: 4px;
+    padding-bottom: 8px;
+    background-color: #555;
+    font-weight: bold;
+    font-size: 15px;
+}
+#gamenameButtonE:hover
+{
+    background-color: #888;
+}
+
+#titleSettingsButton
+{
+    border: none;
+    outline: none;
+    color: black;
+    font-weight: bold;
+    background-color: #aaa;
+    padding: 4px;
+    border-radius: 10px;
+}
+#titleSettingsButton:hover
+{
+    background-color: #fff;
+}
+
+#toolsButton
+{
+    border-radius:0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    color: black;
+    font-weight: bold;
+    background-color: #585;
+}
+#toolsButton:hover
+{
+    background-color: #5b5;
+}
