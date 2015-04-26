@@ -6,8 +6,8 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#ifndef THEMEEXTRACT
-#define THEMEEXTRACT
+#ifndef THEMEEXTRACT_HPP
+#define THEMEEXTRACT_HPP
 
 #include <QtWidgets>
 
@@ -29,4 +29,4 @@ private:
     QString     m_archive;
 };
 
-#endif // THEMEEXTRACT
+#endif // THEMEEXTRACT_HPP

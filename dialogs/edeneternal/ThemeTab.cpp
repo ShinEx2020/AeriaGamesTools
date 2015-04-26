@@ -10,6 +10,14 @@
 
 ThemeTab::ThemeTab(QString edenpath)
 {
+    QDir cacheDir(QCoreApplication::applicationDirPath()+"/CacheThemes");
+
+    if(!cacheDir.exists())
+        cacheDir.mkdir(QCoreApplication::applicationDirPath()+"/CacheThemes");
+
+
+
+
     m_edenPath = edenpath;
 
 
@@ -19,7 +27,7 @@ ThemeTab::ThemeTab(QString edenpath)
     m_themeOnlineInfosFile = new QFile(QCoreApplication::applicationDirPath()+"/logs/themes.info");
     //m_themeLocalInfosFile = new QFile(QCoreApplication::applicationDirPath()+"/logs/themes_install.info");
 
-    m_pathsFile = new QFile(QCoreApplication::applicationDirPath()+"/logs/paths.lst");
+    m_pathsFile = new QFile(QCoreApplication::applicationDirPath()+"/logs/paths.list");
         m_pathsFile->open(QIODevice::ReadOnly | QIODevice::Text);
     m_pathsSets = new QSettings(m_pathsFile->fileName(), QSettings::IniFormat);
     m_pathsString = m_pathsSets->value("Paths/EdenEternal").toString();
@@ -37,13 +45,13 @@ ThemeTab::ThemeTab(QString edenpath)
 
     addButton = new QPushButton("< AJOUTER");
         addButton->setFixedSize(100,30);
-        addButton->setStyleSheet("QPushButton{background-color: #444;}"
-                               "QPushButton:hover{background-color: #666;}");
+        addButton->setStyleSheet("QPushButton{background-color: #474;}"
+                               "QPushButton:hover{background-color: #494;}");
 
     delButton = new QPushButton(" SUPPRIMER >");
         delButton->setFixedSize(100,30);
-        delButton->setStyleSheet("QPushButton{background-color: #444;}"
-                               "QPushButton:hover{background-color: #666;}");
+        delButton->setStyleSheet("QPushButton{background-color: #744;}"
+                               "QPushButton:hover{background-color: #944;}");
 
     majButton = new QPushButton("Update");
         majButton->setFixedSize(100,30);
@@ -195,10 +203,19 @@ void ThemeTab::installTheme(QString nameTheme)
 }
 void ThemeTab::extractTheme(QNetworkReply* sevenTheme)
 {
+    QDir cacheEden(QCoreApplication::applicationDirPath()+"/CacheThemes/EdenEternal");
+
+    if(!cacheEden.exists())
+        cacheEden.mkdir(QCoreApplication::applicationDirPath()+"/CacheThemes/EdenEternal");
+
+
     QFile *info = new QFile(QCoreApplication::applicationDirPath()+"/CacheThemes/EdenEternal/"+m_themeName+".7z");
         info->open(QIODevice::WriteOnly);
         info->write(sevenTheme->readAll());
         info->close();
+
+
+    qDebug() << m_edenPath;
 
     m_themeExtract = new ThemeExtract(m_edenPath, info->fileName());
     m_themeExtract->start();

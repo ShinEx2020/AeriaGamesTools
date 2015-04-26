@@ -6,17 +6,17 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#ifndef GAMETAB_H
-#define GAMETAB_H
+#ifndef GAMEPLAYTAB_HPP
+#define GAMEPLAYTAB_HPP
 
 #include <QtWidgets>
 
-class GameTab : public QWidget
+class GameplayTab : public QWidget
 {
     Q_OBJECT
 public:
 
-    GameTab();
+    GameplayTab();
     void createConnexions();
 
 signals:
@@ -92,4 +92,4 @@ private:
     QSlider *m_sleftclic;
 };
 
-#endif // GAMETAB_H
+#endif // GAMEPLAYTAB_HPP

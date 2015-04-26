@@ -1,5 +1,5 @@
-#ifndef FREECLIENT_H
-#define FREECLIENT_H
+#ifndef FREECLIENT_HPP
+#define FREECLIENT_HPP
 
 #include <QtWidgets>
 #include <QtNetwork>
@@ -33,4 +33,4 @@ private:
     QString                 m_uplMail;
 };
 
-#endif // FREECLIENT_H
+#endif // FREECLIENT_HPP

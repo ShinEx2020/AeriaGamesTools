@@ -6,9 +6,9 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#include "GameTab.hpp"
+#include "GameplayTab.hpp"
 
-GameTab::GameTab()
+GameplayTab::GameplayTab()
 {
     m_name = new QPushButton(tr("Name"));
     m_sname = new QSlider(Qt::Horizontal);
@@ -158,7 +158,7 @@ GameTab::GameTab()
     QHBoxLayout *socialHBOX = new QHBoxLayout;
         socialHBOX->addWidget(uiGroup);
         socialHBOX->addLayout(socialVBOX);
-        socialHBOX->addWidget(infosGroup);
+        //socialHBOX->addWidget(infosGroup);
 
     QFile *qssSliderOn = new QFile(":/qss/slider_on");
         qssSliderOn->open(QIODevice::ReadOnly | QIODevice::Text);
@@ -182,7 +182,7 @@ GameTab::GameTab()
     setLayout(socialHBOX);
 }
 
-void GameTab::createConnexions()
+void GameplayTab::createConnexions()
 {
     connect(m_sname, SIGNAL(valueChanged(int)), this, SLOT(changeColorSwitch(int)));
     connect(m_sguild, SIGNAL(valueChanged(int)), this, SLOT(changeColorSwitch(int)));
@@ -233,7 +233,7 @@ void GameTab::createConnexions()
     connect(m_leftclic, SIGNAL(clicked()), this, SLOT(hoverInfos()));
 }
 
-void GameTab::initSettings()
+void GameplayTab::initSettings()
 {
     QFile *m_configSet = new QFile(m_pathsString+"/client.ini");
             m_configSet->open(QIODevice::ReadOnly | QIODevice::Text);
@@ -304,7 +304,7 @@ void GameTab::initSettings()
     }
 }
 
-void GameTab::applySettings()
+void GameplayTab::applySettings()
 {
     mEdenSettings->setValue("Option/PlayerAppellationb", m_sname->value());
     mEdenSettings->setValue("Option/PlayerFamilyb", m_sguild->value());
@@ -330,7 +330,7 @@ void GameTab::applySettings()
     mEdenSettings->setValue("Option/MouseLeftBtnTraceb", m_sleftclic->value());
 }
 
-void GameTab::changeColorSwitch(int val)
+void GameplayTab::changeColorSwitch(int val)
 {
     if(val == 1)
     {
@@ -342,7 +342,7 @@ void GameTab::changeColorSwitch(int val)
     }
 }
 
-void GameTab::hoverInfos()
+void GameplayTab::hoverInfos()
 {
     if(sender() == m_name)
         m_infosEdit->setText("Active/Desactive l'affichage du nom du personnage");

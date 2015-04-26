@@ -7,11 +7,10 @@
  ********************************************************************************************/
 
 #include "EdenEternalTool.hpp"
-#include "AeriaToolMain.hpp"
 
-EdenEternalTool::EdenEternalTool(QWidget *parent) : QDialog(parent)
+EdenEternalTool::EdenEternalTool(QWidget *parent) : QWidget(parent)
 {
-    createButtons();
+    createObjects();
     createAdvancedGroup();
     createAudioGroup();
     createDetailsGroup();
@@ -21,11 +20,8 @@ EdenEternalTool::EdenEternalTool(QWidget *parent) : QDialog(parent)
     createComboDetails();
 
     createSystemTab();
-    createGameplayTab();
-    createThemeTab();
 
     createConfigTab();
-    createRepairTab();
 
     createMainLyt();
 
@@ -36,61 +32,69 @@ EdenEternalTool::EdenEternalTool(QWidget *parent) : QDialog(parent)
     setLayout(m_layoutEdenEternal);
 }
 
-void EdenEternalTool::createButtons()
+void EdenEternalTool::createObjects()
 {
-    mApplyButton = new QPushButton("Appliquer");
-        mApplyButton->setObjectName("applyButton");
-        mApplyButton->setFixedSize(140, 25);
+    m_gameWidget        = new GameplayTab;
+    m_ConfigsTabWidget  = new QTabWidget;
 
-    mCancelButton = new QPushButton("Fermer");
-        mCancelButton->setObjectName("cancelButton");
-        mCancelButton->setFixedSize(140, 25);
+    mPathsSettings      = new Settings;
+    m_themeWidget       = new ThemeTab(mPathsSettings->gamePath(0).toString());
+    m_configWidget      = new QWidget;
+    m_repairWidget      = new RescueTab;
+    m_ApplyButton       = new QPushButton;
+    m_CancelButton      = new QPushButton;
+    charaLabel          = new QPushButton;
+    charaSlider         = new QSlider;
+    sceneLabel          = new QPushButton;
+    sceneSlider         = new QSlider;
+    effectsLabel        = new QPushButton;
+    effectsSlider       = new QSlider;
+    shadowLabel         = new QPushButton;
+    shadowSlider        = new QSlider;
+    grassLabel          = new QPushButton;
+    grassSlider         = new QSlider;
+
+    m_gridALayout       = new QGridLayout;
+    m_avancedGroup      = new QGroupBox;
+    m_sceneGroup        = new QGroupBox;
 }
 
 void EdenEternalTool::createAdvancedGroup()
 {
-    charaLabel = new QPushButton("Character");
-    charaSlider = new QSlider(Qt::Horizontal);
-        charaSlider->setRange(1, 40);
-        charaSlider->setFixedWidth(100);
+    charaLabel->setText("Character");
+    charaSlider->setOrientation(Qt::Horizontal);
+    charaSlider->setRange(1, 40);
 
-    sceneLabel = new QPushButton("Scene");
-    sceneSlider = new QSlider(Qt::Horizontal);
-        sceneSlider->setRange(1, 5);
-        sceneSlider->setFixedWidth(100);
+    sceneLabel->setText("Scene");
+    sceneSlider->setOrientation(Qt::Horizontal);
+    sceneSlider->setRange(1, 5);
 
-    effectsLabel = new QPushButton("Effects");
-    effectsSlider = new QSlider(Qt::Horizontal);
-        effectsSlider->setRange(1, 25);
-        effectsSlider->setFixedWidth(100);
+    effectsLabel->setText("Effects");
+    effectsSlider->setOrientation(Qt::Horizontal);
+    effectsSlider->setRange(1, 25);
 
-    shadowLabel = new QPushButton("Shadow");
-    shadowSlider = new QSlider(Qt::Horizontal);
-        shadowSlider->setRange(1, 7);
-        shadowSlider->setFixedWidth(100);
+    shadowLabel->setText("Shadow");
+    shadowSlider->setOrientation(Qt::Horizontal);
+    shadowSlider->setRange(1, 7);
 
-    grassLabel = new QPushButton("Grass");
-    grassSlider = new QSlider(Qt::Horizontal);
-        grassSlider->setRange(0, 4);
-        grassSlider->setFixedWidth(100);
+    grassLabel->setText("Grass");
+    grassSlider->setOrientation(Qt::Horizontal);
+    grassSlider->setRange(0, 4);
 
-    QGridLayout *gridALayout = new QGridLayout;
-        gridALayout->addWidget(charaLabel, 0, 0);
-        gridALayout->addWidget(charaSlider, 0, 1, Qt::AlignLeft);
-        gridALayout->addWidget(sceneLabel, 1, 0);
-        gridALayout->addWidget(sceneSlider, 1, 1, Qt::AlignLeft);
-        gridALayout->addWidget(effectsLabel, 2, 0);
-        gridALayout->addWidget(effectsSlider, 2, 1, Qt::AlignLeft);
-        gridALayout->addWidget(shadowLabel, 3, 0);
-        gridALayout->addWidget(shadowSlider, 3, 1, Qt::AlignLeft);
-        gridALayout->addWidget(grassLabel, 4, 0);
-        gridALayout->addWidget(grassSlider, 4, 1, Qt::AlignLeft);
+    m_gridALayout->addWidget(charaLabel, 0, 0);
+    m_gridALayout->addWidget(charaSlider, 0, 1, Qt::AlignLeft);
+    m_gridALayout->addWidget(sceneLabel, 1, 0);
+    m_gridALayout->addWidget(sceneSlider, 1, 1, Qt::AlignLeft);
+    m_gridALayout->addWidget(effectsLabel, 2, 0);
+    m_gridALayout->addWidget(effectsSlider, 2, 1, Qt::AlignLeft);
+    m_gridALayout->addWidget(shadowLabel, 3, 0);
+    m_gridALayout->addWidget(shadowSlider, 3, 1, Qt::AlignLeft);
+    m_gridALayout->addWidget(grassLabel, 4, 0);
+    m_gridALayout->addWidget(grassSlider, 4, 1, Qt::AlignLeft);
 
-    avancedGroup = new QGroupBox("Avanced");
-        avancedGroup->setFixedWidth(240);
-        avancedGroup->setLayout(gridALayout);
-        avancedGroup->setFont(font);
-
+    m_avancedGroup->setTitle("Avanced");
+    m_avancedGroup->setLayout(m_gridALayout);
+    m_avancedGroup->setFont(font);
 }
 
 void EdenEternalTool::createSceneGroup()
@@ -139,11 +143,10 @@ void EdenEternalTool::createSceneGroup()
         gridLayout->addWidget(ssaoLabel, 2, 2);
         gridLayout->addWidget(ssaoSlider, 2, 3, Qt::AlignLeft);
 
-    sceneGroup = new QGroupBox("Scene");
-        sceneGroup->setLayout(gridLayout);
-        sceneGroup->setFixedHeight(130);
-        sceneGroup->setFixedWidth(240);
-        sceneGroup->setFont(font);
+    m_sceneGroup->setTitle("Scene");
+    m_sceneGroup->setLayout(gridLayout);
+    m_sceneGroup->setFixedWidth(220);
+    m_sceneGroup->setFont(font);
 }
 
 void EdenEternalTool::createHiddenGroup()
@@ -166,7 +169,6 @@ void EdenEternalTool::createHiddenGroup()
 
     m_hiddenGroup = new QGroupBox("Hidden");
         m_hiddenGroup->setLayout(gridWWLayout);
-        m_hiddenGroup->setFixedHeight(130);
         m_hiddenGroup->setFont(font);
 }
 
@@ -205,12 +207,12 @@ void EdenEternalTool::createAudioGroup()
     bgmLabel = new QPushButton("BGM");
     bgmSlider = new DSlider(Qt::Horizontal);
         bgmSlider->setRange(0, 10);
-        bgmSlider->setFixedWidth(100);
+        bgmSlider->setFixedWidth(90);
 
     soundLabel = new QPushButton("Sounds");
     soundSlider = new DSlider(Qt::Horizontal);
         soundSlider->setRange(0, 10);
-        soundSlider->setFixedWidth(100);
+        soundSlider->setFixedWidth(90);
 
     muteLabel = new QPushButton("Mute");
     muteSlider = new QSlider(Qt::Horizontal);
@@ -227,7 +229,6 @@ void EdenEternalTool::createAudioGroup()
 
     m_audioGroup = new QGroupBox("Audio");
         m_audioGroup->setLayout(gridSLayout);
-        m_audioGroup->setFixedHeight(130);
         m_audioGroup->setFont(font);
 }
 
@@ -236,7 +237,6 @@ void EdenEternalTool::createResolutionGroup()
     resoLabel = new QPushButton("Résolution");
 
     resoCombo = new QComboBox;
-        resoCombo->setFixedWidth(100);
         resoCombo->addItem("800 x 600", QSize(800, 600));
         resoCombo->addItem("1024 x 768", QSize(1024, 768));
         resoCombo->addItem("1152 x 864", QSize(1152, 864));
@@ -256,7 +256,6 @@ void EdenEternalTool::createResolutionGroup()
     aliaLabel = new QPushButton("Anti-Aliasing");
 
     aliaCombo = new QComboBox;
-        aliaCombo->setFixedWidth(100);
         aliaCombo->addItem("Aucun", 1);
         aliaCombo->addItem("2x", 65536);
         aliaCombo->addItem("4x", 196608);
@@ -277,14 +276,12 @@ void EdenEternalTool::createComboDetails()
     charLabel = new QPushButton("Personnage");
 
     charCombo = new QComboBox; // CharacterTexture=X
-        charCombo->setFixedWidth(100);
         charCombo->addItem("Faible", 0);
         charCombo->addItem("Elevé", 1);
 
     scenLabel = new QPushButton("Terrain");
 
     scenCombo = new QComboBox; // SceneTexture=X
-        scenCombo->setFixedWidth(100);
         scenCombo->addItem("Faible", 0);
         scenCombo->addItem("Moyen", 1);
         scenCombo->addItem("Elevé", 2);
@@ -292,7 +289,6 @@ void EdenEternalTool::createComboDetails()
     bloomLabel = new QPushButton("Bloom");
 
     bloomCombo = new QComboBox; // BloomShader=X
-        bloomCombo->setFixedWidth(100);
         bloomCombo->addItem("Aucun", 0);
         bloomCombo->addItem("Faible", 1);
         bloomCombo->addItem("Elevé", 2);
@@ -300,7 +296,6 @@ void EdenEternalTool::createComboDetails()
     fpsLabel = new QPushButton("FPS");
 
     fpsCombo = new QComboBox; // FpsLockValue=X
-        fpsCombo->setFixedWidth(100);
         fpsCombo->addItem("30", 30);
         fpsCombo->addItem("60", 60);
         fpsCombo->addItem("120", 120);
@@ -308,9 +303,8 @@ void EdenEternalTool::createComboDetails()
     modelLabel = new QPushButton("Contour");
 
     modelCombo = new QComboBox; // OutlineShader=X
-        modelCombo->setFixedWidth(100);
         modelCombo->addItem("Aucun", 0);
-        modelCombo->addItem("Personnage", 1);
+        modelCombo->addItem("Pers", 1);
         modelCombo->addItem("Tout", 2);
 
     QGridLayout *gridTLayout = new QGridLayout;
@@ -338,8 +332,8 @@ void EdenEternalTool::createSystemTab()
         slid->addWidget(m_audioGroup);
 
     QVBoxLayout *slidmid = new QVBoxLayout;
-        slidmid->addWidget(avancedGroup);
-        slidmid->addWidget(sceneGroup);
+        slidmid->addWidget(m_avancedGroup);
+        slidmid->addWidget(m_sceneGroup);
 
     QVBoxLayout *slidright = new QVBoxLayout;
         slidright->addWidget(textGroup);
@@ -361,70 +355,46 @@ void EdenEternalTool::createSystemTab()
         groupsHBox->addLayout(slid);
         groupsHBox->addLayout(slidmid);
         groupsHBox->addLayout(slidright);
-        groupsHBox->addWidget(groupb);
 
     m_systemWidget = new QWidget;
         m_systemWidget->setLayout(groupsHBox);
 }
 
-void EdenEternalTool::createGameplayTab()
-{
-    m_gameWidget = new GameTab;
-}
-
-void EdenEternalTool::createThemeTab()
-{
-    AeriaToolMain *path = new AeriaToolMain(qobject_cast<AeriaToolMain *>(parent()));
-    m_themeWidget = new ThemeTab(path->gamePath(1));
-}
-
 void EdenEternalTool::createConfigTab()
 {
-    mTabIG = new QTabWidget;
-        mTabIG->addTab(m_systemWidget, QIcon(":/icons/tabs/sys"), "Système");
-        mTabIG->addTab(m_gameWidget, QIcon(":/icons/tabs/game"), "Gameplay");
-        mTabIG->addTab(m_themeWidget, QIcon(":/icons/tabs/theme"), "Thème");
-        mTabIG->setFixedSize(950, 390);
-        mTabIG->setObjectName("secondaryQTab");
+    m_ApplyButton->setText("Appliquer");
+    m_ApplyButton->setObjectName("applyButton");
+    m_ApplyButton->setFixedSize(140, 25);
+
+    m_CancelButton->setText("Fermer");
+    m_CancelButton->setObjectName("cancelButton");
+    m_CancelButton->setFixedSize(140, 25);
+
+
+    m_ConfigsTabWidget->addTab(m_systemWidget, QIcon(":/icons/tabs/sys"), "Système");
+    m_ConfigsTabWidget->addTab(m_gameWidget, QIcon(":/icons/tabs/game"), "Gameplay");
+    m_ConfigsTabWidget->setObjectName("mTab");
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;
-        buttonLayout->addWidget(mApplyButton);
-        buttonLayout->addWidget(mCancelButton);
+        buttonLayout->addWidget(m_ApplyButton);
+        buttonLayout->addWidget(m_CancelButton);
 
     QVBoxLayout *vboxconfig = new QVBoxLayout;
-        vboxconfig->addWidget(mTabIG);
+        vboxconfig->addWidget(m_ConfigsTabWidget);
         vboxconfig->addLayout(buttonLayout);
 
-    m_configWidget = new QWidget;
-        m_configWidget->setLayout(vboxconfig);
+
+    m_configWidget->setLayout(vboxconfig);
 }
 
-void EdenEternalTool::createRepairTab()
-{
-    m_repairWidget = new RescueTab(this);
-
-    m_pingWidget = new PingTab;
-
-    QTabWidget *mTabTool = new QTabWidget;
-        mTabTool->addTab(m_repairWidget, QIcon(":/icons/tabs/sys"), "Diagnostic");
-        mTabTool->addTab(m_pingWidget, QIcon(":/icons/tabs/ping"), "Ping");
-        mTabTool->setFixedSize(950, 390);
-        mTabTool->setObjectName("secondaryQTab");
-
-    QVBoxLayout *vboxconfig2 = new QVBoxLayout;
-        vboxconfig2->addWidget(mTabTool);
-
-    m_toolsWidget = new QWidget;
-        m_toolsWidget->setLayout(vboxconfig2);
-}
 
 void EdenEternalTool::createMainLyt()
 {
     QTabWidget *mTab = new QTabWidget;
-        mTab->addTab(m_configWidget, QIcon(":/icons/tabs/set"), "Configuration");
-        mTab->addTab(m_toolsWidget, QIcon(":/icons/tabs/tools"), "Outils Utile");
+        mTab->addTab(m_themeWidget, "Themes");
+        mTab->addTab(m_configWidget, "Configs");
+        mTab->addTab(m_repairWidget, "Diagnostics");
         mTab->setObjectName("mTab");
-        mTab->setObjectName("primaryQTab");
 
     SPushButton *m_titleButton = new SPushButton("PARAMETRES EDEN ETERNAL");
         m_titleButton->setObjectName("titleEEButton");
@@ -439,7 +409,7 @@ void EdenEternalTool::createMainLyt()
         m_titlehbox->addWidget(m_closeButton);
 
     m_layoutEdenEternal = new QVBoxLayout();
-        m_layoutEdenEternal->addLayout(m_titlehbox);
+        //m_layoutEdenEternal->addLayout(m_titlehbox);
         m_layoutEdenEternal->addWidget(mTab);
 }
 
@@ -474,8 +444,8 @@ void EdenEternalTool::createConnections()
 
 //----------------------------------------------------------------------------------
 
-    connect(mApplyButton, SIGNAL(clicked()), this, SLOT(applySettings()));
-    connect(mCancelButton, SIGNAL(clicked()), this, SLOT(closeEdenEternalTool()));
+    connect(m_ApplyButton, SIGNAL(clicked()), this, SLOT(applySettings()));
+    connect(m_CancelButton, SIGNAL(clicked()), this, SLOT(closeEdenEternalTool()));
 
     connect(m_closeButton, SIGNAL(clicked()), this, SLOT(close()));
 
@@ -534,20 +504,21 @@ void EdenEternalTool::initSettings()
         qssEden->open(QIODevice::ReadOnly | QIODevice::Text);
 
     setStyleSheet(qssEden->readAll());
-    setFixedSize(1000,540);
+    //setFixedSize(1000,540);
+    setContentsMargins(-9, 0, -9, -9);
     setWindowTitle("Eden");
     setWindowFlags(Qt::FramelessWindowHint);
 
     //---------------------------------------------------------------------------------
 
-    QFile *pathsEden = new QFile(QCoreApplication::applicationDirPath()+"/logs/paths.lst");
-        pathsEden->open(QIODevice::ReadOnly | QIODevice::Text);
+//    QFile *pathsEden = new QFile(QCoreApplication::applicationDirPath()+"/logs/paths.lst");
+//        pathsEden->open(QIODevice::ReadOnly | QIODevice::Text);
 
-    QSettings mPathsSettings(pathsEden->fileName(), QSettings::IniFormat);
 
-    pathsEden->close();
 
-    mEdenSettings = new QSettings(mPathsSettings.value("Paths/EdenEternal").toString()+"/client.ini", QSettings::IniFormat);
+//    pathsEden->close();
+
+    mEdenSettings = new QSettings(mPathsSettings->gamePath(0).toString()+"/client.ini", QSettings::IniFormat);
 
     //---------------------------------------------------------------------------------
 

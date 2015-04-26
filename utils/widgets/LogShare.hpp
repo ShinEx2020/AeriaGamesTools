@@ -1,17 +1,22 @@
-#ifndef LOGSHARE_H
-#define LOGSHARE_H
+#ifndef LOGSHARE_HPP
+#define LOGSHARE_HPP
 
 #include <QtWidgets>
 
 #include "utils/FreeUpload.hpp"
+#include "utils/Settings.hpp"
+#include "utils/threads/FilesCompress.hpp"
 
 class LogShare : public QWidget
 {
     Q_OBJECT
+
 public:
     LogShare();
 
 public slots:
+    void logCompress();
+
     void logUpload();
 
     void logUrl(QString);
@@ -20,11 +25,15 @@ public slots:
 
 private:
 
-    QString        m_url;
+    Settings        *m_settings;
 
-    FreeUpload  *m_uplo;
-    QLineEdit   *m_line;
-    QPushButton *m_push;
+    FilesCompress   *m_compress;
+
+    QString         m_url;
+
+    FreeUpload      *m_uplo;
+    QLineEdit       *m_line;
+    QPushButton     *m_push;
 };
 
-#endif // LOGSHARE_H
+#endif // LOGSHARE_HPP

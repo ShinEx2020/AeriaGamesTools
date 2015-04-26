@@ -1,5 +1,5 @@
-#ifndef SERVERPING_H
-#define SERVERPING_H
+#ifndef SERVERPING_HPP
+#define SERVERPING_HPP
 
 #include <QtWidgets>
 
@@ -24,4 +24,4 @@ private:
     int         m_ping;
 };
 
-#endif // SERVERPING_H
+#endif // SERVERPING_HPP

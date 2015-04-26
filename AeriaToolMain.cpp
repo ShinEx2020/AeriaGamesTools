@@ -8,404 +8,204 @@
 
 #include "AeriaToolMain.hpp"
 
-AeriaToolMain::AeriaToolMain(QWidget *parent) : QMainWindow(parent)
+AeriaToolMain::AeriaToolMain(QWidget *parent) : QWidget(parent)
 {
-    bar = new QProgressBar;
-        bar->hide();
-        bar->setFixedSize(100, 25);
-        bar->setAlignment(Qt::AlignTop | Qt::AlignLeft);
-        bar->setStyleSheet("QProgressBar{background: #aaa; border-radius: 12px; border: 4px solid #aaa; color: black; font-weight: bold; text-align: center; margin-right: 4px;}"
-                           "QProgressBar::chunk{margin:3px; background-color: #d33;}");
+    createObjects();
 
 
-    qss = new QFile(":/qss/style");
-        qss->open(QIODevice::ReadOnly | QIODevice::Text);
+    bar->hide();
+    bar->setFixedSize(100, 25);
+    bar->setAlignment(Qt::AlignTop | Qt::AlignLeft);
+    bar->setStyleSheet("QProgressBar{background: #aaa; border-radius: 12px; border: 4px solid #aaa; color: black; font-weight: bold; text-align: center; margin-right: 4px;}"
+                       "QProgressBar::chunk{margin:3px; background-color: #d33;}");
 
-    qApp->setStyleSheet(qss->readAll());
+    qss->setFileName(":/qss/style");
+    qss->open(QIODevice::ReadOnly | QIODevice::Text);
 
 //---------------------------------------------------------
-    setWindowFlags(Qt::FramelessWindowHint);
-    setAttribute(Qt::WA_TranslucentBackground);
-    setFixedSize(520, 280);
-    setWindowTitle("AERIA GAMES TOOLS");
-    setContentsMargins(-17, 0, 0, 0);
 
     createButtons();
 
     QHBoxLayout *barLayout = new QHBoxLayout;
-        barLayout->addWidget(titleButton);
-        barLayout->addWidget(minimizeButton, Qt::AlignRight);
-        barLayout->addWidget(closeButton, Qt::AlignRight);
-        barLayout->setContentsMargins(16, 0, 0, 0);
+        barLayout->addWidget(titleButton, 0);
+        barLayout->addWidget(minimizeButton, 0, Qt::AlignRight);
+        barLayout->addWidget(closeButton, 0, Qt::AlignRight);
+        barLayout->setSpacing(0);
 
-    QGridLayout *gridLayout = new QGridLayout;
-        gridLayout->addWidget(mGrandFantasiaButton, 0, 0);
-        gridLayout->addWidget(mEdenEternalButton, 0, 1);
-        gridLayout->addWidget(mAuraKingdomButton, 0, 2);
-        gridLayout->addWidget(mS4LeagueButton, 1, 0);
-        gridLayout->addWidget(mWolfTeamButton, 1, 1);
-        gridLayout->addWidget(mShaiyaButton, 1, 2);
-        gridLayout->setVerticalSpacing(12);
+    colapseButton->setIcon(QIcon(":/icons/collapse"));
+    colapseButton->setFixedSize(35, 25);
+    colapseButton->setObjectName("colapseButton");
+    colapseButton->hide();
 
-//----------
-    //QBitmap tinyMask(":/mask/mask");
+    localButton->setText(QCoreApplication::applicationVersion());
+    localButton->setIcon(QIcon(":/icons/local"));
+    localButton->setFixedSize(60, 25);
+    localButton->setObjectName("localButton");
+    localButton->hide();
 
-    colapseButton = new QPushButton();
-        colapseButton->setIcon(QIcon(":/icons/collapse"));
-        colapseButton->setFixedSize(35, 25);
-        colapseButton->setObjectName("colapseButton");
-        colapseButton->hide();
+    onlineButton->setText("...");
+    onlineButton->setIcon(QIcon(":/icons/online"));
+    onlineButton->setFixedSize(60, 25);
+    onlineButton->setObjectName("onlineButton");
+    onlineButton->hide();
 
-    localButton = new QPushButton(QCoreApplication::applicationVersion());
-        localButton->setIcon(QIcon(":/icons/local"));
-        localButton->setFixedSize(60, 25);
-        localButton->setObjectName("localButton");
-        localButton->hide();
-
-    onlineButton = new QPushButton("...");
-        onlineButton->setIcon(QIcon(":/icons/online"));
-        onlineButton->setFixedSize(60, 25);
-        onlineButton->setObjectName("onlineButton");
-        onlineButton->hide();
-
-    vcheckButton = new QPushButton("Connexion...");
+    vcheckButton->setText("Connexion...");
 
     QHBoxLayout *hbox = new QHBoxLayout;
         hbox->addWidget(bar);
         hbox->setContentsMargins(0,0,0,0);
 
-        vcheckButton->setContentsMargins(-10,0,0,0);
-        vcheckButton->setLayout(hbox);
-        vcheckButton->setFixedSize(100, 25);
-        vcheckButton->setObjectName("vcheckButton");
-        vcheckButton->hide();
+    vcheckButton->setContentsMargins(-10,0,0,0);
+    vcheckButton->setLayout(hbox);
+    vcheckButton->setFixedSize(100, 25);
+    vcheckButton->setObjectName("vcheckButton");
+    vcheckButton->hide();
 
 //----------
-
     QHBoxLayout *buttonsHBox = new QHBoxLayout();
-        buttonsHBox->addWidget(infoButton, 0, Qt::AlignLeft);
-        buttonsHBox->addWidget(settingsButton, 0, Qt::AlignLeft);
-        buttonsHBox->addWidget(updateButton, 1, Qt::AlignLeft);
-        //
         buttonsHBox->addWidget(colapseButton, 0, Qt::AlignRight);
         buttonsHBox->addWidget(localButton, 0, Qt::AlignRight);
         buttonsHBox->addWidget(onlineButton, 0, Qt::AlignRight);
         buttonsHBox->addWidget(vcheckButton, 0, Qt::AlignRight);
         buttonsHBox->addWidget(bar, 0, Qt::AlignRight);
-        //
         buttonsHBox->setContentsMargins(25,0,5,0);
 
 
-    m_toolButton = new QPushButton("<\n\nO\nU\nT\nI\nL\nS\n\n<", this);
-        m_toolButton->setObjectName("toolsButton");
-        m_toolButton->setFixedWidth(25);
+    for(int i = 0; i<5; i++)
+    {
+        QLabel *lablogo = new QLabel;
+            lablogo->setPixmap(QPixmap(":/misc/wip"));
+        QHBoxLayout *logo = new QHBoxLayout;
+            logo->addWidget(lablogo);
 
-    m_tilesHBox = new QHBoxLayout;
-        m_tilesHBox->addWidget(m_toolButton);
-        m_tilesHBox->addLayout(gridLayout);
+        m_widgetList.append(new QWidget);
+        m_widgetList.last()->setLayout(logo);
+        m_widgetList.last()->setObjectName("mTabWidget");
+        m_widgetList.last()->setContentsMargins(-10,-11,-18,-10);
+    }
+    QTabWidget *m_mainTab = new QTabWidget;
+        m_mainTab->addTab(m_toolDialog, "");
+        m_mainTab->addTab(mEdenEternalTool, QIcon(":/logos/eden"), "");
+        m_mainTab->addTab(m_widgetList.at(0), QIcon(":/logos/aura"), "");
+        m_mainTab->addTab(m_widgetList.at(1), QIcon(":/logos/s4"), "");
+        m_mainTab->addTab(m_widgetList.at(2), QIcon(":/logos/fanta"), "");
+        m_mainTab->addTab(m_widgetList.at(3), QIcon(":/logos/wolf"), "");
+        m_mainTab->addTab(m_widgetList.at(4), QIcon(":/logos/shaiya"), "");
+        m_mainTab->setTabPosition(QTabWidget::West);
+        m_mainTab->tabBar()->setObjectName("mTabBar");
+        m_mainTab->tabBar()->setIconSize(QSize(60,60));
+        m_mainTab->setObjectName("mTabMain");
 
 
+    QHBoxLayout *m_headerHBox = new QHBoxLayout;
+        m_headerHBox->addWidget(updateButton, 1, Qt::AlignRight);
+        m_headerHBox->addWidget(settingsButton, 0, Qt::AlignRight);
+        m_headerHBox->addWidget(infoButton, 0, Qt::AlignRight);
+        m_headerHBox->setContentsMargins(0, 2, 10, 0);
+        m_headerHBox->setSpacing(1);
 
-    m_toolDialog = new ToolDialog();
+    QVBoxLayout *m_headerVBox = new QVBoxLayout;
+        m_headerVBox->addLayout(barLayout);
+        m_headerVBox->addLayout(m_headerHBox);
+        m_headerVBox->setContentsMargins(0, 0, 0, -10);
 
-    connect(m_toolButton, SIGNAL(clicked()), this, SLOT(openTools()));
+    m_headerWidget->setObjectName("headerWidget");
+    m_headerWidget->setLayout(m_headerVBox);
 
-
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-        mainLayout->addLayout(barLayout);
-        mainLayout->addLayout(m_tilesHBox);
-        mainLayout->addLayout(buttonsHBox);
-
-    QWidget *mainWidget = new QWidget;
-        mainWidget->setLayout(mainLayout);
+    m_mainLayout->addWidget(m_headerWidget);
+    m_mainLayout->addWidget(m_mainTab);
+    m_mainLayout->addLayout(buttonsHBox);
+    m_mainLayout->setSpacing(0);
 
     createConnections();
 
-    setCentralWidget(mainWidget);
+    mPathsFile->setFileName(QCoreApplication::applicationDirPath()+"/logs/paths.lst");
+    mPathsFile->open(QIODevice::ReadOnly | QIODevice::Text);
 
-    //------------TEST MASK-----------------
+    createSettings();
+}
 
-    setMask(QBitmap(":/mask/uimask"));
+void AeriaToolMain::createObjects()
+{
+    m_headerWidget      = new QWidget;
+    mPathsFile          = new QFile;
+    mPathsSettings      = new QSettings(mPathsFile->fileName(), QSettings::IniFormat);
+    bar                 = new QProgressBar;
+    qss                 = new QFile;
+    m_toolDialog        = new ToolDialog;
+    mEdenEternalTool    = new EdenEternalTool;
+    m_settingsS         = new Settings;
+    m_mainLayout        = new QVBoxLayout;
+    titleButton         = new TPushButton;
+    minimizeButton      = new QPushButton;
+    closeButton         = new QPushButton;
+    colapseButton       = new QPushButton;
+    localButton         = new QPushButton;
+    onlineButton        = new QPushButton;
+    settingsButton      = new QPushButton;
+    updateButton        = new QPushButton;
+    infoButton          = new QPushButton;
+    vcheckButton        = new QPushButton;
+}
 
-    //----------------test---------------
+void AeriaToolMain::initSettings()
+{
+    m_EdenPath = mPathsSettings->value("Paths/EdenEternal").toString();
+}
 
-    mPathsFile = new QFile(QCoreApplication::applicationDirPath()+"/logs/paths.lst");
-        mPathsFile->open(QIODevice::ReadOnly | QIODevice::Text);
-
-    QSettings mPathsSettings(mPathsFile->fileName(), QSettings::IniFormat);
-        m_EdenPath = mPathsSettings.value("Paths/EdenEternal").toString();
+void AeriaToolMain::createSettings()
+{
+    setWindowFlags(Qt::FramelessWindowHint);
+    setFixedSize(800, 600);
+    setWindowTitle(titleButton->text());
+    setContentsMargins(-11, -12, -11, -11);
+    setLayout(m_mainLayout);
+    setStyleSheet(qss->readAll());
 }
 
 void AeriaToolMain::createButtons()
 {
-    QBitmap tinyMask(":/mask/mask");
-    QSize mButtonsSize(150, 75);
+    titleButton->setText("AERIA GAMES TOOLS");
+    titleButton->setFixedHeight(25);
+    titleButton->setObjectName("titleButton");
+    titleButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
-    titleButton = new TPushButton(windowTitle());
-        titleButton->setFixedSize(370, 25);
-        titleButton->setObjectName("titleButton");
-        titleButton->setMask(QBitmap(":/mask/masktitle"));
+    minimizeButton->setText("-");
+    minimizeButton->setFixedSize(40, 25);
+    minimizeButton->setObjectName("minimizeButton");
+    minimizeButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-    minimizeButton = new QPushButton("-");
-        minimizeButton->setFixedSize(40, 25);
-        minimizeButton->setObjectName("minimizeButton");
-        minimizeButton->setMask(tinyMask);
+    closeButton->setText("X");
+    closeButton->setFixedSize(40, 25);
+    closeButton->setObjectName("closeButton");
+    closeButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-    closeButton = new QPushButton("X");
-        closeButton->setFixedSize(40, 25);
-        closeButton->setObjectName("closeButton");
-        closeButton->setMask(tinyMask);
+    settingsButton->setIcon(QIcon(":/icons/settings"));
+    settingsButton->setFixedSize(40, 25);
+    settingsButton->setObjectName("settingsButton");
 
+    updateButton->setIcon(QIcon(":/icons/update"));
+    updateButton->setFixedSize(40, 25);
+    updateButton->setObjectName("updateButton");
 
-    mGrandFantasiaButton = new QPushButton();
-        mGrandFantasiaButton->setFixedSize(mButtonsSize);
-        mGrandFantasiaButton->setIcon(QIcon(":/logos/fanta"));
-        mGrandFantasiaButton->setIconSize(mButtonsSize);
-        mGrandFantasiaButton->setObjectName("fantaButton");
-        mGrandFantasiaButton->setMask(QBitmap(":/mask/maskbig"));
-
-    mEdenEternalButton = new QPushButton();
-        mEdenEternalButton->setFixedSize(mButtonsSize);
-        mEdenEternalButton->setIcon(QIcon(":/logos/eden"));
-        mEdenEternalButton->setIconSize(mButtonsSize);
-        mEdenEternalButton->setObjectName("edenButton");
-        mEdenEternalButton->setMask(QBitmap(":/mask/maskbig"));
-
-    mAuraKingdomButton = new QPushButton();
-        mAuraKingdomButton->setFixedSize(mButtonsSize);
-        mAuraKingdomButton->setIcon(QIcon(":/logos/aura"));
-        mAuraKingdomButton->setIconSize(mButtonsSize);
-        mAuraKingdomButton->setObjectName("auraButton");
-        mAuraKingdomButton->setMask(QBitmap(":/mask/maskbig"));
-
-    mWolfTeamButton = new QPushButton();
-        mWolfTeamButton->setFixedSize(mButtonsSize);
-        mWolfTeamButton->setIcon(QIcon(":/logos/wolf"));
-        mWolfTeamButton->setIconSize(mButtonsSize);
-        mWolfTeamButton->setObjectName("wolfButton");
-        mWolfTeamButton->setMask(QBitmap(":/mask/maskbig"));
-
-    mShaiyaButton = new QPushButton();
-        mShaiyaButton->setFixedSize(mButtonsSize);
-        mShaiyaButton->setIcon(QIcon(":/logos/shaiya"));
-        mShaiyaButton->setIconSize(mButtonsSize);
-        mShaiyaButton->setObjectName("shaiyaButton");
-        mShaiyaButton->setMask(QBitmap(":/mask/maskbig"));
-
-    mS4LeagueButton = new QPushButton();
-        mS4LeagueButton->setFixedSize(mButtonsSize);
-        mS4LeagueButton->setIcon(QIcon(":/logos/s4"));
-        mS4LeagueButton->setIconSize(mButtonsSize);
-        mS4LeagueButton->setObjectName("s4Button");
-        mS4LeagueButton->setMask(QBitmap(":/mask/maskbig"));
-
-    settingsButton = new QPushButton();
-        settingsButton->setIcon(QIcon(":/icons/settings"));
-        settingsButton->setFixedSize(40, 25);
-        settingsButton->setObjectName("settingsButton");
-        settingsButton->setMask(tinyMask);
-
-    updateButton = new QPushButton();
-        updateButton->setIcon(QIcon(":/icons/update"));
-        updateButton->setFixedSize(40, 25);
-        updateButton->setObjectName("updateButton");
-        updateButton->setMask(tinyMask);
-
-    infoButton = new QPushButton();
-        infoButton->setIcon(QIcon(":/icons/info"));
-        infoButton->setFixedSize(40, 25);
-        infoButton->setObjectName("infoButton");
-        infoButton->setMask(tinyMask);
+    infoButton->setIcon(QIcon(":/icons/info"));
+    infoButton->setFixedSize(40, 25);
+    infoButton->setObjectName("infoButton");
 }
 
 void AeriaToolMain::createConnections()
 {
     connect(minimizeButton, SIGNAL(clicked()), this, SLOT(minimizeTool()));
     connect(closeButton, SIGNAL(clicked()), qApp, SLOT(quit()));
-
-    connect(mEdenEternalButton, SIGNAL(clicked()), this, SLOT(openEdenEternalTool()));
-
-    connect(mGrandFantasiaButton, SIGNAL(clicked()), this, SLOT(openWorkInProgress()));
-    connect(mAuraKingdomButton, SIGNAL(clicked()), this, SLOT(openWorkInProgress()));
-    connect(mWolfTeamButton, SIGNAL(clicked()), this, SLOT(openWorkInProgress()));
-    connect(mShaiyaButton, SIGNAL(clicked()), this, SLOT(openWorkInProgress()));
-    connect(mS4LeagueButton, SIGNAL(clicked()), this, SLOT(openWorkInProgress()));
-
-    connect(settingsButton, SIGNAL(clicked()), this, SLOT(openSettings()));
+    connect(settingsButton, SIGNAL(clicked()), m_settingsS, SLOT(show()));
     connect(updateButton, SIGNAL(clicked()), this, SLOT(openUpdates()));
     connect(infoButton, SIGNAL(clicked()), this, SLOT(openAbout()));
-    //------------------------------------------------------------------------------------
     connect(colapseButton, SIGNAL(clicked()), this, SLOT(closeUpdates()));
-
-    //------------------------------------------------------------------------------------
 }
 
 void AeriaToolMain::minimizeTool()
 {
     setWindowState(Qt::WindowMinimized);
-}
-
-void AeriaToolMain::openEdenEternalTool()
-{
-    if(!gamePath(1).isEmpty())
-    {
-        mEdenEternalTool = new EdenEternalTool();
-        mEdenEternalTool->exec();
-    }
-    else
-    {
-        QMessageBox e;
-            e.setIcon(QMessageBox::Warning);
-            e.setText("Le repertoire du jeu 'EdenEternal' n'est pas defini");
-            e.setInformativeText("Cliquez sur les engrenages pour le definir");
-            e.exec();
-    }
-}
-
-void AeriaToolMain::openWorkInProgress()
-{
-    QSpacerItem* horizontalSpacer = new QSpacerItem(350, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-    QPushButton *butab = new QPushButton("OK");
-        butab->setFixedSize(40, 25);
-        butab->setObjectName("wipButton");
-
-    QMessageBox wip;
-        wip.setIcon(QMessageBox::Warning);
-        wip.setWindowTitle("Work In Progress");
-        wip.setText("Cette fonction n'est pas ma priorité en ce momment");
-        wip.setInformativeText("Contactez FoxiesCuties pour toutes sugestions");
-        wip.addButton(butab, QMessageBox::AcceptRole);
-        wip.setObjectName("wipBox");
-        wip.setWindowFlags(Qt::FramelessWindowHint);
-
-        QGridLayout* layout = (QGridLayout*)wip.layout();
-        layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
-
-        wip.exec();
-}
-
-void AeriaToolMain::openSettings()
-{
-    QDialog *mSettingsDialog = new QDialog();
-
-    QLabel *mGrandFantasiaLabel = new QLabel("Grand Fantasia");
-        mGrandFantasiaLabel->setObjectName("gamenameLabel");
-    QLineEdit *mGrandFantasiaEdit = new QLineEdit;
-        mGrandFantasiaEdit->setObjectName("gamenameEdit");
-    sGrandFantasiaButton = new QPushButton("...");
-        sGrandFantasiaButton->setObjectName("gamenameButton");
-
-    QLabel *mEdenEternalLabel = new QLabel("Eden Eternal");
-        mEdenEternalLabel->setObjectName("gamenameLabel");
-    mEdenEternalEdit = new QLineEdit;
-        mEdenEternalEdit->setObjectName("gamenameEdit");
-    sEdenEternalButton = new QPushButton("...");
-        sEdenEternalButton->setObjectName("gamenameButtonE");
-
-    QLabel *mAuraKingdomLabel = new QLabel("Aura Kingdom");
-        mAuraKingdomLabel->setObjectName("gamenameLabel");
-    QLineEdit *mAuraKingdomEdit = new QLineEdit;
-        mAuraKingdomEdit->setObjectName("gamenameEdit");
-    sAuraKingdomButton = new QPushButton("...");
-        sAuraKingdomButton->setObjectName("gamenameButton");
-
-    QLabel *mS4LeagueLabel = new QLabel("S4 League");
-        mS4LeagueLabel->setObjectName("gamenameLabel");
-    QLineEdit *mS4LeagueEdit = new QLineEdit;
-        mS4LeagueEdit->setObjectName("gamenameEdit");
-    sS4LeagueButton = new QPushButton("...");
-        sS4LeagueButton->setObjectName("gamenameButton");
-
-    QLabel *mWolfTeamLabel = new QLabel("Wolf Team");
-        mWolfTeamLabel->setObjectName("gamenameLabel");
-    QLineEdit *mWolfTeamEdit = new QLineEdit;
-        mWolfTeamEdit->setObjectName("gamenameEdit");
-    sWolfTeamButton = new QPushButton("...");
-        sWolfTeamButton->setObjectName("gamenameButton");
-
-    QLabel *mShaiyaLabel = new QLabel("Shaiya");
-        mShaiyaLabel->setObjectName("gamenameLabel");
-    QLineEdit *mShaiyaEdit = new QLineEdit;
-        mShaiyaEdit->setObjectName("gamenameEdit");
-    sShaiyaButton = new QPushButton("...");
-        sShaiyaButton->setObjectName("gamenameButton");
-
-
-    QGridLayout *mSettingsGrid = new QGridLayout;
-
-        mSettingsGrid->setSpacing(0);
-
-        mSettingsGrid->addWidget(mGrandFantasiaLabel, 0, 0);
-        mSettingsGrid->addWidget(mGrandFantasiaEdit, 0, 1);
-        mSettingsGrid->addWidget(sGrandFantasiaButton, 0, 2);
-
-        mSettingsGrid->addWidget(mEdenEternalLabel, 1, 0);
-        mSettingsGrid->addWidget(mEdenEternalEdit, 1, 1);
-        mSettingsGrid->addWidget(sEdenEternalButton, 1, 2);
-
-        mSettingsGrid->addWidget(mAuraKingdomLabel, 2, 0);
-        mSettingsGrid->addWidget(mAuraKingdomEdit, 2, 1);
-        mSettingsGrid->addWidget(sAuraKingdomButton, 2, 2);
-
-        mSettingsGrid->addWidget(mS4LeagueLabel, 3, 0);
-        mSettingsGrid->addWidget(mS4LeagueEdit, 3, 1);
-        mSettingsGrid->addWidget(sS4LeagueButton, 3, 2);
-
-        mSettingsGrid->addWidget(mWolfTeamLabel, 4, 0);
-        mSettingsGrid->addWidget(mWolfTeamEdit, 4, 1);
-        mSettingsGrid->addWidget(sWolfTeamButton, 4, 2);
-
-        mSettingsGrid->addWidget(mShaiyaLabel, 5, 0);
-        mSettingsGrid->addWidget(mShaiyaEdit, 5, 1);
-        mSettingsGrid->addWidget(sShaiyaButton, 5, 2);
-
-    titleSettingsButton = new SPushButton("SETTINGS");
-        titleSettingsButton->setFixedHeight(25);
-        titleSettingsButton->setObjectName("titleButton");
-
-    QPushButton *mclose = new QPushButton("X");
-        mclose->setFixedSize(40, 25);
-        mclose->setObjectName("closeButton");
-        mclose->setMask(QBitmap(":/mask/mask"));
-
-    QHBoxLayout *mhset = new QHBoxLayout;
-        mhset->addWidget(titleSettingsButton);
-        mhset->addWidget(mclose);
-
-    QGroupBox *mSettingsGroup = new QGroupBox("Emplacements");
-        mSettingsGroup->setLayout(mSettingsGrid);
-
-    QVBoxLayout *mSettingsBox = new QVBoxLayout;
-        mSettingsBox->addLayout(mhset);
-        mSettingsBox->addWidget(mSettingsGroup);
-
-    //------------------------
-
-    QSettings mPathsSettings(mPathsFile->fileName(), QSettings::IniFormat);
-        //mPathsSettings.beginGroup("Paths");
-
-    if(mPathsSettings.contains("Paths/EdenEternal"))
-    {
-        mEdenEternalEdit->setText(mPathsSettings.value("Paths/EdenEternal").toString());
-        mEdenEternalEdit->setStyleSheet("QLineEdit{background-color: #5a5}");
-    }
-
-    //-------------------------
-
-    connect(sEdenEternalButton, SIGNAL(clicked()), this, SLOT(setDir()));
-    connect(mclose, SIGNAL(clicked()), mSettingsDialog, SLOT(close()));
-
-    connect(sGrandFantasiaButton, SIGNAL(clicked()), this, SLOT(openWorkInProgress()));
-    connect(sAuraKingdomButton, SIGNAL(clicked()), this, SLOT(openWorkInProgress()));
-    connect(sWolfTeamButton, SIGNAL(clicked()), this, SLOT(openWorkInProgress()));
-    connect(sShaiyaButton, SIGNAL(clicked()), this, SLOT(openWorkInProgress()));
-    connect(sS4LeagueButton, SIGNAL(clicked()), this, SLOT(openWorkInProgress()));
-
-    mSettingsDialog->setWindowFlags(Qt::FramelessWindowHint);
-    mSettingsDialog->setLayout(mSettingsBox);
-    mSettingsDialog->setFixedSize(500, 300);
-    mSettingsDialog->exec();
 }
 
 void AeriaToolMain::openAbout()
@@ -542,40 +342,6 @@ void AeriaToolMain::closeUpdates()
     vcheckButton->hide();
 }
 
-void AeriaToolMain::setGamePath(QString path)
-{
-    QSettings mPathsSettings(mPathsFile->fileName(), QSettings::IniFormat);
-        mPathsSettings.beginGroup("Paths");
-
-    if(sender() == sEdenEternalButton)
-    {
-        QFile *cltax = new QFile(QDir(path).absolutePath() + "/cltax.xmf");
-        QFile *ftrace = new QFile(QDir(path).absolutePath() + "/ftrace.dos");
-
-        if(cltax->exists() && ftrace->exists())
-        {
-            cltax->close();
-            ftrace->close();
-
-            m_EdenPath = path;
-
-            mEdenEternalEdit->setText(path);
-            mEdenEternalEdit->setStyleSheet("QLineEdit{background-color: #5a5}");
-
-            mPathsSettings.setValue("EdenEternal", path);
-        }
-    }
-
-    mPathsFile->close();
-}
-QString AeriaToolMain::gamePath(int nb)
-{
-    if(nb == 1)
-    {
-        return m_EdenPath;
-    }
-}
-
 void AeriaToolMain::getCurrentVersion(QNetworkReply* rep)
 {
     QString *test = new QString(rep->readAll());
@@ -651,43 +417,6 @@ void AeriaToolMain::updateApplication(QNetworkReply* reply)
 
     QFile upd(QCoreApplication::applicationDirPath()+"/AeriaGames-FR-Tools-new.exe");
         upd.rename(QCoreApplication::applicationDirPath()+"/AeriaGames-FR-Tools.exe");
-}
-
-void AeriaToolMain::setDir()
-{
-    QPushButton *button = qobject_cast<QPushButton*>(QObject::sender());
-
-    QPoint testS = QPoint(690, 105);
-
-    QFile *qssDialog = new QFile(":/qss/file_dialog");
-        qssDialog->open(QIODevice::ReadOnly | QIODevice::Text);
-
-    QFileDialog *dialog = new QFileDialog;
-        dialog->setContentsMargins(10,10,140,10);
-        dialog->setStyleSheet(qssDialog->readAll());
-        dialog->setWindowFlags(Qt::FramelessWindowHint);
-        dialog->setFileMode(QFileDialog::Directory);
-        dialog->setOptions(QFileDialog::ShowDirsOnly | QFileDialog::DontUseNativeDialog);
-        dialog->setFixedSize(700, 400);
-        dialog->move(button->parentWidget()->parentWidget()->geometry().topLeft() + button->geometry().topLeft() - testS);
-        dialog->setMask(QBitmap(":/mask/maskset"));
-        dialog->setSizeGripEnabled(false);
-        dialog->setLabelText(QFileDialog::Reject, "Annuler");
-
-
-        QDialogButtonBox *box = dialog->findChild<QDialogButtonBox*>();
-
-            QPushButton *openButton = box->button(QDialogButtonBox::Open);
-                openButton->setStyleSheet("QPushButton{background-color: #484;} QPushButton:hover{background-color: #4b4;}");
-
-            QPushButton *cancelButton = box->button(QDialogButtonBox::Cancel);
-                cancelButton->setStyleSheet("QPushButton{background-color: #844;} QPushButton:hover{background-color: #d44;}");
-
-
-        if(dialog->exec() == 1)//On vérifie le repertoire uniquement si on clique sur "Choisir"
-        {
-            setGamePath(dialog->directory().absolutePath());
-        }
 }
 
 void AeriaToolMain::moveEvent(QMoveEvent *event)

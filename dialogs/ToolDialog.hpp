@@ -6,12 +6,12 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#ifndef TOOLDIALOG_H
-#define TOOLDIALOG_H
+#ifndef TOOLDIALOG_HPP
+#define TOOLDIALOG_HPP
 
 #include <QtWidgets>
 
-#include "utils/DxDiagPastebin.hpp"
+#include "utils/threads/DxDiagPastebin.hpp"
 #include "utils/QPastebinQuery.hpp"
 #include "Config.hpp"
 
@@ -41,4 +41,4 @@ private:
     Config          m_settings;
 };
 
-#endif // TOOLDIALOG_H
+#endif // TOOLDIALOG_HPP

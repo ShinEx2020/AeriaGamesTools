@@ -53,16 +53,16 @@ QGroupBox
 {
     margin-top: 10px;
     padding-top: 20px;
-    border: 2px solid #a33;
+    border: 1px solid #555;
 }
 QGroupBox::title
 {
-    background-color: #444;
-    border-top-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    background-color: #ddd;
+    border-top-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: none;
     padding: 5px;
-    border: 2px solid #a33;
-    color: white;
+    color: #222;
     width: 150px;
     font-weight: bold;
 }
@@ -275,4 +275,36 @@ QSlider::handle:horizontal
 #closeButton:hover
 {
     background-color: #f22;
+}
+
+
+
+#mTab::pane
+{
+    border: none;
+}
+#mTab > QTabBar, #mTab > QTabBar::tab
+{
+    margin-right: 5px;
+}
+#mTab > QTabBar
+{
+    background: transparent;
+}
+#mTab > QTabBar::tab
+{
+    border-top: 3px solid transparent;
+    border-radius: 0;
+    background: #222;
+    padding: 5;
+    margin-bottom: 25px;
+    width: 100px;
+}
+#mTab > QTabBar::tab:hover
+{
+    border-top: 3px solid #888;
+}
+#mTab > QTabBar::tab:selected
+{
+    border-top: 3px solid #4a5;
 }

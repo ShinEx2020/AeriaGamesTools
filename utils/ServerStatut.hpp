@@ -1,5 +1,5 @@
-#ifndef SERVERSTATUT_H
-#define SERVERSTATUT_H
+#ifndef SERVERSTATUT_HPP
+#define SERVERSTATUT_HPP
 
 #include <QtWidgets>
 
@@ -26,4 +26,4 @@ private:
     QLabel *m_pingLab;
 };
 
-#endif // SERVERSTATUT_H
+#endif // SERVERSTATUT_HPP

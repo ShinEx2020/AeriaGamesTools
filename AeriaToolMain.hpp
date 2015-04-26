@@ -21,34 +21,32 @@
 #include "EdenEternalTool.hpp"
 #include "Config.hpp"
 
-class AeriaToolMain : public QMainWindow
+#include "utils/Settings.hpp"
+
+class AeriaToolMain : public QWidget
 {
     Q_OBJECT
 
 public:
     AeriaToolMain(QWidget *parent = 0);
 
+    void initSettings();
+    void createObjects();
     void createButtons();
     void createConnections();
+    void createSettings();
 
     void moveEvent(QMoveEvent *event);
 
 public slots:
     void minimizeTool();
-    void openEdenEternalTool();
-    void openWorkInProgress();
 
     //Bottom
     void openTools();
-    void openSettings();
     void openUpdates();
     void closeUpdates();
 
-    void setGamePath(QString path);
-    QString gamePath(int nb);
-
     void openAbout();
-    void setDir();
     void getCurrentVersion(QNetworkReply*); // EN COURS D'ESSAI
     void downStatut(qint64, qint64);// ESSAI SUITE
     void getCurrentApplication();
@@ -57,8 +55,20 @@ public slots:
 
 private:
 
-    QProgressBar    *bar;
+    QWidget         *m_headerWidget;
 
+    QSettings       *mPathsSettings;
+
+    QVBoxLayout     *m_mainLayout;
+
+    QList<QWidget*> m_widgetList;
+
+    Settings        *m_settingsS;
+
+
+    QHBoxLayout     *barLayout;
+
+    QProgressBar    *bar;
 
     bool            m_updateIsOpen;
 
@@ -71,27 +81,9 @@ private:
     QPushButton     *onlineButton;
     QPushButton     *vcheckButton;
 
-//----------------------------------------------
     TPushButton     *titleButton;
-    SPushButton     *titleSettingsButton;
     QPushButton     *minimizeButton;
     QPushButton     *closeButton;
-
-    QPushButton     *mGrandFantasiaButton;
-    QPushButton     *mEdenEternalButton;
-    QPushButton     *mAuraKingdomButton;
-    QPushButton     *mWolfTeamButton;
-    QPushButton     *mShaiyaButton;
-    QPushButton     *mS4LeagueButton;
-    QPushButton     *mAVAButton;
-
-    QPushButton     *sGrandFantasiaButton;
-    QPushButton     *sEdenEternalButton;
-    QPushButton     *sAuraKingdomButton;
-    QPushButton     *sWolfTeamButton;
-    QPushButton     *sShaiyaButton;
-    QPushButton     *sS4LeagueButton;
-    QPushButton     *sAVAButton;
 
     QPushButton     *settingsButton;
     QPushButton     *updateButton;
@@ -101,21 +93,20 @@ private:
 
     QFile           *qss;
 
-//-------------------------------------------
-    QLineEdit       *mEdenEternalEdit;
+    QPushButton     *mGrandFantasiaButton;
+    QPushButton     *mEdenEternalButton;
+    QPushButton     *mAuraKingdomButton;
+    QPushButton     *mWolfTeamButton;
+    QPushButton     *mShaiyaButton;
+    QPushButton     *mS4LeagueButton;
+    QPushButton     *mAVAButton;
 
-//-------------------------------------------
+    QPushButton     *m_toolButton;
+    QHBoxLayout     *m_tilesHBox;
 
-    QPushButton *m_toolButton;
-    QHBoxLayout *m_tilesHBox;
-
-
-    ToolDialog  *m_toolDialog;
-
-//---------------------------------
+    ToolDialog      *m_toolDialog;
 
     QFile           *mPathsFile;
-    //QSettings       mPathsSettings;
 
     QString         m_EdenPath;
 };

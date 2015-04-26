@@ -13,18 +13,19 @@
 #include "utils/DSlider.hpp" // <============ WORK IN PROGRESS ============>
 #include "dialogs/edeneternal/RescueTab.hpp"
 #include "dialogs/edeneternal/ThemeTab.hpp"
-#include "dialogs/edeneternal/GameTab.hpp"
-#include "dialogs/edeneternal/PingTab.hpp"
+#include "dialogs/edeneternal/GameplayTab.hpp"
 #include "utils/SPushButton.hpp"
+#include "utils/Settings.hpp"
 
-class EdenEternalTool : public QDialog
+class EdenEternalTool : public QWidget
 {
     Q_OBJECT
 
 public:
     EdenEternalTool(QWidget *parent = 0);
 
-    void createButtons();
+    void createObjects();
+
     void createResolutionGroup();
     void createConnections();
     void createComboDetails();
@@ -35,11 +36,8 @@ public:
     void createAdvancedGroup();
 
     void createSystemTab();
-    void createGameplayTab();
-    void createThemeTab();
 
     void createConfigTab();
-    void createRepairTab();
 
     void createMainLyt();
 
@@ -58,20 +56,22 @@ public slots:
 
 private:
 
-    QTabWidget      *mTabIG;
+    QGridLayout     *m_gridALayout;
+
+    Settings        *mPathsSettings;
+
+    QTabWidget      *m_ConfigsTabWidget;
 
     QTextEdit       *m_infosEdit;
 
 //--------TAB----------
-    GameTab         *m_gameWidget;
+    GameplayTab         *m_gameWidget;
     ThemeTab        *m_themeWidget;
-    PingTab         *m_pingWidget;
     RescueTab       *m_repairWidget;
 //-------------Widget--------------
     QWidget         *m_systemWidget;
 
     QWidget         *m_configWidget;
-    QWidget         *m_toolsWidget;
 
     //--------
     QVBoxLayout *m_layoutEdenEternal;
@@ -82,8 +82,8 @@ private:
     QGroupBox *m_hiddenGroup;
     QGroupBox *m_detailsGroup;
     QGroupBox *m_audioGroup;
-    QGroupBox *avancedGroup;
-    QGroupBox *sceneGroup;
+    QGroupBox *m_avancedGroup;
+    QGroupBox *m_sceneGroup;
     //------
 
     QPushButton *charLabel;
@@ -194,8 +194,8 @@ private:
 
     QLCDNumber *charLine;
 
-    QPushButton *mApplyButton;
-    QPushButton *mCancelButton;
+    QPushButton *m_ApplyButton;
+    QPushButton *m_CancelButton;
 
     QFile       *qssEden;
     QFile       *qssSliderOn;

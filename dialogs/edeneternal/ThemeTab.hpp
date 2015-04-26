@@ -6,13 +6,13 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#ifndef THEMETAB_H
-#define THEMETAB_H
+#ifndef THEMETAB_HPP
+#define THEMETAB_HPP
 
 #include <QtWidgets>
 #include <QtNetwork>
 
-#include "utils/ThemeExtract.hpp"
+#include "utils/threads/ThemeExtract.hpp"
 #include "Config.hpp"
 
 class ThemeTab : public QWidget
@@ -92,4 +92,4 @@ private:
     QTextEdit       *m_infosLabel;
 };
 
-#endif // THEMETAB_H
+#endif // THEMETAB_HPP

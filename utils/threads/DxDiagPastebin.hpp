@@ -6,27 +6,24 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#ifndef FILESCOMPRESS
-#define FILESCOMPRESS
+#ifndef DXDIAGPASTEBIN_HPP
+#define DXDIAGPASTEBIN_HPP
 
 #include <QtWidgets>
 
-class FilesCompress : public QThread
+class DxDiagPastebin : public QThread
 {
     Q_OBJECT
 
 public:
-    FilesCompress(QString path);
+    DxDiagPastebin();
 
     void run();
 
 private:
-    QProcess    *m_extThemeProcess;
+    QProcess *m_dxdiagProcess;
 
-    QFile       *m_EdenPath;
-
-    QString     m_path;
-    QString     m_archive;
+    QFile   *m_TXT;
 };
 
-#endif // FILESCOMPRESS
+#endif // DXDIAGPASTEBIN_HPP

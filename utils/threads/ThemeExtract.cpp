@@ -12,10 +12,14 @@ ThemeExtract::ThemeExtract(QString path, QString archive)
 {
     m_path = path;
     m_archive = "\""+archive+"\"";
+
+    qDebug()<< path;
 }
 
 void ThemeExtract::run()
 {
     QProcess *process = new QProcess();
         process->execute("bin/7z.exe x "+m_archive+ " -y -o"+"\""+m_path+"/themes\"");
+
+        //qDebug()<<"bin/7z.exe x "+m_archive+ " -y -o"+"\""+m_path+"/themes\"";
 }

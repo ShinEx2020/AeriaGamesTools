@@ -1,5 +1,5 @@
-#ifndef NLSSTATUT_H
-#define NLSSTATUT_H
+#ifndef NLSSTATUT_HPP
+#define NLSSTATUT_HPP
 
 #include <QtWidgets>
 
@@ -23,4 +23,4 @@ private:
     bool m_exReg;
 };
 
-#endif // NLSSTATUT_H
+#endif // NLSSTATUT_HPP

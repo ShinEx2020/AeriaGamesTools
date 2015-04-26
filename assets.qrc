@@ -18,15 +18,7 @@
         <file alias="vcheck_upd">vcheck_upd.qss</file>
     </qresource>
     <qresource prefix="/mask">
-        <file alias="masktitle">assets/masktitle.png</file>
-        <file alias="uimask">assets/uimask.png</file>
         <file alias="maskset">assets/masksettings.png</file>
-        <file alias="uimaskf">assets/uimask_full.png</file>
-        <file alias="uimaskt">assets/uimask_tool.png</file>
-        <file alias="uimaskw">assets/uimask_toolw.png</file>
-        <file alias="mask">assets/mask.png</file>
-        <file alias="maskbig">assets/maskbig.png</file>
-        <file alias="exp_full">assets/masks/exp_full.png</file>
     </qresource>
     <qresource prefix="/logos">
         <file alias="eden">assets/edenButton.png</file>
@@ -39,6 +31,7 @@
     <qresource prefix="/misc">
         <file alias="avatar">assets/avatar.bmp</file>
         <file alias="arrow">assets/arrow.png</file>
+        <file alias="wip">assets/wip.png</file>
     </qresource>
     <qresource prefix="/texts">
         <file alias="todolist">assets/texts/todolist.html</file>

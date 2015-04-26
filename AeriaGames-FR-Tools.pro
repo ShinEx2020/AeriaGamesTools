@@ -19,19 +19,19 @@ SOURCES +=                              \
     utils/TPushButton.cpp               \
     utils/SPushButton.cpp               \
     utils/QPastebinQuery.cpp            \
-    utils/DxDiagPastebin.cpp            \
-    utils/ThemeExtract.cpp              \
-    utils/FilesCompress.cpp             \
+    utils/threads/DxDiagPastebin.cpp    \
+    utils/threads/ThemeExtract.cpp      \
+    utils/threads/FilesCompress.cpp     \
+    utils/threads/ServerPing.cpp        \
     utils/FreeUpload.cpp                \
     dialogs/edeneternal/ThemeTab.cpp    \
-    dialogs/edeneternal/GameTab.cpp     \
     dialogs/ToolDialog.cpp              \
-    dialogs/edeneternal/PingTab.cpp     \
     dialogs/edeneternal/RescueTab.cpp   \
     utils/ServerStatut.cpp              \
-    utils/threads/ServerPing.cpp        \
-    utils/widgets/NlsStatut.cpp \
-    utils/widgets/LogShare.cpp
+    utils/widgets/NlsStatut.cpp         \
+    utils/widgets/LogShare.cpp          \
+    utils/Settings.cpp                  \
+    dialogs/edeneternal/GameplayTab.cpp
 
 HEADERS +=                              \
     Config.hpp                          \
@@ -41,19 +41,19 @@ HEADERS +=                              \
     utils/TPushButton.hpp               \
     utils/SPushButton.hpp               \
     utils/QPastebinQuery.hpp            \
-    utils/DxDiagPastebin.hpp            \
-    utils/ThemeExtract.hpp              \
-    utils/FilesCompress.hpp             \
+    utils/threads/DxDiagPastebin.hpp    \
+    utils/threads/ThemeExtract.hpp      \
+    utils/threads/FilesCompress.hpp     \
+    utils/threads/ServerPing.hpp        \
     utils/FreeUpload.hpp                \
     dialogs/edeneternal/ThemeTab.hpp    \
-    dialogs/edeneternal/GameTab.hpp     \
     dialogs/ToolDialog.hpp              \
-    dialogs/edeneternal/PingTab.hpp     \
     dialogs/edeneternal/RescueTab.hpp   \
     utils/ServerStatut.hpp              \
-    utils/threads/ServerPing.hpp        \
-    utils/widgets/NlsStatut.hpp \
-    utils/widgets/LogShare.hpp
+    utils/widgets/NlsStatut.hpp         \
+    utils/widgets/LogShare.hpp          \
+    utils/Settings.hpp                  \
+    dialogs/edeneternal/GameplayTab.hpp
 
-RESOURCES += \
+RESOURCES +=                            \
     assets.qrc
