@@ -396,20 +396,7 @@ void EdenEternalTool::createMainLyt()
         mTab->addTab(m_repairWidget, "Diagnostics");
         mTab->setObjectName("mTab");
 
-    SPushButton *m_titleButton = new SPushButton("PARAMETRES EDEN ETERNAL");
-        m_titleButton->setObjectName("titleEEButton");
-        m_titleButton->setFixedHeight(25);
-
-    m_closeButton = new QPushButton("X");
-        m_closeButton->setFixedSize(40, 25);
-        m_closeButton->setObjectName("closeButton");
-
-    QHBoxLayout *m_titlehbox = new QHBoxLayout;
-        m_titlehbox->addWidget(m_titleButton);
-        m_titlehbox->addWidget(m_closeButton);
-
     m_layoutEdenEternal = new QVBoxLayout();
-        //m_layoutEdenEternal->addLayout(m_titlehbox);
         m_layoutEdenEternal->addWidget(mTab);
 }
 
@@ -446,8 +433,6 @@ void EdenEternalTool::createConnections()
 
     connect(m_ApplyButton, SIGNAL(clicked()), this, SLOT(applySettings()));
     connect(m_CancelButton, SIGNAL(clicked()), this, SLOT(closeEdenEternalTool()));
-
-    connect(m_closeButton, SIGNAL(clicked()), this, SLOT(close()));
 
 //----------------------------------------------------------------------------------
 

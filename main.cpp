@@ -7,11 +7,7 @@
  ********************************************************************************************/
 
 #include <QApplication>
-
 #include "AeriaToolMain.hpp"
-
-//#include "utils/threads/FilesCompress.hpp"
-
 
 int main(int argc, char *argv[])
 {

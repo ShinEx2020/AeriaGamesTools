@@ -14,7 +14,6 @@
 #include "dialogs/edeneternal/RescueTab.hpp"
 #include "dialogs/edeneternal/ThemeTab.hpp"
 #include "dialogs/edeneternal/GameplayTab.hpp"
-#include "utils/SPushButton.hpp"
 #include "utils/Settings.hpp"
 
 class EdenEternalTool : public QWidget
@@ -103,10 +102,6 @@ private:
 
 
     QGroupBox   *textGroup;
-
-    //-------
-
-    QPushButton *m_closeButton;
 
     //--------------------------------
     QPushButton  *bgmLabel;

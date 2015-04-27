@@ -17,7 +17,6 @@ SOURCES +=                              \
     EdenEternalTool.cpp                 \
     utils/DSlider.cpp                   \
     utils/TPushButton.cpp               \
-    utils/SPushButton.cpp               \
     utils/QPastebinQuery.cpp            \
     utils/threads/DxDiagPastebin.cpp    \
     utils/threads/ThemeExtract.cpp      \
@@ -39,7 +38,6 @@ HEADERS +=                              \
     EdenEternalTool.hpp                 \
     utils/DSlider.hpp                   \
     utils/TPushButton.hpp               \
-    utils/SPushButton.hpp               \
     utils/QPastebinQuery.hpp            \
     utils/threads/DxDiagPastebin.hpp    \
     utils/threads/ThemeExtract.hpp      \

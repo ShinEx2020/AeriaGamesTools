@@ -2,7 +2,7 @@
 #define SETTINGS_HPP
 
 #include <QtWidgets>
-#include "utils/SPushButton.hpp"
+#include "utils/TPushButton.hpp"
 
 class Settings : public QWidget
 {
@@ -44,7 +44,7 @@ private:
     QVBoxLayout     *mSettingsBox;
     QPushButton     *mclose;
 
-    SPushButton     *titleSettingsButton;
+    TPushButton     *titleSettingsButton;
     QGridLayout     *mSettingsGrid;
 
     QLabel          *mGrandFantasiaLabel;

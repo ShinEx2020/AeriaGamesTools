@@ -136,7 +136,7 @@ void AeriaToolMain::createObjects()
     mEdenEternalTool    = new EdenEternalTool;
     m_settingsS         = new Settings;
     m_mainLayout        = new QVBoxLayout;
-    titleButton         = new TPushButton;
+    titleButton         = new TPushButton(this);
     minimizeButton      = new QPushButton;
     closeButton         = new QPushButton;
     colapseButton       = new QPushButton;
@@ -160,7 +160,7 @@ void AeriaToolMain::createSettings()
     setWindowTitle(titleButton->text());
     setContentsMargins(-11, -12, -11, -11);
     setLayout(m_mainLayout);
-    setStyleSheet(qss->readAll());
+    qApp->setStyleSheet(qss->readAll());
 }
 
 void AeriaToolMain::createButtons()
@@ -215,7 +215,7 @@ void AeriaToolMain::openAbout()
     QFile *mTodoListFile = new QFile(":/texts/todolist");
         mTodoListFile->open(QIODevice::ReadOnly | QIODevice::Text);
 
-    SPushButton *mPushInfo = new SPushButton("A PROPOS DE AERIAGAMES-TOOLS");
+    TPushButton *mPushInfo = new TPushButton("A PROPOS DE AERIAGAMES-TOOLS", mAboutDialog);
         mPushInfo->setFixedHeight(25);
         mPushInfo->setObjectName("titleButton");
 

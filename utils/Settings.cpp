@@ -103,7 +103,7 @@ void Settings::createObjects()
 
     mSettingsGrid = new QGridLayout;
 
-    titleSettingsButton = new SPushButton("SETTINGS");
+    titleSettingsButton = new TPushButton("SETTINGS", this);
 
     mGrandFantasiaLabel = new QLabel("Grand Fantasia");
     mGrandFantasiaEdit = new QLineEdit;

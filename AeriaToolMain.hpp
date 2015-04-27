@@ -15,7 +15,6 @@
 #include <QNetworkRequest>
 
 #include "utils/TPushButton.hpp"
-#include "utils/SPushButton.hpp"
 #include "dialogs/ToolDialog.hpp"
 
 #include "EdenEternalTool.hpp"
