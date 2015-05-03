@@ -6,26 +6,20 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#include <QApplication>
-#include "app/AeriaMain.hpp"
+#include "DxDiagPastebin.hpp"
 
-int main(int argc, char *argv[])
+DxDiagPastebin::DxDiagPastebin()
 {
-    QTranslator translator;
-        translator.load(":/texts/fr");
 
-    QApplication appTool(argc, argv);
-        appTool.installTranslator(&translator);
-        appTool.setApplicationVersion(PUBLIC_BUILD);
+}
 
-    AeriaMain mainTool;
-        mainTool.show();
+void DxDiagPastebin::run()
+{
+    m_TXT = new QFile(QCoreApplication::applicationDirPath()+"/logs/dxdiag.txt");
 
-    QFile old(QCoreApplication::applicationDirPath()+"/AeriaGames-FR-Tools-old.exe");
-        old.open(QIODevice::ReadOnly);
+    QString commandtxt = "dxdiag.exe /t "+m_TXT->fileName().section('.',0,0);
 
-    if(old.exists())
-        old.remove();
-
-    return appTool.exec();
+    QProcess *process = new QProcess();
+        process->start("cmd.exe");
+        process->execute(commandtxt);
 }

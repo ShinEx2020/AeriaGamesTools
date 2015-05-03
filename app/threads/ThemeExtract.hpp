@@ -6,26 +6,27 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#include <QApplication>
-#include "app/AeriaMain.hpp"
+#ifndef THEMEEXTRACT_HPP
+#define THEMEEXTRACT_HPP
 
-int main(int argc, char *argv[])
+#include <QtWidgets>
+
+class ThemeExtract : public QThread
 {
-    QTranslator translator;
-        translator.load(":/texts/fr");
+    Q_OBJECT
 
-    QApplication appTool(argc, argv);
-        appTool.installTranslator(&translator);
-        appTool.setApplicationVersion(PUBLIC_BUILD);
+public:
+    ThemeExtract(QString path, QString archive);
 
-    AeriaMain mainTool;
-        mainTool.show();
+    void run();
 
-    QFile old(QCoreApplication::applicationDirPath()+"/AeriaGames-FR-Tools-old.exe");
-        old.open(QIODevice::ReadOnly);
+private:
+    QProcess    *m_extThemeProcess;
 
-    if(old.exists())
-        old.remove();
+    QFile       *m_EdenPath;
 
-    return appTool.exec();
-}
+    QString     m_path;
+    QString     m_archive;
+};
+
+#endif // THEMEEXTRACT_HPP

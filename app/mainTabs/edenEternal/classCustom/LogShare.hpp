@@ -6,26 +6,42 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#include <QApplication>
-#include "app/AeriaMain.hpp"
+#ifndef LOGSHARE_HPP
+#define LOGSHARE_HPP
 
-int main(int argc, char *argv[])
+#include <QtWidgets>
+
+#include "app/libs/FreeUpload.hpp"
+#include "app/mainButtons/Settings.hpp"
+#include "app/threads/FilesCompress.hpp"
+
+class LogShare : public QWidget
 {
-    QTranslator translator;
-        translator.load(":/texts/fr");
+    Q_OBJECT
 
-    QApplication appTool(argc, argv);
-        appTool.installTranslator(&translator);
-        appTool.setApplicationVersion(PUBLIC_BUILD);
+public:
+    LogShare();
 
-    AeriaMain mainTool;
-        mainTool.show();
+public slots:
+    void logCompress();
 
-    QFile old(QCoreApplication::applicationDirPath()+"/AeriaGames-FR-Tools-old.exe");
-        old.open(QIODevice::ReadOnly);
+    void logUpload();
 
-    if(old.exists())
-        old.remove();
+    void logUrl(QString);
 
-    return appTool.exec();
-}
+    void logClip();
+
+private:
+
+    Settings        *m_settingsHdr;
+
+    FilesCompress   *m_compress;
+
+    QString         m_url;
+
+    FreeUpload      *m_uplo;
+    QLineEdit       *m_line;
+    QPushButton     *m_push;
+};
+
+#endif // LOGSHARE_HPP

@@ -6,26 +6,16 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#include <QApplication>
-#include "app/AeriaMain.hpp"
+#include "FilesCompress.hpp"
 
-int main(int argc, char *argv[])
+FilesCompress::FilesCompress(QString path)
 {
-    QTranslator translator;
-        translator.load(":/texts/fr");
+    m_path = path;
+}
 
-    QApplication appTool(argc, argv);
-        appTool.installTranslator(&translator);
-        appTool.setApplicationVersion(PUBLIC_BUILD);
-
-    AeriaMain mainTool;
-        mainTool.show();
-
-    QFile old(QCoreApplication::applicationDirPath()+"/AeriaGames-FR-Tools-old.exe");
-        old.open(QIODevice::ReadOnly);
-
-    if(old.exists())
-        old.remove();
-
-    return appTool.exec();
+void FilesCompress::run()
+{
+    QProcess *process = new QProcess();
+        process->execute("bin/7z.exe a "+QCoreApplication::applicationDirPath()+""
+            "/logs/edenlogs.7z "+m_path+"/*.log "+m_path+"/*.txt "+m_path+"/*.ini");
 }

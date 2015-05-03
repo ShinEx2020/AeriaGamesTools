@@ -1,3 +1,8 @@
+QTabBar QToolButton
+{
+    background: #288;
+    border-top: 1px solid white;
+}
 QComboBox
 {
     border: 1px solid grey;
@@ -67,13 +72,13 @@ QWidget
     border: none;
     outline: none;
     font-weight: bold;
-    background-color: #559;
+    background-color: #484;
     color: white;
     font-size: 20px;
 }
 #minimizeButton:hover
 {
-    background-color: #30C;
+    background-color: #363;
 }
 
 #edenButton
@@ -105,60 +110,23 @@ QWidget
     border: none;
     outline: none;
     font-weight: bold;
-    background-color: #a22;
+    background-color: #a44;
     color: white;
     font-size: 15px;
 }
 #closeButton:hover
 {
-    background-color: #f22;
+    background-color: #722;
 }
 
-#settingsButton, #updateButton, #infoButton
+#settingsButton, #updatesButton, #aboutButton
 {
     border: none;
     outline: none;
     font-weight: bold;
     background: #eee;
 }
-
-#colapseButton
-{
-    border: none;
-    outline: none;
-    font-weight: bold;
-    background-color: #aaa;
-    border-radius: 12px;
-    padding-top: 1px;
-}
-#colapseButton:hover
-{
-    background-color: #b77;
-}
-
-#localButton, #onlineButton
-{
-    border: none;
-    outline: none;
-    font-weight: bold;
-    background-color: #aaa;
-    border-radius: 12px;
-    text-align:left;
-    padding-left: 10px;
-    color: black;
-}
-
-#vcheckButton
-{
-    border: none;
-    outline: none;
-    font-weight: bold;
-    background-color: #255;
-    border-radius: 12px;
-    margin-right: 5px;
-}
-
-#settingsButton:hover, #updateButton:hover, #infoButton:hover, #colapseButton:hover
+#settingsButton:hover, #updatesButton:hover, #aboutButton:hover
 {
     background-color: #fff;
 }
@@ -243,7 +211,7 @@ QMessageBox
 {
     color: white;
     padding: 5px;
-	padding-bottom: 7px;
+    padding-bottom: 7px;
     background-color: #37A;
     font-weight: bold;
     border-top-left-radius: 15px;
@@ -320,11 +288,6 @@ QMessageBox
 {
     background-color: #5b5;
 }
-
-
-
-
-
 
 #headerWidget
 {

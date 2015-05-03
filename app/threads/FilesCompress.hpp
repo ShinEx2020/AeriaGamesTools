@@ -6,26 +6,27 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#include <QApplication>
-#include "app/AeriaMain.hpp"
+#ifndef FILESCOMPRESS_HPP
+#define FILESCOMPRESS_HPP
 
-int main(int argc, char *argv[])
+#include <QtWidgets>
+
+class FilesCompress : public QThread
 {
-    QTranslator translator;
-        translator.load(":/texts/fr");
+    Q_OBJECT
 
-    QApplication appTool(argc, argv);
-        appTool.installTranslator(&translator);
-        appTool.setApplicationVersion(PUBLIC_BUILD);
+public:
+    FilesCompress(QString path);
 
-    AeriaMain mainTool;
-        mainTool.show();
+    void run();
 
-    QFile old(QCoreApplication::applicationDirPath()+"/AeriaGames-FR-Tools-old.exe");
-        old.open(QIODevice::ReadOnly);
+private:
+    QProcess    *m_extThemeProcess;
 
-    if(old.exists())
-        old.remove();
+    QFile       *m_EdenPath;
 
-    return appTool.exec();
-}
+    QString     m_path;
+    QString     m_archive;
+};
+
+#endif // FILESCOMPRESS_HPP

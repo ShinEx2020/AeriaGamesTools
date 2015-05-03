@@ -6,26 +6,25 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#include <QApplication>
-#include "app/AeriaMain.hpp"
+#include "TPushButton.hpp"
 
-int main(int argc, char *argv[])
+TPushButton::TPushButton(QWidget * parent) : QPushButton(parent)
 {
-    QTranslator translator;
-        translator.load(":/texts/fr");
+    m_parentWidget = parent;
+}
+TPushButton::TPushButton(const QString & text, QWidget * parent) : QPushButton(text, parent)
+{
+    m_parentWidget = parent;
+}
 
-    QApplication appTool(argc, argv);
-        appTool.installTranslator(&translator);
-        appTool.setApplicationVersion(PUBLIC_BUILD);
+void TPushButton::mousePressEvent(QMouseEvent *event)
+{
+    positionPoint = event->globalPos() - m_parentWidget->pos();
+}
 
-    AeriaMain mainTool;
-        mainTool.show();
-
-    QFile old(QCoreApplication::applicationDirPath()+"/AeriaGames-FR-Tools-old.exe");
-        old.open(QIODevice::ReadOnly);
-
-    if(old.exists())
-        old.remove();
-
-    return appTool.exec();
+void TPushButton::mouseMoveEvent(QMouseEvent *event)
+{
+    const QPoint movePoint = event->globalPos() - positionPoint - pos();
+    m_parentWidget->move(x() + movePoint.x(), y() + movePoint.y());
+    positionPoint = event->globalPos() - m_parentWidget->pos();
 }

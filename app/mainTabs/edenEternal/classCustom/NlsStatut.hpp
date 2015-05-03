@@ -6,26 +6,29 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#include <QApplication>
-#include "app/AeriaMain.hpp"
+#ifndef NLSSTATUT_HPP
+#define NLSSTATUT_HPP
 
-int main(int argc, char *argv[])
+#include <QtWidgets>
+
+class NlsStatut : public QWidget
 {
-    QTranslator translator;
-        translator.load(":/texts/fr");
+    Q_OBJECT
+public:
+    NlsStatut(QString filename, QWidget *parent = 0);
 
-    QApplication appTool(argc, argv);
-        appTool.installTranslator(&translator);
-        appTool.setApplicationVersion(PUBLIC_BUILD);
+signals:
 
-    AeriaMain mainTool;
-        mainTool.show();
+public slots:
 
-    QFile old(QCoreApplication::applicationDirPath()+"/AeriaGames-FR-Tools-old.exe");
-        old.open(QIODevice::ReadOnly);
+private:
+    QLabel *m_nameLabel;
+    QPushButton *m_filPush;
+    QPushButton *m_regPush;
+    QLabel *m_checkLabel;
 
-    if(old.exists())
-        old.remove();
+    bool m_exFile;
+    bool m_exReg;
+};
 
-    return appTool.exec();
-}
+#endif // NLSSTATUT_HPP

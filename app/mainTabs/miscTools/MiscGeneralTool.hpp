@@ -6,26 +6,39 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#include <QApplication>
-#include "app/AeriaMain.hpp"
+#ifndef MISCGENERALTOOL_HPP
+#define MISCGENERALTOOL_HPP
 
-int main(int argc, char *argv[])
+#include <QtWidgets>
+
+#include "app/threads/DxDiagPastebin.hpp"
+#include "app/libs/QPastebinQuery.hpp"
+#include "app/Config.hpp"
+
+class MiscGeneralTool : public QWidget
 {
-    QTranslator translator;
-        translator.load(":/texts/fr");
+    Q_OBJECT
 
-    QApplication appTool(argc, argv);
-        appTool.installTranslator(&translator);
-        appTool.setApplicationVersion(PUBLIC_BUILD);
+public:
+    MiscGeneralTool(QWidget *parent = 0);
 
-    AeriaMain mainTool;
-        mainTool.show();
 
-    QFile old(QCoreApplication::applicationDirPath()+"/AeriaGames-FR-Tools-old.exe");
-        old.open(QIODevice::ReadOnly);
+public slots:
+    void directx();
+    void pastebinLink();
 
-    if(old.exists())
-        old.remove();
+private:
+    QWidget *f;
 
-    return appTool.exec();
-}
+    QPastebinQuery  *m_pasteQuery;
+
+    DxDiagPastebin  *m_directxDiag;
+
+    QLineEdit       *m_pastebinLineEdit;
+
+    QFile           *diagTXT;
+
+    Config          m_settingsHdr;
+};
+
+#endif // MISCGENERALTOOL_HPP

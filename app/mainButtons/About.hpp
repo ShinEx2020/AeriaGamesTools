@@ -6,26 +6,17 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#include <QApplication>
-#include "app/AeriaMain.hpp"
+#ifndef ABOUT_HPP
+#define ABOUT_HPP
 
-int main(int argc, char *argv[])
+#include <QtWidgets>
+
+#include "app/libs/TPushButton.hpp"
+
+class About : public QDialog
 {
-    QTranslator translator;
-        translator.load(":/texts/fr");
+public:
+    About();
+};
 
-    QApplication appTool(argc, argv);
-        appTool.installTranslator(&translator);
-        appTool.setApplicationVersion(PUBLIC_BUILD);
-
-    AeriaMain mainTool;
-        mainTool.show();
-
-    QFile old(QCoreApplication::applicationDirPath()+"/AeriaGames-FR-Tools-old.exe");
-        old.open(QIODevice::ReadOnly);
-
-    if(old.exists())
-        old.remove();
-
-    return appTool.exec();
-}
+#endif // ABOUT_HPP

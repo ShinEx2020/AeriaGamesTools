@@ -17,9 +17,6 @@
         <file alias="file_dialog">fileDialog.qss</file>
         <file alias="vcheck_upd">vcheck_upd.qss</file>
     </qresource>
-    <qresource prefix="/mask">
-        <file alias="maskset">assets/masksettings.png</file>
-    </qresource>
     <qresource prefix="/logos">
         <file alias="eden">assets/edenButton.png</file>
         <file alias="fanta">assets/fantaButton.png</file>
@@ -27,6 +24,11 @@
         <file alias="s4">assets/s4Button.png</file>
         <file alias="shaiya">assets/shaiyaButton.png</file>
         <file alias="wolf">assets/wolfButton.png</file>
+        <file alias="maes">assets/maesButton.png</file>
+        <file alias="eos">assets/eosButton.png</file>
+        <file alias="tribes">assets/tribesButton.png</file>
+        <file alias="ava">assets/avaButton.png</file>
+        <file alias="misc">assets/miscButton.png</file>
     </qresource>
     <qresource prefix="/misc">
         <file alias="avatar">assets/avatar.bmp</file>

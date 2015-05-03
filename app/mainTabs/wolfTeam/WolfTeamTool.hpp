@@ -6,26 +6,20 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#include <QApplication>
-#include "app/AeriaMain.hpp"
+#ifndef WOLFTEAMTOOL_HPP
+#define WOLFTEAMTOOL_HPP
 
-int main(int argc, char *argv[])
+#include <QtWidgets>
+
+class WolfTeamTool : public QWidget
 {
-    QTranslator translator;
-        translator.load(":/texts/fr");
+    Q_OBJECT
+public:
+    WolfTeamTool(QWidget *parent = 0);
 
-    QApplication appTool(argc, argv);
-        appTool.installTranslator(&translator);
-        appTool.setApplicationVersion(PUBLIC_BUILD);
+signals:
 
-    AeriaMain mainTool;
-        mainTool.show();
+public slots:
+};
 
-    QFile old(QCoreApplication::applicationDirPath()+"/AeriaGames-FR-Tools-old.exe");
-        old.open(QIODevice::ReadOnly);
-
-    if(old.exists())
-        old.remove();
-
-    return appTool.exec();
-}
+#endif // WOLFTEAMTOOL_HPP

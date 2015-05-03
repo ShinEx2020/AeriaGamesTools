@@ -6,26 +6,30 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#include <QApplication>
-#include "app/AeriaMain.hpp"
+#ifndef DSLIDER_HPP
+#define DSLIDER_HPP
 
-int main(int argc, char *argv[])
+#include <QtWidgets>
+
+class DSlider : public QSlider
 {
-    QTranslator translator;
-        translator.load(":/texts/fr");
+    Q_OBJECT
 
-    QApplication appTool(argc, argv);
-        appTool.installTranslator(&translator);
-        appTool.setApplicationVersion(PUBLIC_BUILD);
+public:
 
-    AeriaMain mainTool;
-        mainTool.show();
+    explicit DSlider(QWidget *parent = 0);
+    explicit DSlider(Qt::Orientation orientation, QWidget *parent = 0);
 
-    QFile old(QCoreApplication::applicationDirPath()+"/AeriaGames-FR-Tools-old.exe");
-        old.open(QIODevice::ReadOnly);
+    double valueDouble();
+    void setValueDouble(double value);
 
-    if(old.exists())
-        old.remove();
+signals:
 
-    return appTool.exec();
-}
+    void doubleValueChanged(double value);
+
+public slots:
+
+    void DValueChanged(int value);
+};
+
+#endif // DSLIDER_HPP

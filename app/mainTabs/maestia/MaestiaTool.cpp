@@ -6,26 +6,16 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#include <QApplication>
-#include "app/AeriaMain.hpp"
+#include "MaestiaTool.hpp"
 
-int main(int argc, char *argv[])
+MaestiaTool::MaestiaTool(QWidget *parent) : QWidget(parent)
 {
-    QTranslator translator;
-        translator.load(":/texts/fr");
+    QLabel *m_wip = new QLabel;
+        m_wip->setPixmap(QPixmap(":misc/wip"));
 
-    QApplication appTool(argc, argv);
-        appTool.installTranslator(&translator);
-        appTool.setApplicationVersion(PUBLIC_BUILD);
+    QHBoxLayout *m_labwipHbx = new QHBoxLayout;
+        m_labwipHbx->addWidget(m_wip);
 
-    AeriaMain mainTool;
-        mainTool.show();
-
-    QFile old(QCoreApplication::applicationDirPath()+"/AeriaGames-FR-Tools-old.exe");
-        old.open(QIODevice::ReadOnly);
-
-    if(old.exists())
-        old.remove();
-
-    return appTool.exec();
+    setContentsMargins(0,-35,-10,0);
+    setLayout(m_labwipHbx);
 }

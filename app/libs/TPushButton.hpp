@@ -6,26 +6,28 @@
  *                                                                                          *
  ********************************************************************************************/
 
+#ifndef TPUSHBUTTON_HPP
+#define TPUSHBUTTON_HPP
+
+#include <QtWidgets>
 #include <QApplication>
-#include "app/AeriaMain.hpp"
 
-int main(int argc, char *argv[])
+class TPushButton : public QPushButton
 {
-    QTranslator translator;
-        translator.load(":/texts/fr");
 
-    QApplication appTool(argc, argv);
-        appTool.installTranslator(&translator);
-        appTool.setApplicationVersion(PUBLIC_BUILD);
+public:
 
-    AeriaMain mainTool;
-        mainTool.show();
+    explicit TPushButton(QWidget * parent = 0);
+    explicit TPushButton(const QString & text, QWidget * parent = 0);
 
-    QFile old(QCoreApplication::applicationDirPath()+"/AeriaGames-FR-Tools-old.exe");
-        old.open(QIODevice::ReadOnly);
+    void mousePressEvent(QMouseEvent *evt);// Mémorise les coordonnées du clic
+    void mouseMoveEvent(QMouseEvent *evt);// La fenêtre bouge si on maintient le clic
 
-    if(old.exists())
-        old.remove();
+private:
 
-    return appTool.exec();
-}
+    QPoint          positionPoint;
+
+    QWidget         *m_parentWidget;
+};
+
+#endif // TPUSHBUTTON_HPP

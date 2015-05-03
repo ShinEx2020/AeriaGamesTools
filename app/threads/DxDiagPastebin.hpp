@@ -6,26 +6,24 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#include <QApplication>
-#include "app/AeriaMain.hpp"
+#ifndef DXDIAGPASTEBIN_HPP
+#define DXDIAGPASTEBIN_HPP
 
-int main(int argc, char *argv[])
+#include <QtWidgets>
+
+class DxDiagPastebin : public QThread
 {
-    QTranslator translator;
-        translator.load(":/texts/fr");
+    Q_OBJECT
 
-    QApplication appTool(argc, argv);
-        appTool.installTranslator(&translator);
-        appTool.setApplicationVersion(PUBLIC_BUILD);
+public:
+    DxDiagPastebin();
 
-    AeriaMain mainTool;
-        mainTool.show();
+    void run();
 
-    QFile old(QCoreApplication::applicationDirPath()+"/AeriaGames-FR-Tools-old.exe");
-        old.open(QIODevice::ReadOnly);
+private:
+    QProcess *m_dxdiagProcess;
 
-    if(old.exists())
-        old.remove();
+    QFile   *m_TXT;
+};
 
-    return appTool.exec();
-}
+#endif // DXDIAGPASTEBIN_HPP

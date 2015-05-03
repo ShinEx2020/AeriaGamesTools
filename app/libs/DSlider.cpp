@@ -6,26 +6,31 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#include <QApplication>
-#include "app/AeriaMain.hpp"
+#include "DSlider.hpp"
 
-int main(int argc, char *argv[])
+DSlider::DSlider(QWidget *parent) : QSlider(parent)
 {
-    QTranslator translator;
-        translator.load(":/texts/fr");
+    connect(this, SIGNAL(valueChanged(int)), this, SLOT(DValueChanged(int)));
+}
+DSlider::DSlider(Qt::Orientation orientation, QWidget *parent) : QSlider(orientation, parent)
+{
+    connect(this, SIGNAL(valueChanged(int)), this, SLOT(DValueChanged(int)));
+}
 
-    QApplication appTool(argc, argv);
-        appTool.installTranslator(&translator);
-        appTool.setApplicationVersion(PUBLIC_BUILD);
+double DSlider::valueDouble()
+{
+    double deci = value();
 
-    AeriaMain mainTool;
-        mainTool.show();
+    return deci / 10.0;
+}
 
-    QFile old(QCoreApplication::applicationDirPath()+"/AeriaGames-FR-Tools-old.exe");
-        old.open(QIODevice::ReadOnly);
+void DSlider::setValueDouble(double value)
+{
+    setValue(value*10);
+}
 
-    if(old.exists())
-        old.remove();
-
-    return appTool.exec();
+void DSlider::DValueChanged(int value)
+{
+    double doubleValue = value / 10.0;
+    emit doubleValueChanged(doubleValue);
 }
