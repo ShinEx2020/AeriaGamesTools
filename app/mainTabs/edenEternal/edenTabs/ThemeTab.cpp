@@ -16,18 +16,16 @@ ThemeTab::ThemeTab(QString edenpath)
         cacheDir.mkdir(QCoreApplication::applicationDirPath()+"/CacheThemes");
 
 
-
-
     m_edenPath = edenpath;
 
 
-    //m_themeLocalFile = new QFile(QCoreApplication::applicationDirPath()+"/logs/themes_install.list");
-    m_themeOnlineFile = new QFile(QCoreApplication::applicationDirPath()+"/logs/themes.list");
+    //m_themeLocalFile = new QFile(QCoreApplication::applicationDirPath()+"/Storage/edeneternal/themes_install.list");
+    m_themeOnlineFile = new QFile(QCoreApplication::applicationDirPath()+"/Storage/edeneternal/themes.list");
 
-    m_themeOnlineInfosFile = new QFile(QCoreApplication::applicationDirPath()+"/logs/themes.info");
-    //m_themeLocalInfosFile = new QFile(QCoreApplication::applicationDirPath()+"/logs/themes_install.info");
+    m_themeOnlineInfosFile = new QFile(QCoreApplication::applicationDirPath()+"/Storage/edeneternal/themes.info");
+    //m_themeLocalInfosFile = new QFile(QCoreApplication::applicationDirPath()+"/Storage/edeneternal/themes_install.info");
 
-    m_pathsFile = new QFile(QCoreApplication::applicationDirPath()+"/logs/paths.list");
+    m_pathsFile = new QFile(QCoreApplication::applicationDirPath()+"/Storage/config.cfg");
         m_pathsFile->open(QIODevice::ReadOnly | QIODevice::Text);
     m_pathsSets = new QSettings(m_pathsFile->fileName(), QSettings::IniFormat);
     m_pathsString = m_pathsSets->value("Paths/EdenEternal").toString();
@@ -302,7 +300,7 @@ void ThemeTab::updateInfosThemes()
 }
 void ThemeTab::repInfosThemes(QNetworkReply *listInfosfile)
 {
-    QFile *infoD = new QFile(QCoreApplication::applicationDirPath()+"/logs/themes.info");
+    QFile *infoD = new QFile(QCoreApplication::applicationDirPath()+"/Storage/edeneternal/themes.info");
         infoD->open(QIODevice::WriteOnly);
         infoD->write(listInfosfile->readAll());
         infoD->close();

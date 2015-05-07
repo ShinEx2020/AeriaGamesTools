@@ -4,9 +4,6 @@ QMAKE_CXXFLAGS += -std=c++11
 
 VERSION = 0.0.1.1
 
-DEFINES += \
-    PUBLIC_BUILD=\\\"1\\\"
-
 TRANSLATIONS += dialog.ts
 
 SOURCES +=                                              \
@@ -16,7 +13,7 @@ SOURCES +=                                              \
     app/libs/FreeUpload.cpp                             \
     app/libs/TPushButton.cpp                            \
     app/libs/QPastebinQuery.cpp                         \
-    app/threads/DxDiagPastebin.cpp                      \
+    app/threads/DirectXDiag.cpp                         \
     app/threads/ThemeExtract.cpp                        \
     app/threads/FilesCompress.cpp                       \
     app/mainButtons/Settings.cpp                        \
@@ -38,6 +35,7 @@ SOURCES +=                                              \
     app/mainTabs/tribesascend/TribesAscendTool.cpp      \
     app/mainTabs/maestia/MaestiaTool.cpp                \
     app/mainTabs/echoOfSoul/EchoOfSoulTool.cpp          \
+    app/mainTabs/miscTools/classCustom/DxDiagGroup.cpp
 
 HEADERS +=                                              \
     app/Config.hpp                                      \
@@ -46,7 +44,7 @@ HEADERS +=                                              \
     app/libs/FreeUpload.hpp                             \
     app/libs/TPushButton.hpp                            \
     app/libs/QPastebinQuery.hpp                         \
-    app/threads/DxDiagPastebin.hpp                      \
+    app/threads/DirectXDiag.hpp                         \
     app/threads/ThemeExtract.hpp                        \
     app/threads/FilesCompress.hpp                       \
     app/mainButtons/Settings.hpp                        \
@@ -68,6 +66,7 @@ HEADERS +=                                              \
     app/mainTabs/tribesascend/TribesAscendTool.hpp      \
     app/mainTabs/maestia/MaestiaTool.hpp                \
     app/mainTabs/echoOfSoul/EchoOfSoulTool.hpp          \
+    app/mainTabs/miscTools/classCustom/DxDiagGroup.hpp
 
 RESOURCES +=                                            \
     assets.qrc                                          \

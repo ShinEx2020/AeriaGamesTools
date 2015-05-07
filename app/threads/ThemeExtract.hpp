@@ -21,12 +21,11 @@ public:
     void run();
 
 private:
-    QProcess    *m_extThemeProcess;
-
-    QFile       *m_EdenPath;
 
     QString     m_path;
     QString     m_archive;
+
+    QProcess    *m_ExtractThemePro;
 };
 
 #endif // THEMEEXTRACT_HPP

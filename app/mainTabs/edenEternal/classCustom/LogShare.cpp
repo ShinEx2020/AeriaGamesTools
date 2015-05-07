@@ -12,11 +12,12 @@ LogShare::LogShare()
 {
     m_settingsHdr = new Settings;
 
-    m_compress = new FilesCompress(m_settingsHdr->gamePath(0).toString());
+    m_compress = new FilesCompress(FilesCompress::GameName::Eden,
+                m_settingsHdr->gamePath(Settings::GamePath::Eden).toString());
 
-    QFile *m_logsArchive = new QFile(QCoreApplication::applicationDirPath()+"/logs/edenlogs.7z");
+    QFile *m_logsArchive = new QFile(QCoreApplication::applicationDirPath()+"/Storage/EdenEternal_Logs.7z");
 
-    m_uplo = new FreeUpload(m_logsArchive);
+    m_uplo = new FreeUpload(FreeUpload::GameName::Eden , m_logsArchive);
 
     m_line = new QLineEdit("Cliquez pour obtenir un lien");
         m_line->setReadOnly(true);

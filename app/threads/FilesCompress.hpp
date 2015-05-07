@@ -16,17 +16,30 @@ class FilesCompress : public QThread
     Q_OBJECT
 
 public:
-    FilesCompress(QString path);
+
+    enum GameName
+    {
+        Eden,
+        Aura,
+        S4,
+        Fant,
+        Wolf,
+        Shai,
+        AVA,
+        Trib,
+        Maes,
+        Echo
+    };
+
+    FilesCompress(GameName name, QString path);
 
     void run();
 
 private:
-    QProcess    *m_extThemeProcess;
 
-    QFile       *m_EdenPath;
-
-    QString     m_path;
-    QString     m_archive;
+    QString     m_GameName;
+    QString     m_GamePath;
+    QProcess    *m_LogsCompressPro;
 };
 
 #endif // FILESCOMPRESS_HPP

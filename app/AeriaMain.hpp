@@ -38,45 +38,53 @@ class AeriaMain : public QWidget
 public:
     AeriaMain(QWidget *parent = 0);
 
-    void initSettings();
     void createObjects();
     void createTitleBar();
     void createInfosBar();
     void createHeaderWid();
     void createTabWidget();
+    void createInterface();
     void createConnections();
     void createSettings();
-
-    void moveEvent(QMoveEvent *event);
 
 public slots:
     void minimizeTool();
 
 private:
 
-    Config          m_settingsHdr; //Constantes prédefini
+    Config              m_settingsHdr;  //Constantes prédefini
+
+    QFile               *m_StyleQss;    //Fichier CSS
+
+//-- En-tête du logiciel
 
     //-- Les contrôles de la fenêtre
-    TPushButton     *m_titleBtn;
-    QPushButton     *m_minimizeBtn;
-    QPushButton     *m_closeBtn;
+    TPushButton         *m_titleBtn;
+    QPushButton         *m_minimizeBtn;
+    QPushButton         *m_closeBtn;
 
-    QHBoxLayout     *m_titleBarHbx;
+    QHBoxLayout         *m_titleBarHbx;
     //--
 
-    //-- Les 3 boutons en haut à droite
-    QPushButton     *m_updatesBtn;
-    Updates         *m_updatesDlg;
-    QPushButton     *m_settingsBtn;
-    Settings        *m_settingsDlg;
-    QPushButton     *m_aboutBtn;
-    About           *m_aboutDlg;
+    //-- Les boutons de commandes
+    QPushButton         *m_updatesBtn;
+    Updates             *m_updatesDlg;
+    QPushButton         *m_settingsBtn;
+    Settings            *m_settingsDlg;
+    QPushButton         *m_aboutBtn;
+    About               *m_aboutDlg;
 
-    QHBoxLayout     *m_infosBarHbx;
+    QHBoxLayout         *m_infosBarHbx;
     //--
 
-    QVBoxLayout     *m_headerVbx;
-    QWidget         *m_headerWid;
+    //-- Disposition de l'en-tête
+    QVBoxLayout         *m_headerVbx;
+    QWidget             *m_headerWid;
+    //--
+
+//--
+
+//-- Corps du logiciel
 
     //-- Les Classes outils
     MiscGeneralTool     *m_MiscGeneralWid;
@@ -94,30 +102,9 @@ private:
     QTabWidget          *m_mainTabWid;
     //--
 
-    QHBoxLayout     *buttonsHBox;
+    QVBoxLayout         *m_mainVbx;// Layout principal
 
-
-
-    QSettings       *mPathsSettings;
-
-    QVBoxLayout     *m_mainLayout;
-
-    QList<QWidget*> m_widgetList;
-
-    QHBoxLayout     *barLayout;
-
-    QProgressBar    *bar;
-
-    QTextStream     *streamS;
-
-    QFile           *qss;
-
-    QPushButton     *m_toolButton;
-    QHBoxLayout     *m_tilesHBox;
-
-    QFile           *mPathsFile;
-
-    QString         m_EdenPath;
+//--
 };
 
 #endif // AERIAMAIN_HPP

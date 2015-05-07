@@ -6,20 +6,20 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#include "DxDiagPastebin.hpp"
+#include "DirectXDiag.hpp"
 
-DxDiagPastebin::DxDiagPastebin()
+DirectXDiag::DirectXDiag()
 {
-
 }
 
-void DxDiagPastebin::run()
+void DirectXDiag::setPath(QString path)
 {
-    m_TXT = new QFile(QCoreApplication::applicationDirPath()+"/logs/dxdiag.txt");
+    m_CommandStr = "dxdiag.exe /t "+path;
+}
 
-    QString commandtxt = "dxdiag.exe /t "+m_TXT->fileName().section('.',0,0);
-
-    QProcess *process = new QProcess();
-        process->start("cmd.exe");
-        process->execute(commandtxt);
+void DirectXDiag::run()
+{
+    m_DxDiagPro = new QProcess();
+        m_DxDiagPro->start("cmd.exe");
+        m_DxDiagPro->execute(m_CommandStr);
 }

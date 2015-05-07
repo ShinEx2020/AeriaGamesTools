@@ -12,13 +12,27 @@
 #include <QtWidgets>
 #include <QtNetwork>
 
-class FreeUpload : public QWidget
+class FreeUpload : public QObject
 {
     Q_OBJECT
 
 public:
-    FreeUpload(QWidget *parent = 0);
-    FreeUpload(QFile *file, QWidget *parent = 0);
+
+    enum GameName
+    {
+        Eden,
+        Aura,
+        S4,
+        Fant,
+        Wolf,
+        Shai,
+        AVA,
+        Trib,
+        Maes,
+        Echo
+    };
+
+    FreeUpload(GameName name, QFile *file);
 
     void setUploadFile(QFile *file);
 
@@ -31,6 +45,8 @@ public slots:
     void finish(QNetworkReply*);
 
 private:
+    QString                 m_GameName;
+
     QString                 m_timeStamp;
     QUrl                    m_uplUrl;
 

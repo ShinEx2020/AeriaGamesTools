@@ -16,24 +16,46 @@ AeriaMain::AeriaMain(QWidget *parent) : QWidget(parent)
     createInfosBar();
     createHeaderWid();
     createTabWidget();
+    createInterface();
     createSettings();
 }
 
 void AeriaMain::createObjects()
 {
+
+    m_StyleQss          = new QFile;
+
+//-- En-tête du logiciel
+
+    //-- Les contrôles de la fenêtre
     m_titleBtn          = new TPushButton(this);
     m_minimizeBtn       = new QPushButton;
     m_closeBtn          = new QPushButton;
+
     m_titleBarHbx       = new QHBoxLayout;
+    //--
 
+    //-- Les boutons de commandes
+    m_updatesBtn        = new QPushButton;
     m_updatesDlg        = new Updates;
+    m_settingsBtn       = new QPushButton;
     m_settingsDlg       = new Settings;
+    m_aboutBtn          = new QPushButton;
     m_aboutDlg          = new About;
-    m_infosBarHbx       = new QHBoxLayout;
 
+    m_infosBarHbx       = new QHBoxLayout;
+    //--
+
+    //-- Disposition de l'en-tête
     m_headerVbx         = new QVBoxLayout;
     m_headerWid         = new QWidget;
+    //--
 
+//--
+
+//-- Corps du logiciel
+
+    //-- Les Classes outils
     m_MiscGeneralWid    = new MiscGeneralTool;
     m_EdenEternalWid    = new EdenEternalTool;
     m_AuraKingdomWid    = new AuraKingdomTool;
@@ -45,44 +67,26 @@ void AeriaMain::createObjects()
     m_TribesAscendWid   = new TribesAscendTool;
     m_MaestiaWid        = new MaestiaTool;
     m_EchoOfSoulWid     = new EchoOfSoulTool;
+
     m_mainTabWid        = new QTabWidget;
+    //--
 
-    mPathsFile          = new QFile;
-    mPathsSettings      = new QSettings(mPathsFile->fileName(), QSettings::IniFormat);
-    bar                 = new QProgressBar;
-    qss                 = new QFile;
+    m_mainVbx           = new QVBoxLayout;
 
-    m_mainLayout        = new QVBoxLayout;
-
-    m_settingsBtn       = new QPushButton;
-    m_updatesBtn        = new QPushButton;
-    m_aboutBtn          = new QPushButton;
-}
-
-void AeriaMain::initSettings()
-{
-    m_EdenPath = mPathsSettings->value("Paths/EdenEternal").toString();
+//--
 }
 
 void AeriaMain::createSettings()
 {
-    m_mainLayout->addWidget(m_headerWid);
-    m_mainLayout->addWidget(m_mainTabWid);
-    m_mainLayout->setSpacing(0);
-
-    mPathsFile->setFileName(QCoreApplication::applicationDirPath()+"/logs/paths.lst");
-    mPathsFile->open(QIODevice::ReadOnly | QIODevice::Text);
-
-
-    qss->setFileName(":/qss/style");
-    qss->open(QIODevice::ReadOnly | QIODevice::Text);
+    m_StyleQss->setFileName(":/style/style");
+    m_StyleQss->open(QIODevice::ReadOnly | QIODevice::Text);
 
     setWindowFlags(Qt::FramelessWindowHint);
     setFixedSize(800, 595);
     setWindowTitle(m_titleBtn->text());
     setContentsMargins(-11, -12, -11, -11);
-    setLayout(m_mainLayout);
-    qApp->setStyleSheet(qss->readAll());
+
+    qApp->setStyleSheet(m_StyleQss->readAll());
 }
 
 void AeriaMain::createTitleBar()
@@ -154,8 +158,17 @@ void AeriaMain::createTabWidget()
     m_mainTabWid->addTab(m_MaestiaWid, QIcon(":/logos/maes"), "");
     m_mainTabWid->addTab(m_EchoOfSoulWid, QIcon(":/logos/eos"), "");
     m_mainTabWid->tabBar()->setObjectName("mTabBar");
-    m_mainTabWid->tabBar()->setIconSize(QSize(60,60));
+    m_mainTabWid->tabBar()->setIconSize(QSize(60, 60));
     m_mainTabWid->setObjectName("mTabMain");
+}
+
+void AeriaMain::createInterface()
+{
+    m_mainVbx->addWidget(m_headerWid);
+    m_mainVbx->addWidget(m_mainTabWid);
+    m_mainVbx->setSpacing(0);
+
+    setLayout(m_mainVbx);
 }
 
 void AeriaMain::createConnections()
@@ -171,13 +184,4 @@ void AeriaMain::createConnections()
 void AeriaMain::minimizeTool()
 {
     setWindowState(Qt::WindowMinimized);
-}
-
-//EVENTS
-void AeriaMain::moveEvent(QMoveEvent *event)
-{
-    if(m_MiscGeneralWid->isVisible())
-    {
-        m_MiscGeneralWid->move(event->pos().x() - m_MiscGeneralWid->width(), event->pos().y());
-    }
 }

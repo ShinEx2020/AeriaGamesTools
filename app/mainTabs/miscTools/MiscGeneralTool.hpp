@@ -11,34 +11,22 @@
 
 #include <QtWidgets>
 
-#include "app/threads/DxDiagPastebin.hpp"
-#include "app/libs/QPastebinQuery.hpp"
-#include "app/Config.hpp"
+#include "app/mainTabs/miscTools/classCustom/DxDiagGroup.hpp"
 
 class MiscGeneralTool : public QWidget
 {
     Q_OBJECT
 
 public:
+
     MiscGeneralTool(QWidget *parent = 0);
 
-
-public slots:
-    void directx();
-    void pastebinLink();
+    void createObjects();
 
 private:
-    QWidget *f;
 
-    QPastebinQuery  *m_pasteQuery;
-
-    DxDiagPastebin  *m_directxDiag;
-
-    QLineEdit       *m_pastebinLineEdit;
-
-    QFile           *diagTXT;
-
-    Config          m_settingsHdr;
+    DxDiagGroup     *m_DxGroupGrp;
+    QGridLayout     *m_MiscToolGrd;
 };
 
 #endif // MISCGENERALTOOL_HPP

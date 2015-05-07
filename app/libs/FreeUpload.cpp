@@ -8,28 +8,35 @@
 
 #include "FreeUpload.hpp"
 
-FreeUpload::FreeUpload(QWidget *parent) : QWidget(parent)
+FreeUpload::FreeUpload(GameName name, QFile *file) : QObject()
 {
-    m_timeStamp = QString::number(QDateTime::currentMSecsSinceEpoch());
+    if(name == GameName::Eden)
+        m_GameName = "EdenLogs_";
+    else if(name == GameName::Aura)
+        m_GameName = "AuraLogs_";
+    else if(name == GameName::S4)
+        m_GameName = "S4Logs_";
+    else if(name == GameName::Fant)
+        m_GameName = "FantaLogs_";
+    else if(name == GameName::Wolf)
+        m_GameName = "WolfLogs_";
+    else if(name == GameName::Shai)
+        m_GameName = "ShaiLogs_";
+    else if(name == GameName::AVA)
+        m_GameName = "AVALogs_";
+    else if(name == GameName::Trib)
+        m_GameName = "TribLogs_";
+    else if(name == GameName::Maes)
+        m_GameName = "MaesLogs_";
+    else if(name == GameName::Echo)
+        m_GameName = "EchoLogs_";
 
-    m_uplMail = "edenlogs"+m_timeStamp+"@yopmail.com";
 
-    m_uplUrl.setScheme("ftp");
-    m_uplUrl.setHost("dl.free.fr");
-
-    m_uplMan  = new QNetworkAccessManager;
-    m_linkEdt = new QLineEdit;
-
-    connect(m_uplMan, SIGNAL(authenticationRequired(QNetworkReply*, QAuthenticator*)), this, SLOT(auth(QNetworkReply*, QAuthenticator*)));
-    connect(m_uplMan, SIGNAL(finished(QNetworkReply*)), this, SLOT(finish(QNetworkReply*)));
-}
-FreeUpload::FreeUpload(QFile *file, QWidget *parent) : QWidget(parent)
-{
     m_logsFile = file;
 
-    m_timeStamp = QString::number(QDateTime::currentMSecsSinceEpoch());
+    m_timeStamp = QString::number(QDateTime::currentMSecsSinceEpoch()).section("143",1,1);
 
-    m_uplMail = "edenlogs"+m_timeStamp+"@yopmail.com";
+    m_uplMail = m_GameName+m_timeStamp+"@yopmail.com";
 
     m_uplUrl.setScheme("ftp");
     m_uplUrl.setHost("dl.free.fr");

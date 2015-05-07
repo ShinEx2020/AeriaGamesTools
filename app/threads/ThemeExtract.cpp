@@ -11,15 +11,11 @@
 ThemeExtract::ThemeExtract(QString path, QString archive)
 {
     m_path = path;
-    m_archive = "\""+archive+"\"";
-
-    qDebug()<< path;
+    m_archive = "\""+archive+"\"";;
 }
 
 void ThemeExtract::run()
 {
-    QProcess *process = new QProcess();
-        process->execute("bin/7z.exe x "+m_archive+ " -y -o"+"\""+m_path+"/themes\"");
-
-        //qDebug()<<"bin/7z.exe x "+m_archive+ " -y -o"+"\""+m_path+"/themes\"";
+    m_ExtractThemePro = new QProcess();
+        m_ExtractThemePro->execute("bin/7z.exe x "+m_archive+ " -y -o"+"\""+m_path+"/themes\"");
 }

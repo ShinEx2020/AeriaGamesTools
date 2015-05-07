@@ -6,24 +6,26 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#ifndef DXDIAGPASTEBIN_HPP
-#define DXDIAGPASTEBIN_HPP
+#ifndef DirectXDiag_HPP
+#define DirectXDiag_HPP
 
 #include <QtWidgets>
 
-class DxDiagPastebin : public QThread
+class DirectXDiag : public QThread
 {
     Q_OBJECT
 
 public:
-    DxDiagPastebin();
+    DirectXDiag();
+
+    void setPath(QString path);
 
     void run();
 
 private:
-    QProcess *m_dxdiagProcess;
 
-    QFile   *m_TXT;
+    QProcess    *m_DxDiagPro;   // Processus du thread
+    QString     m_CommandStr;       // Commande du thread
 };
 
-#endif // DXDIAGPASTEBIN_HPP
+#endif // DirectXDiag_HPP

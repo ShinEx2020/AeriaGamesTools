@@ -160,16 +160,16 @@ GameplayTab::GameplayTab()
         socialHBOX->addLayout(socialVBOX);
         //socialHBOX->addWidget(infosGroup);
 
-    QFile *qssSliderOn = new QFile(":/qss/slider_on");
+    QFile *qssSliderOn = new QFile(":/style/slider_on");
         qssSliderOn->open(QIODevice::ReadOnly | QIODevice::Text);
             strSliderOn = qssSliderOn->readAll();
 
-    QFile *qssSliderOff = new QFile(":/qss/slider_off");
+    QFile *qssSliderOff = new QFile(":/style/slider_off");
         qssSliderOff->open(QIODevice::ReadOnly | QIODevice::Text);
             strSliderOff = qssSliderOff->readAll();
 
 
-    QFile *m_pathsFile = new QFile(QCoreApplication::applicationDirPath()+"/logs/paths.lst");
+    QFile *m_pathsFile = new QFile(QCoreApplication::applicationDirPath()+"/Storage/config.cfg");
             m_pathsFile->open(QIODevice::ReadOnly | QIODevice::Text);
     QSettings *m_pathsSets = new QSettings(m_pathsFile->fileName(), QSettings::IniFormat);
         m_pathsString = m_pathsSets->value("Paths/EdenEternal").toString();

@@ -20,7 +20,6 @@ DSlider::DSlider(Qt::Orientation orientation, QWidget *parent) : QSlider(orienta
 double DSlider::valueDouble()
 {
     double deci = value();
-
     return deci / 10.0;
 }
 

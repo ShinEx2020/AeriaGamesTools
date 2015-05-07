@@ -38,7 +38,7 @@ void EdenEternalTool::createObjects()
     m_ConfigsTabWidget  = new QTabWidget;
 
     mPathsSettings      = new Settings;
-    m_themeWidget       = new ThemeTab(mPathsSettings->gamePath(0).toString());
+    m_themeWidget       = new ThemeTab(mPathsSettings->gamePath(Settings::GamePath::Eden).toString());
     m_configWidget      = new QWidget;
     m_repairWidget      = new RescueTab;
     m_ApplyButton       = new QPushButton;
@@ -485,7 +485,7 @@ void EdenEternalTool::initSettings()
 {
     font.setBold(true);
 
-    qssEden = new QFile(":/qss/style_eden");
+    qssEden = new QFile(":/style/style_eden");
         qssEden->open(QIODevice::ReadOnly | QIODevice::Text);
 
     setStyleSheet(qssEden->readAll());
@@ -496,22 +496,22 @@ void EdenEternalTool::initSettings()
 
     //---------------------------------------------------------------------------------
 
-//    QFile *pathsEden = new QFile(QCoreApplication::applicationDirPath()+"/logs/paths.lst");
+//    QFile *pathsEden = new QFile(QCoreApplication::applicationDirPath()+"/Storage/paths.lst");
 //        pathsEden->open(QIODevice::ReadOnly | QIODevice::Text);
 
 
 
 //    pathsEden->close();
 
-    mEdenSettings = new QSettings(mPathsSettings->gamePath(0).toString()+"/client.ini", QSettings::IniFormat);
+    mEdenSettings = new QSettings(mPathsSettings->gamePath(Settings::GamePath::Eden).toString()+"/client.ini", QSettings::IniFormat);
 
     //---------------------------------------------------------------------------------
 
-    qssSliderOn = new QFile(":/qss/slider_on");
+    qssSliderOn = new QFile(":/style/slider_on");
         qssSliderOn->open(QIODevice::ReadOnly | QIODevice::Text);
             strSliderOn = qssSliderOn->readAll();
 
-    qssSliderOff = new QFile(":/qss/slider_off");
+    qssSliderOff = new QFile(":/style/slider_off");
         qssSliderOff->open(QIODevice::ReadOnly | QIODevice::Text);
             strSliderOff = qssSliderOff->readAll();
 

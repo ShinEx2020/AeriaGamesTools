@@ -18,9 +18,19 @@ class Settings : public QWidget
 
 public:
 
-    enum {
-            EdenPath
-         };
+    enum GamePath
+    {
+        Eden,
+        Aura,
+        S4,
+        Fant,
+        Wolf,
+        Shai,
+        AVA,
+        Trib,
+        Maes,
+        Echo
+    };
 
     Settings();
 
@@ -37,7 +47,7 @@ public slots:
     void setEEDir();
     void setGamePath(QString path);
     void openWorkInProgress();
-    QVariant gamePath(int nb);
+    QVariant gamePath(GamePath type);
 
 private:
 
@@ -47,7 +57,7 @@ private:
 
     QSettings       *mPathsSettings;
 
-    QFile           *mPathsFile;
+    QFile           *m_ConfigCfg;
 
     QVBoxLayout     *mSettingsBox;
     QPushButton     *mclose;

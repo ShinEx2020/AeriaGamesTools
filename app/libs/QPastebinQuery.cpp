@@ -97,10 +97,6 @@ void QPastebinQuery::publishPaste(QString code, QString name, QString expire, QS
 
         m_ErrorReply = m_Manager->post(*m_Request, m_Params->toString().toUtf8());
     }
-    else
-    {
-        qDebug() << "Code must not be empty !!!";
-    }
 }
 
 //SLOTS

@@ -85,7 +85,7 @@ Settings::Settings()
 
     //------------------------
 
-    mPathsFile->open(QIODevice::ReadOnly | QIODevice::Text);
+    m_ConfigCfg->open(QIODevice::ReadOnly | QIODevice::Text);
 
     //mPathsSettings.beginGroup("Paths");
 
@@ -102,8 +102,8 @@ void Settings::createObjects()
 {
     m_styleFile = new QFile();
 
-    mPathsFile = new QFile(QCoreApplication::applicationDirPath()+"/logs/paths.list");
-    mPathsSettings = new QSettings(mPathsFile->fileName(), QSettings::IniFormat);
+    m_ConfigCfg = new QFile(QCoreApplication::applicationDirPath()+"/Storage/config.cfg");
+    mPathsSettings = new QSettings(m_ConfigCfg->fileName(), QSettings::IniFormat);
 
     mSettingsBox = new QVBoxLayout;
 
@@ -157,7 +157,7 @@ void Settings::createSettings()
 }
 void Settings::createParams()
 {
-    m_styleFile->setFileName(":/qss/style");
+    m_styleFile->setFileName(":/style/style");
     m_styleFile->open(QIODevice::ReadOnly);
 
     m_styleString = m_styleFile->readAll();
@@ -185,7 +185,7 @@ void Settings::setEEDir()
 
     QPoint testS = QPoint(690, 105);
 
-    QFile *qssDialog = new QFile(":/qss/file_dialog");
+    QFile *qssDialog = new QFile(":/style/file_dialog");
         qssDialog->open(QIODevice::ReadOnly | QIODevice::Text);
 
     QFileDialog *dialog = new QFileDialog;
@@ -218,7 +218,7 @@ void Settings::setEEDir()
 
 void Settings::setGamePath(QString path)
 {
-//    QSettings mPathsSettings(mPathsFile->fileName(), QSettings::IniFormat);
+//    QSettings mPathsSettings(m_ConfigCfg->fileName(), QSettings::IniFormat);
 //        mPathsSettings.beginGroup("Paths");
 
     if(sender() == sEdenEternalButton || sender() == mEdenEternalEdit)
@@ -244,7 +244,7 @@ void Settings::setGamePath(QString path)
         }
     }
 
-    mPathsFile->close();
+    m_ConfigCfg->close();
 }
 
 void Settings::openWorkInProgress()
@@ -270,11 +270,11 @@ void Settings::openWorkInProgress()
         wip.exec();
 }
 
-QVariant Settings::gamePath(int type)
+QVariant Settings::gamePath(GamePath type)
 {
     switch(type)
     {
-        case EdenPath:
+        case GamePath::Eden:
             return m_EdenPath;
                 break;
     }
