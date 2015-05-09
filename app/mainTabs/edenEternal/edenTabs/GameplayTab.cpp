@@ -143,22 +143,9 @@ GameplayTab::GameplayTab()
         socialVBOX->addWidget(socialGroup);
         socialVBOX->addWidget(miscGroup);
 
-        //============================
-    m_infosEdit = new QTextEdit;
-        m_infosEdit->setText("Cliquer sur un libelé pour plus d'infos");
-
-    QVBoxLayout *infosVBOX = new QVBoxLayout;
-        infosVBOX->addWidget(m_infosEdit);
-
-    QGroupBox *infosGroup = new QGroupBox("Informations");
-        infosGroup->setLayout(infosVBOX);
-
-        //============================
-
     QHBoxLayout *socialHBOX = new QHBoxLayout;
         socialHBOX->addWidget(uiGroup);
         socialHBOX->addLayout(socialVBOX);
-        //socialHBOX->addWidget(infosGroup);
 
     QFile *qssSliderOn = new QFile(":/style/slider_on");
         qssSliderOn->open(QIODevice::ReadOnly | QIODevice::Text);
@@ -208,29 +195,29 @@ void GameplayTab::createConnexions()
     connect(m_sgroupevent, SIGNAL(valueChanged(int)), this, SLOT(changeColorSwitch(int)));
     connect(m_sleftclic, SIGNAL(valueChanged(int)), this, SLOT(changeColorSwitch(int)));
     //---------------------------------------------------------------------------------
-    connect(m_name, SIGNAL(clicked()), this, SLOT(hoverInfos()));
-    connect(m_guild, SIGNAL(clicked()), this, SLOT(hoverInfos()));
-    connect(m_title, SIGNAL(clicked()), this, SLOT(hoverInfos()));
-    connect(m_vital, SIGNAL(clicked()), this, SLOT(hoverInfos()));
-    connect(m_health, SIGNAL(clicked()), this, SLOT(hoverInfos()));
-    connect(m_dammages, SIGNAL(clicked()), this, SLOT(hoverInfos()));
-    connect(m_cast, SIGNAL(clicked()), this, SLOT(hoverInfos()));
-    connect(m_npc, SIGNAL(clicked()), this, SLOT(hoverInfos()));
-    connect(m_critical, SIGNAL(clicked()), this, SLOT(hoverInfos()));
-    connect(m_tandem, SIGNAL(clicked()), this, SLOT(hoverInfos()));
-    connect(m_clickm, SIGNAL(clicked()), this, SLOT(hoverInfos()));
-    connect(m_reverse, SIGNAL(clicked()), this, SLOT(hoverInfos()));
-    connect(m_guildin, SIGNAL(clicked()), this, SLOT(hoverInfos()));
+    connect(m_name, SIGNAL(clicked()), this, SLOT(settingsInfos()));
+    connect(m_guild, SIGNAL(clicked()), this, SLOT(settingsInfos()));
+    connect(m_title, SIGNAL(clicked()), this, SLOT(settingsInfos()));
+    connect(m_vital, SIGNAL(clicked()), this, SLOT(settingsInfos()));
+    connect(m_health, SIGNAL(clicked()), this, SLOT(settingsInfos()));
+    connect(m_dammages, SIGNAL(clicked()), this, SLOT(settingsInfos()));
+    connect(m_cast, SIGNAL(clicked()), this, SLOT(settingsInfos()));
+    connect(m_npc, SIGNAL(clicked()), this, SLOT(settingsInfos()));
+    connect(m_critical, SIGNAL(clicked()), this, SLOT(settingsInfos()));
+    connect(m_tandem, SIGNAL(clicked()), this, SLOT(settingsInfos()));
+    connect(m_clickm, SIGNAL(clicked()), this, SLOT(settingsInfos()));
+    connect(m_reverse, SIGNAL(clicked()), this, SLOT(settingsInfos()));
+    connect(m_guildin, SIGNAL(clicked()), this, SLOT(settingsInfos()));
     //---------------------------------------------------------------------------------
-    connect(m_dectrade, SIGNAL(clicked()), this, SLOT(hoverInfos()));
-    connect(m_decduel, SIGNAL(clicked()), this, SLOT(hoverInfos()));
-    connect(m_decgroup, SIGNAL(clicked()), this, SLOT(hoverInfos()));
-    connect(m_denysearch, SIGNAL(clicked()), this, SLOT(hoverInfos()));
-    connect(m_gellyeffect, SIGNAL(clicked()), this, SLOT(hoverInfos()));
-    connect(m_folcamera, SIGNAL(clicked()), this, SLOT(hoverInfos()));
-    connect(m_recbattle, SIGNAL(clicked()), this, SLOT(hoverInfos()));
-    connect(m_groupevent, SIGNAL(clicked()), this, SLOT(hoverInfos()));
-    connect(m_leftclic, SIGNAL(clicked()), this, SLOT(hoverInfos()));
+    connect(m_dectrade, SIGNAL(clicked()), this, SLOT(settingsInfos()));
+    connect(m_decduel, SIGNAL(clicked()), this, SLOT(settingsInfos()));
+    connect(m_decgroup, SIGNAL(clicked()), this, SLOT(settingsInfos()));
+    connect(m_denysearch, SIGNAL(clicked()), this, SLOT(settingsInfos()));
+    connect(m_gellyeffect, SIGNAL(clicked()), this, SLOT(settingsInfos()));
+    connect(m_folcamera, SIGNAL(clicked()), this, SLOT(settingsInfos()));
+    connect(m_recbattle, SIGNAL(clicked()), this, SLOT(settingsInfos()));
+    connect(m_groupevent, SIGNAL(clicked()), this, SLOT(settingsInfos()));
+    connect(m_leftclic, SIGNAL(clicked()), this, SLOT(settingsInfos()));
 }
 
 void GameplayTab::initSettings()
@@ -342,56 +329,56 @@ void GameplayTab::changeColorSwitch(int val)
     }
 }
 
-void GameplayTab::hoverInfos()
+void GameplayTab::settingsInfos()
 {
     if(sender() == m_name)
-        m_infosEdit->setText("Active/Desactive l'affichage du nom du personnage");
+        QToolTip::showText(m_name->mapToGlobal(QPoint()), "Active/Desactive l'affichage du nom du personnage");
     else if(sender() == m_guild)
-        m_infosEdit->setText("Active/Desactive l'affichage du nom de guilde");
+        QToolTip::showText(m_guild->mapToGlobal(QPoint()), "Active/Desactive l'affichage du nom de guilde");
     else if(sender() == m_title)
-        m_infosEdit->setText("Active/Desactive l'affichage du titre du personnage");
+        QToolTip::showText(m_title->mapToGlobal(QPoint()), "Active/Desactive l'affichage du titre du personnage");
     else if(sender() == m_vital)
-        m_infosEdit->setText("Active/Desactive l'affichage des valeurs de vie et de mana");
+        QToolTip::showText(m_vital->mapToGlobal(QPoint()), "Active/Desactive l'affichage des valeurs de vie et de mana");
     else if(sender() == m_health)
-        m_infosEdit->setText("Active/Desactive l'affichage des barres de vie");
+        QToolTip::showText(m_health->mapToGlobal(QPoint()), "Active/Desactive l'affichage des barres de vie");
     else if(sender() == m_dammages)
-        m_infosEdit->setText("Active/Desactive l'affichage des degats des autres joueurs");
+        QToolTip::showText(m_dammages->mapToGlobal(QPoint()), "Active/Desactive l'affichage des degats des autres joueurs");
     else if(sender() == m_cast)
-        m_infosEdit->setText("Active/Desactive le ciblage des sort sur soit même si aucun cible n'a été sélectionner");
+        QToolTip::showText(m_cast->mapToGlobal(QPoint()), "Active/Desactive le ciblage des sort sur soit même si aucun cible n'a été sélectionner");
     else if(sender() == m_npc)
-        m_infosEdit->setText("Active/Desactive les noms des pnj");
+        QToolTip::showText(m_npc->mapToGlobal(QPoint()), "Active/Desactive les noms des pnj");
     else if(sender() == m_critical)
-        m_infosEdit->setText("Active/Desactive l'effet de choc lors des critiques");
+        QToolTip::showText(m_critical->mapToGlobal(QPoint()), "Active/Desactive l'effet de choc lors des critiques");
     else if(sender() == m_tandem)
-        m_infosEdit->setText("Active/Desactive le bloquage des tandems");
+        QToolTip::showText(m_tandem->mapToGlobal(QPoint()), "Active/Desactive le bloquage des tandems");
     else if(sender() == m_clickm)
-        m_infosEdit->setText("Active/Desactive le déplacement au clic gauche");
+        QToolTip::showText(m_clickm->mapToGlobal(QPoint()), "Active/Desactive le déplacement au clic gauche");
     else if(sender() == m_reverse)
-        m_infosEdit->setText("Active/Desactive l'inversion de rotation dela camera");
+        QToolTip::showText(m_reverse->mapToGlobal(QPoint()), "Active/Desactive l'inversion de rotation dela camera");
     else if(sender() == m_guildin)
-        m_infosEdit->setText("Active/Desactive l'affichage de l'insigne de guilde");
+        QToolTip::showText(m_guildin->mapToGlobal(QPoint()), "Active/Desactive l'affichage de l'insigne de guilde");
 
 
     else if(sender() == m_dectrade)
-        m_infosEdit->setText("Active/Desactive le bloquage des echanges");
+        QToolTip::showText(m_dectrade->mapToGlobal(QPoint()), "Active/Desactive le bloquage des echanges");
     else if(sender() == m_decduel)
-        m_infosEdit->setText("Active/Desactive le bloquage des duels");
+        QToolTip::showText(m_decduel->mapToGlobal(QPoint()), "Active/Desactive le bloquage des duels");
     else if(sender() == m_decgroup)
-        m_infosEdit->setText("Active/Desactive le bloquage des groupes");
+        QToolTip::showText(m_decgroup->mapToGlobal(QPoint()), "Active/Desactive le bloquage des groupes");
     else if(sender() == m_denysearch)
-        m_infosEdit->setText("Active/Desactive le bloquage de la recharche public");
+        QToolTip::showText(m_denysearch->mapToGlobal(QPoint()), "Active/Desactive le bloquage de la recharche public");
     else if(sender() == m_gellyeffect)
-        m_infosEdit->setText("Active/Desactive l'effet flasque sur l'interface");
+        QToolTip::showText(m_gellyeffect->mapToGlobal(QPoint()), "Active/Desactive l'effet flasque sur l'interface");
     else if(sender() == m_folcamera)
-        m_infosEdit->setText("Active/Desactive l'affichage du nom du personnage");
+        QToolTip::showText(m_folcamera->mapToGlobal(QPoint()), "Active/Desactive l'affichage du nom du personnage");
     else if(sender() == m_recbattle)
-        m_infosEdit->setText("Active/Desactive le compteur de combat\n\n"
+        QToolTip::showText(m_recbattle->mapToGlobal(QPoint()), "Active/Desactive le compteur de combat\n\n"
                              "Permet de faire des statistique sur:\n"
                              "- Les dégats infligés au unités enemies\n"
                              "- Les soins prodigués au unités amies\n"
                              "- Les recus par les unités enemies\n");
     else if(sender() == m_groupevent)
-        m_infosEdit->setText("Active/Desactive le masquage des joueurs lors des event");
+        QToolTip::showText(m_groupevent->mapToGlobal(QPoint()), "Active/Desactive le masquage des joueurs lors des event");
     else if(sender() == m_leftclic)
-        m_infosEdit->setText("Active/Desactive le déplacement au clic gauche");
+        QToolTip::showText(m_leftclic->mapToGlobal(QPoint()), "Active/Desactive le déplacement au clic gauche");
 }

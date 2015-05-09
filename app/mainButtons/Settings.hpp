@@ -37,7 +37,6 @@ public:
     void createObjects();
     void createConnexions();
     void createSettings();
-    void createParams();
 
     void loadSettings();
     QString loadStylesheet();

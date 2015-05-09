@@ -13,6 +13,7 @@
 #include <QtNetwork>
 
 #include "app/Config.hpp"
+#include "app/libs/TPushButton.hpp"
 
 class Updates : public QDialog
 {
@@ -40,7 +41,8 @@ private:
     QTabWidget      *m_releasesTabWidget;
     QPushButton     *m_checkVersionBtn;
     QGridLayout     *m_updateGrid;
-    QHBoxLayout     *m_updatesLayout;
+
+    QPushButton     *m_closeBtn;
 };
 
 #endif // UPDATES_HPP

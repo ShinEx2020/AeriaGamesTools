@@ -26,21 +26,16 @@ public slots:
     void initSettings();
     void applySettings();
 
-    void hoverInfos();
+    void settingsInfos();
 
 private:
 
     QString     m_pathsString;
 
-
-    QTextEdit   *m_infosEdit;
-
     QSettings   *mEdenSettings;
-
 
     QString     strSliderOn;
     QString     strSliderOff;
-
 
     QPushButton *m_name;
     QPushButton *m_guild;

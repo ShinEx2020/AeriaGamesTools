@@ -14,6 +14,7 @@
 
 #include "app/threads/ThemeExtract.hpp"
 #include "app/Config.hpp"
+#include "app/mainButtons/Settings.hpp"
 
 class ThemeTab : public QWidget
 {
@@ -25,9 +26,13 @@ public:
 
     ThemeTab(QString edenpath);
 
+    void createObjects();
+
     void createInfoTheme();
 
 public slots:
+
+    void checkDir();
 
     void updateListThemes();
     void updateInfosThemes();
@@ -49,6 +54,8 @@ public slots:
     void infosThemes(QListWidgetItem* item);
 
 private:
+
+    Settings        *m_settingsCfg;
 
     QString m_themeName;
 

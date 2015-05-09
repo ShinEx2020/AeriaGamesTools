@@ -12,17 +12,11 @@ Updates::Updates()
 {
     createObjects();
 
+    m_checkVersionBtn->setText("Vérifier maintenant");
+    m_checkVersionBtn->setObjectName("greenButton");
+
     m_installVersion->setText(QCoreApplication::applicationVersion());
     m_onlineVersion->setText("...");
-
-    m_releasesTabWidget->setFocusPolicy(Qt::NoFocus);
-    m_releasesTabWidget->setStyleSheet("QTabWidget::pane{border: 2px solid #888;}"
-                                       "QTabWidget::tab-bar{alignment:center;}"
-                                       "QTabBar::tab{width: 50px; padding: 5px; margin-right: 5px; border: none; background: #333;}"
-                                       "QTabBar::tab:selected{background: #373;}");
-    m_releasesTabWidget->setTabPosition(QTabWidget::South);
-    m_releasesTabWidget->addTab(m_releaseUpdatesWidget,"M.a.J");
-    m_releasesTabWidget->addTab(m_releaseNotesWidget,"Notes");
 
     m_updateGrid->addWidget(new QLabel("Version Installé :"), 0, 0, Qt::AlignLeft | Qt::AlignTop);
     m_updateGrid->addWidget(m_installVersion, 0, 1, Qt::AlignLeft | Qt::AlignTop);
@@ -33,11 +27,43 @@ Updates::Updates()
 
     m_releaseUpdatesWidget->setLayout(m_updateGrid);
 
-    m_updatesLayout->addWidget(m_releasesTabWidget);
+
+    m_releasesTabWidget->setFocusPolicy(Qt::NoFocus);
+    m_releasesTabWidget->setStyleSheet("QTabWidget::pane{border: none;}"
+                                       "QTabWidget::tab-bar{alignment:center;}"
+                                       "QTabBar::tab{width: 50px; padding: 5px; margin-right: 5px; border: none; background: #333;}"
+                                       "QTabBar::tab:selected{background: #373;}");
+    m_releasesTabWidget->setTabPosition(QTabWidget::South);
+    m_releasesTabWidget->addTab(m_releaseUpdatesWidget,"M.a.J");
+    m_releasesTabWidget->addTab(m_releaseNotesWidget,"Notes");
+
+
+
+    TPushButton *mPushInfo = new TPushButton("PARAMETRES", this);
+        mPushInfo->setFixedHeight(25);
+        mPushInfo->setObjectName("titleButton");
+
+    m_closeBtn = new QPushButton("X");
+    m_closeBtn->setFixedSize(40, 25);
+    m_closeBtn->setObjectName("closeButton");
+
+    QHBoxLayout *mHboxTitle = new QHBoxLayout;
+        mHboxTitle->addWidget(mPushInfo);
+        mHboxTitle->addWidget(m_closeBtn);
+        mHboxTitle->setSpacing(0);
+
+    QVBoxLayout *m_mainVbx = new QVBoxLayout;
+        m_mainVbx->addLayout(mHboxTitle);
+        m_mainVbx->addWidget(m_releasesTabWidget);
+
+
 
     createConnexions();
 
-    setLayout(m_updatesLayout);
+    setLayout(m_mainVbx);
+    setWindowFlags(Qt::FramelessWindowHint);
+    setWindowModality(Qt::ApplicationModal);
+    setContentsMargins(-11, -11, -11, -11);
 }
 
 void Updates::createObjects()
@@ -50,11 +76,11 @@ void Updates::createObjects()
     m_releaseNotesWidget    = new QWidget;
     m_releaseUpdatesWidget  = new QWidget;
     m_releasesTabWidget     = new QTabWidget;
-    m_updatesLayout         = new QHBoxLayout;
 }
 void Updates::createConnexions()
 {
     connect(m_checkVersionBtn, SIGNAL(clicked()), this, SLOT(checkUpdates()));
+    connect(m_closeBtn, SIGNAL(clicked()), this, SLOT(close()));
 }
 
 void Updates::checkUpdates()
@@ -86,7 +112,7 @@ void Updates::getCurrentVersion(QNetworkReply *reply)
     m_onlineVersion->setText(reply->readLine());
 
     if(m_installVersion->text().toInt() == m_onlineVersion->text().toInt())
-        m_detailsVersion->setText("Votre version est a jour");
+        m_detailsVersion->setText("Votre version est à jour");
     else if(m_installVersion->text().toInt() < m_onlineVersion->text().toInt())
         m_detailsVersion->setText("Une mise à jour est disponible");
     else if(m_installVersion->text().toInt() > m_onlineVersion->text().toInt())

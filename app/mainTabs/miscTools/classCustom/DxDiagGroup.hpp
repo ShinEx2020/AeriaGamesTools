@@ -59,8 +59,6 @@ private:
     QLabel          *m_DiagStatutLbl;
     QPushButton     *m_DiagStatutBtn;
     QLabel          *m_DiagDateLbl;
-    QVBoxLayout     *m_DxDiagVbx;
-    QGroupBox       *m_DxDiagGrp;
 
     QPastebinQuery  *m_pasteQuery;
 

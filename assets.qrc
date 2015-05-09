@@ -9,14 +9,13 @@
         <file alias="good">assets/icons/good.png</file>
         <file alias="clip">assets/icons/clip.png</file>
         <file alias="wait">assets/icons/wait.mng</file>
+        <file alias="bot">assets/icons/bot.png</file>
+        <file alias="top">assets/icons/top.png</file>
     </qresource>
     <qresource prefix="/style">
         <file alias="style">style.qss</file>
-        <file alias="style_eden">style_eden.qss</file>
         <file alias="slider_off">slider_off.qss</file>
         <file alias="slider_on">slider_on.qss</file>
-        <file alias="vcheck_upd">vcheck_upd.qss</file>
-        <file alias="flie_dialog">fileDialog.qss</file>
     </qresource>
     <qresource prefix="/logos">
         <file alias="eden">assets/edenButton.png</file>

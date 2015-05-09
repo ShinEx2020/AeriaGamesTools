@@ -21,9 +21,6 @@ DxDiagGroup::DxDiagGroup()
 
     m_pastebinLineEdit->setStyleSheet("QLineEdit{ border: 1px solid white; width: 200px;}");
     m_pastebinLineEdit->setReadOnly(true);
-
-
-    setLayout(m_DxDiagVbx);
 }
 
 DxDiagGroup::createObjects()
@@ -45,8 +42,6 @@ DxDiagGroup::createObjects()
     m_pasteQuery        = new QPastebinQuery;
     m_DiagStatutLbl     = new QLabel;
     m_DiagDateLbl       = new QLabel;
-    m_DxDiagVbx         = new QVBoxLayout;
-    m_DxDiagGrp         = new QGroupBox;
     m_DxDiagGrd         = new QGridLayout;
     m_DxDiagFil         = new QFile;
 }
@@ -179,11 +174,12 @@ void DxDiagGroup::dxDiagGroup()
     m_DxDiagGrd->addWidget(m_UploadClipBtn,3,1,Qt::AlignRight);
     m_DxDiagGrd->addWidget(m_pastebinLineEdit,3,2,Qt::AlignRight);
 
-    m_DxDiagGrp->setTitle("Diagnotique DirectX");
-    m_DxDiagGrp->setLayout(m_DxDiagGrd);
-    m_DxDiagGrp->setFixedSize(280,150);
+    m_DiagStatutBtn->setObjectName("greenButton");
+    m_UploadStatutBtn->setObjectName("greenButton");
 
-    m_DxDiagVbx->addWidget(m_DxDiagGrp);
+    setTitle("Diagnotique DirectX");
+    setLayout(m_DxDiagGrd);
+    setFixedSize(280,150);
 }
 
 void DxDiagGroup::pastebinLink()

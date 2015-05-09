@@ -10,20 +10,19 @@
 
 ThemeTab::ThemeTab(QString edenpath)
 {
-    QDir cacheDir(QCoreApplication::applicationDirPath()+"/CacheThemes");
+    createObjects();
 
-    if(!cacheDir.exists())
-        cacheDir.mkdir(QCoreApplication::applicationDirPath()+"/CacheThemes");
+    checkDir();
 
 
     m_edenPath = edenpath;
 
 
-    //m_themeLocalFile = new QFile(QCoreApplication::applicationDirPath()+"/Storage/edeneternal/themes_install.list");
-    m_themeOnlineFile = new QFile(QCoreApplication::applicationDirPath()+"/Storage/edeneternal/themes.list");
+    //m_themeLocalFile = new QFile(QCoreApplication::applicationDirPath()+"/Storage/EdenEternal/themes_install.list");
+    m_themeOnlineFile = new QFile(QCoreApplication::applicationDirPath()+"/Storage/EdenEternal/themes.list");
 
-    m_themeOnlineInfosFile = new QFile(QCoreApplication::applicationDirPath()+"/Storage/edeneternal/themes.info");
-    //m_themeLocalInfosFile = new QFile(QCoreApplication::applicationDirPath()+"/Storage/edeneternal/themes_install.info");
+    m_themeOnlineInfosFile = new QFile(QCoreApplication::applicationDirPath()+"/Storage/EdenEternal/themes.info");
+    //m_themeLocalInfosFile = new QFile(QCoreApplication::applicationDirPath()+"/Storage/EdenEternal/themes_install.info");
 
     m_pathsFile = new QFile(QCoreApplication::applicationDirPath()+"/Storage/config.cfg");
         m_pathsFile->open(QIODevice::ReadOnly | QIODevice::Text);
@@ -31,7 +30,7 @@ ThemeTab::ThemeTab(QString edenpath)
     m_pathsString = m_pathsSets->value("Paths/EdenEternal").toString();
 
 
-    setStyleSheet("QWidget{border-radius: 0x;}*{background-color: #555;}");
+    setStyleSheet(m_settingsCfg->loadStylesheet());
 
     localList = new QListWidget;
         localList->setFixedWidth(200);
@@ -43,18 +42,15 @@ ThemeTab::ThemeTab(QString edenpath)
 
     addButton = new QPushButton("< AJOUTER");
         addButton->setFixedSize(100,30);
-        addButton->setStyleSheet("QPushButton{background-color: #474;}"
-                               "QPushButton:hover{background-color: #494;}");
+        addButton->setObjectName("greenButton");
 
     delButton = new QPushButton(" SUPPRIMER >");
         delButton->setFixedSize(100,30);
-        delButton->setStyleSheet("QPushButton{background-color: #744;}"
-                               "QPushButton:hover{background-color: #944;}");
+        delButton->setObjectName("redButton");
 
     majButton = new QPushButton("Update");
         majButton->setFixedSize(100,30);
-        majButton->setStyleSheet("QPushButton{background-color: #464;}"
-                               "QPushButton:hover{background-color: #484;}");
+        majButton->setObjectName("greenButton");
 
     createInfoTheme();
 
@@ -86,33 +82,34 @@ ThemeTab::ThemeTab(QString edenpath)
     listThemes();
 }
 
+
+void ThemeTab::createObjects()
+{
+    m_settingsCfg = new Settings;
+}
+
 //-----METHODS
 void ThemeTab::createInfoTheme()
 {
-    QLabel *lab1 = new QLabel("Auteur :");
     m_authorLabel = new QLabel("");
 
-    QLabel *lab2 = new QLabel ("Version :");
     m_versionLabel = new QLabel("");
 
-    QLabel *lab3 = new QLabel ("Details :");
     m_infosLabel = new QTextEdit("");
+    m_infosLabel->setReadOnly(true);
 
     QGridLayout *grid = new QGridLayout;
-        grid->addWidget(lab1, 0, 0, Qt::AlignTop);
+        grid->addWidget(new QLabel("Auteur :"), 0, 0, Qt::AlignTop);
         grid->addWidget(m_authorLabel, 0, 1);
-        grid->addWidget(lab2, 1, 0, Qt::AlignTop);
+        grid->addWidget(new QLabel ("Version :"), 1, 0, Qt::AlignTop);
         grid->addWidget(m_versionLabel, 1, 1);
-        grid->addWidget(lab3, 2, 0, Qt::AlignTop);
+        grid->addWidget(new QLabel ("Details :"), 2, 0, Qt::AlignTop);
         grid->addWidget(m_infosLabel, 2, 1);
 
     m_infoTheme = new QGroupBox("  Info du theme  ");
         m_infoTheme->setLayout(grid);
         m_infoTheme->setAlignment(Qt::AlignHCenter);
         m_infoTheme->setFixedSize(200, 150);
-
-        m_infoTheme->setStyleSheet("QGroupBox{border:0; background-color: #555;}"
-                                   "QGroupBox::title{background-color: #333; border-radius:0; border:0; border-top: 2px solid #555;}");
 }
 
 //------SLOTS
@@ -248,6 +245,19 @@ void ThemeTab::removeTheme(QString nameTheme)
     directoryTodelete.removeRecursively();
 }
 
+void ThemeTab::checkDir()
+{
+    QDir storeDir(QCoreApplication::applicationDirPath()+"/Storage/EdenEternal");
+
+    if(!storeDir.exists())
+        storeDir.mkdir(QCoreApplication::applicationDirPath()+"/Storage/EdenEternal");
+
+    QDir cacheDir(QCoreApplication::applicationDirPath()+"/CacheThemes");
+
+    if(!cacheDir.exists())
+        cacheDir.mkdir(QCoreApplication::applicationDirPath()+"/CacheThemes");
+}
+
 void ThemeTab::updateListThemes()
 {
     if(majButton->isEnabled())
@@ -300,7 +310,7 @@ void ThemeTab::updateInfosThemes()
 }
 void ThemeTab::repInfosThemes(QNetworkReply *listInfosfile)
 {
-    QFile *infoD = new QFile(QCoreApplication::applicationDirPath()+"/Storage/edeneternal/themes.info");
+    QFile *infoD = new QFile(QCoreApplication::applicationDirPath()+"/Storage/EdenEternal/themes.info");
         infoD->open(QIODevice::WriteOnly);
         infoD->write(listInfosfile->readAll());
         infoD->close();

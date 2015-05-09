@@ -12,8 +12,6 @@ Settings::Settings()
 {
     createObjects();
 
-    //QDialog *mSettingsDialog = new QDialog();
-
     mGrandFantasiaLabel->setObjectName("gamenameLabel");
     mGrandFantasiaEdit->setObjectName("gamenameEdit");
     sGrandFantasiaButton->setObjectName("gamenameButton");
@@ -71,11 +69,11 @@ Settings::Settings()
 
     mclose->setFixedSize(40, 25);
     mclose->setObjectName("closeButton");
-    mclose->setMask(QBitmap(":/mask/mask"));
 
     QHBoxLayout *mhset = new QHBoxLayout;
         mhset->addWidget(titleSettingsButton);
         mhset->addWidget(mclose);
+        mhset->setSpacing(0);
 
     QGroupBox *mSettingsGroup = new QGroupBox("Emplacements");
         mSettingsGroup->setLayout(mSettingsGrid);
@@ -83,17 +81,10 @@ Settings::Settings()
     mSettingsBox->addLayout(mhset);
     mSettingsBox->addWidget(mSettingsGroup);
 
-    //------------------------
-
     m_ConfigCfg->open(QIODevice::ReadOnly | QIODevice::Text);
-
-    //mPathsSettings.beginGroup("Paths");
-
-    //-------------------------
 
     createConnexions();
     createSettings();
-    createParams();
 
     loadSettings();
 }
@@ -151,16 +142,17 @@ void Settings::createConnexions()
 }
 void Settings::createSettings()
 {
-    setWindowFlags(Qt::FramelessWindowHint);
-    setLayout(mSettingsBox);
-    setFixedSize(500, 300);
-}
-void Settings::createParams()
-{
     m_styleFile->setFileName(":/style/style");
     m_styleFile->open(QIODevice::ReadOnly);
 
     m_styleString = m_styleFile->readAll();
+
+    setStyleSheet(loadStylesheet());
+    setWindowFlags(Qt::FramelessWindowHint);
+    setWindowModality(Qt::ApplicationModal);
+    setLayout(mSettingsBox);
+    setFixedSize(500, 300);
+    setContentsMargins(-11, -11, -11, -11);
 }
 
 void Settings::loadSettings()
@@ -170,7 +162,6 @@ void Settings::loadSettings()
         m_EdenPath = mPathsSettings->value("Paths/EdenEternal").toString();
 
         mEdenEternalEdit->setText(m_EdenPath);
-        mEdenEternalEdit->setStyleSheet("QLineEdit{background-color: #5a5}");
     }
 }
 QString Settings::loadStylesheet()
@@ -181,22 +172,11 @@ QString Settings::loadStylesheet()
 //METHODES
 void Settings::setEEDir()
 {
-    QPushButton *button = qobject_cast<QPushButton*>(QObject::sender());
-
-    QPoint testS = QPoint(690, 105);
-
-    QFile *qssDialog = new QFile(":/style/file_dialog");
-        qssDialog->open(QIODevice::ReadOnly | QIODevice::Text);
-
     QFileDialog *dialog = new QFileDialog;
-        dialog->setContentsMargins(10,10,140,10);
-        dialog->setStyleSheet(qssDialog->readAll());
         dialog->setWindowFlags(Qt::FramelessWindowHint);
         dialog->setFileMode(QFileDialog::Directory);
         dialog->setOptions(QFileDialog::ShowDirsOnly | QFileDialog::DontUseNativeDialog);
-        dialog->setFixedSize(700, 400);
-        dialog->move(button->parentWidget()->parentWidget()->geometry().topLeft() + button->geometry().topLeft() - testS);
-        dialog->setMask(QBitmap(":/mask/maskset"));
+        dialog->setFixedSize(600, 400);
         dialog->setSizeGripEnabled(false);
         dialog->setLabelText(QFileDialog::Reject, "Annuler");
 
@@ -204,11 +184,10 @@ void Settings::setEEDir()
     QDialogButtonBox *box = dialog->findChild<QDialogButtonBox*>();
 
     QPushButton *openButton = box->button(QDialogButtonBox::Open);
-        openButton->setStyleSheet("QPushButton{background-color: #484;} QPushButton:hover{background-color: #4b4;}");
+        openButton->setStyleSheet("QPushButton{background-color: #484; border: none;} QPushButton:hover{background-color: #4b4;}");
 
     QPushButton *cancelButton = box->button(QDialogButtonBox::Cancel);
-        cancelButton->setStyleSheet("QPushButton{background-color: #844;} QPushButton:hover{background-color: #d44;}");
-
+        cancelButton->setStyleSheet("QPushButton{background-color: #844; border: none;} QPushButton:hover{background-color: #d44;}");
 
     if(dialog->exec() == 1)//On vérifie le repertoire uniquement si on clique sur "Choisir"
     {

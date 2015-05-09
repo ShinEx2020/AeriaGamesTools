@@ -12,7 +12,7 @@ MiscGeneralTool::MiscGeneralTool(QWidget *parent) : QWidget(parent)
 {
     createObjects();
 
-    m_MiscToolGrd->addWidget(m_DxGroupGrp);
+    m_MiscToolGrd->addWidget(m_DxGroupGrp,0,0,Qt::AlignLeft | Qt::AlignTop);
 
     setLayout(m_MiscToolGrd);
 }

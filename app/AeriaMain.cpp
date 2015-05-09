@@ -84,7 +84,7 @@ void AeriaMain::createSettings()
     setWindowFlags(Qt::FramelessWindowHint);
     setFixedSize(800, 595);
     setWindowTitle(m_titleBtn->text());
-    setContentsMargins(-11, -12, -11, -11);
+    setContentsMargins(-11, -11, -11, -11);
 
     qApp->setStyleSheet(m_StyleQss->readAll());
 }

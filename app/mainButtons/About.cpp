@@ -19,13 +19,12 @@ About::About()
 
     QPushButton *mPushClose = new QPushButton("X");
         mPushClose->setFixedSize(40, 25);
-        mPushClose->setMask(QBitmap(":/mask/mask"));
         mPushClose->setObjectName("closeButton");
 
     QHBoxLayout *mHboxTitle = new QHBoxLayout;
         mHboxTitle->addWidget(mPushInfo);
         mHboxTitle->addWidget(mPushClose);
-        mHboxTitle->setContentsMargins(10, 10, 10, 20);
+        mHboxTitle->setSpacing(0);
 
     QPushButton *mLabel = new QPushButton();
         mLabel->setIcon(QIcon(":/misc/avatar"));
@@ -57,7 +56,8 @@ About::About()
     connect(mPushClose, SIGNAL(clicked()), this, SLOT(close()));
 
     setWindowFlags(Qt::FramelessWindowHint);
-    setFixedWidth(550);
-    setFixedHeight(430);
+    setWindowModality(Qt::ApplicationModal);
+    setFixedSize(550, 430);
     setLayout(vBox);
+    setContentsMargins(-11, -11, -11, -11);
 }

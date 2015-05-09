@@ -1,11 +1,18 @@
+*
+{
+    outline: none;
+}
+
 QTabBar QToolButton
 {
     background: #288;
     border-top: 1px solid white;
 }
+
 QComboBox
 {
     border: 1px solid grey;
+    width: 80px;
 }
 QComboBox::drop-down
 {
@@ -17,8 +24,81 @@ QComboBox::down-arrow
 }
 QComboBox::down-arrow:on
 {
-    left: 1px;
     top: 1px;
+}
+QComboBox QAbstractItemView
+{
+    outline: none;
+    selection-background-color: #399;
+}
+QScrollBar:vertical
+{
+    border-left: 1px solid grey;
+    background: #32CC99;
+    width: 16px;
+    margin: 16px 0 16px 0;
+}
+QScrollBar::handle:vertical
+{
+    background-color: #CCC;
+    min-height: 20px;
+}
+QScrollBar::handle:vertical:hover
+{
+    background-color: #9C9;
+}
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical
+{
+    border-left: 1px solid grey;
+    height: 15px;
+    subcontrol-origin: margin;
+}
+QScrollBar::add-line:vertical:hover,
+QScrollBar::sub-line:vertical:hover
+{
+    background-color: #58C;
+}
+QScrollBar::sub-line:vertical
+{
+    border-bottom: 1px solid grey;
+    background-image: url(":/icons/top");
+    subcontrol-position: top;
+}
+QScrollBar::add-line:vertical
+{
+    border-top: 1px solid grey;
+    background-image: url(":/icons/bot");
+    subcontrol-position: bottom;
+}
+QScrollBar::add-page:vertical,
+QScrollBar::sub-page:vertical
+{
+    background: #222;
+}
+
+QToolTip
+{
+    padding-top: 2px;
+    padding-left: 2px;
+    border: none;
+    background-color: #222;
+    color: #ccc;
+    font-weight: bold;
+}
+
+QPushButton
+{
+    border: 1px solid white;
+    padding: 3px;
+    outline: none;
+    color: black;
+    font-weight: bold;
+    background: #ddd;
+}
+QPushButton:hover
+{
+    border-color: #48e;
 }
 
 QDialog
@@ -31,16 +111,18 @@ QGroupBox
 {
     margin-top: 10px;
     padding-top: 20px;
-    border: 2px solid #aaa;
+    border: 1px solid #ddd;
 }
 QGroupBox::title
 {
-    background-color: #aaa;
-    border-top-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    background-color: #ddd;
+    border-top-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: none;
     padding: 5px;
-    border: 2px solid #aaa;
-    color: black;
+    color: #222;
+    width: 150px;
+    font-weight: bold;
 }
 
 QWidget
@@ -49,6 +131,10 @@ QWidget
     color: white;
 }
 
+QTextEdit
+{
+    border: none;
+}
 
 #mTab
 {
@@ -79,30 +165,6 @@ QWidget
 #minimizeButton:hover
 {
     background-color: #363;
-}
-
-#edenButton
-{
-    border: none;
-    outline: none;
-    font-weight: bold;
-    background-color: #379;
-    color: white;
-    border-radius: 12px;
-}
-#edenButton:hover
-{
-    background-color: #59c;
-}
-
-#auraButton, #fantaButton, #wolfButton, #s4Button, #shaiyaButton
-{
-    border: none;
-    outline: none;
-    font-weight: bold;
-    background-color: #555;
-    color: white;
-    border-radius: 12px;
 }
 
 #closeButton
@@ -306,6 +368,7 @@ QMessageBox
 #mTabMain::tab-bar
 {
     border-top: 2px solid black;
+    outline:none;
 }
 #mTabWidget
 {
@@ -335,4 +398,71 @@ QMessageBox
 #mTabBar::tab:selected
 {
     border-right: 5px solid #48e;
+}
+
+#greenButton
+{
+    border: none;
+    outline: none;
+    font-weight: bold;
+    background-color: #474;
+    color: white;
+    padding-bottom: 2px;
+}
+#greenButton:hover
+{
+    background-color: #494;
+}
+
+#redButton
+{
+    border: none;
+    outline: none;
+    font-weight: bold;
+    background-color: #744;
+    color: white;
+    padding-bottom: 2px;
+}
+#redButton:hover
+{
+    background-color: #944;
+}
+
+#mTab > QWidget, #mTab > QWidget *
+{
+    background-color: #333;
+}
+#mTab::pane
+{
+    border: none;
+
+}
+#mTab > QTabBar, #mTab > QTabBar::tab
+{
+    margin-right: 5px;
+}
+#mTab > QTabBar
+{
+    background: transparent;
+}
+#mTab > QTabBar::tab
+{
+    border-top: 3px solid transparent;
+    border-radius: 0;
+    background: #222;
+    padding: 5;
+    margin-bottom: 10px;
+    width: 100px;
+}
+#mTab > QTabBar::tab:hover
+{
+    border-top: 3px solid #888;
+}
+#mTab > QTabBar::tab:selected
+{
+    border-top: 3px solid #4a5;
+}
+#mTab::tab-bar
+{
+    alignment: center;
 }

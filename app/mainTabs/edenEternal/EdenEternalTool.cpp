@@ -363,11 +363,11 @@ void EdenEternalTool::createSystemTab()
 void EdenEternalTool::createConfigTab()
 {
     m_ApplyButton->setText("Appliquer");
-    m_ApplyButton->setObjectName("applyButton");
+    m_ApplyButton->setObjectName("greenButton");
     m_ApplyButton->setFixedSize(140, 25);
 
     m_CancelButton->setText("Fermer");
-    m_CancelButton->setObjectName("cancelButton");
+    m_CancelButton->setObjectName("redButton");
     m_CancelButton->setFixedSize(140, 25);
 
 
@@ -488,7 +488,8 @@ void EdenEternalTool::initSettings()
     qssEden = new QFile(":/style/style_eden");
         qssEden->open(QIODevice::ReadOnly | QIODevice::Text);
 
-    setStyleSheet(qssEden->readAll());
+    //setStyleSheet(qssEden->readAll());
+    setStyleSheet(mPathsSettings->loadStylesheet());
     //setFixedSize(1000,540);
     setContentsMargins(-9, 0, -9, -9);
     setWindowTitle("Eden");
