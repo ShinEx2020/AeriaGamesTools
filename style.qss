@@ -77,6 +77,17 @@ QScrollBar::sub-page:vertical
     background: #222;
 }
 
+QSlider::handle:horizontal
+{
+    background: #5AA;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+QSlider::handle:horizontal:hover
+{
+    background: #5DD;
+}
+
 QToolTip
 {
     padding-top: 2px;
@@ -465,4 +476,26 @@ QMessageBox
 #mTab::tab-bar
 {
     alignment: center;
+}
+
+#switchSlider0::handle:horizontal
+{
+    background: #A55;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+#switchSlider0::handle:horizontal:hover
+{
+    background: #F55;
+}
+
+#switchSlider1::handle:horizontal
+{
+    background: #595;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+#switchSlider1::handle:horizontal:hover
+{
+    background: #5C5;
 }

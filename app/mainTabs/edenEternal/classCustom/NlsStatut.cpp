@@ -29,12 +29,12 @@ NlsStatut::NlsStatut(QString filename, QWidget *parent) : QWidget(parent)
 
     if(file->exists())
     {
-        m_filPush->setIcon(QIcon(":icons/tabs/green"));
+        m_filPush->setIcon(QIcon(":icons/good"));
         m_exFile = true;
     }
     else
     {
-        m_filPush->setIcon(QIcon(":icons/tabs/red"));
+        m_filPush->setIcon(QIcon(":icons/bad"));
         m_exFile = false;
     }
 
@@ -42,12 +42,12 @@ NlsStatut::NlsStatut(QString filename, QWidget *parent) : QWidget(parent)
 
     if(settings->contains(filename))
     {
-        m_regPush->setIcon(QIcon(":icons/tabs/green"));
+        m_regPush->setIcon(QIcon(":icons/good"));
         m_exReg = true;
     }
     else
     {
-        m_regPush->setIcon(QIcon(":icons/tabs/red"));
+        m_regPush->setIcon(QIcon(":icons/bad"));
         m_exReg = false;
     }
 

@@ -14,8 +14,6 @@
     </qresource>
     <qresource prefix="/style">
         <file alias="style">style.qss</file>
-        <file alias="slider_off">slider_off.qss</file>
-        <file alias="slider_on">slider_on.qss</file>
     </qresource>
     <qresource prefix="/logos">
         <file alias="eden">assets/edenButton.png</file>

@@ -6,9 +6,9 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#include "RescueTab.hpp"
+#include "DiagnoticsTab.hpp"
 
-RescueTab::RescueTab(QWidget *parent) : QWidget(parent)
+DiagnoticsTab::DiagnoticsTab(QWidget *parent) : QWidget(parent)
 {
     logsGroup();
     nlsGroup();
@@ -20,7 +20,7 @@ RescueTab::RescueTab(QWidget *parent) : QWidget(parent)
     setLayout(vbox);
 }
 
-bool RescueTab::nlsExist(QString filename)
+bool DiagnoticsTab::nlsExist(QString filename)
 {
     QFile *file = new QFile("C:/Windows/System32/"+filename);
 
@@ -30,7 +30,7 @@ bool RescueTab::nlsExist(QString filename)
         return false;
 }
 
-void RescueTab::logsGroup()
+void DiagnoticsTab::logsGroup()
 {
     m_logsSha = new LogShare;
 
@@ -42,7 +42,7 @@ void RescueTab::logsGroup()
     m_logsGrp->setFixedWidth(300);
 }
 
-void RescueTab::nlsGroup()
+void DiagnoticsTab::nlsGroup()
 {
     m_nlsWid = new NlsStatut("936");
     m_nlsWid2 = new NlsStatut("950");

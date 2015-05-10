@@ -6,8 +6,8 @@
  *                                                                                          *
  ********************************************************************************************/
 
-#ifndef RESCUETAB_HPP
-#define RESCUETAB_HPP
+#ifndef DIAGNOTICSTAB_HPP
+#define DIAGNOTICSTAB_HPP
 
 #include <QtWidgets>
 
@@ -15,12 +15,12 @@
 #include "app/mainTabs/edenEternal/classCustom/NlsStatut.hpp"
 #include "app/mainTabs/edenEternal/classCustom/LogShare.hpp"
 
-class RescueTab : public QWidget
+class DiagnoticsTab : public QWidget
 {
     Q_OBJECT
 
 public:
-    RescueTab(QWidget *parent = 0);
+    DiagnoticsTab(QWidget *parent = 0);
 
 public slots:
 
@@ -47,4 +47,4 @@ private:
 
 };
 
-#endif // RESCUETAB_HPP
+#endif // DIAGNOTICSTAB_HPP
