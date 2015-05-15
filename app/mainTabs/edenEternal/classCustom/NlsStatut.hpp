@@ -11,24 +11,36 @@
 
 #include <QtWidgets>
 
-class NlsStatut : public QWidget
+class NlsStatut : public QGroupBox
 {
     Q_OBJECT
 public:
-    NlsStatut(QString filename, QWidget *parent = 0);
 
-signals:
+    NlsStatut();
 
-public slots:
+    void createObjects();
+    void createConnexions();
+    void createInterface();
+
+    void checkFile();
+    void checkReg();
 
 private:
-    QLabel *m_nameLabel;
-    QPushButton *m_filPush;
-    QPushButton *m_regPush;
-    QLabel *m_checkLabel;
 
-    bool m_exFile;
-    bool m_exReg;
+    QSettings       *m_nlsReg;
+
+    QPushButton     *m_fileIconBtn;
+    QPushButton     *m_regIconBtn;
+    QPushButton     *m_936FileBtn;
+    QPushButton     *m_936RegBtn;
+    QPushButton     *m_950FileBtn;
+    QPushButton     *m_950RegBtn;
+    QPushButton     *m_10002FileBtn;
+    QPushButton     *m_10002RegBtn;
+    QPushButton     *m_10008FileBtn;
+    QPushButton     *m_10008RegBtn;
+
+    QGridLayout     *m_nlsGrd;
 };
 
 #endif // NLSSTATUT_HPP

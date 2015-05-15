@@ -11,14 +11,17 @@
 MiscGeneralTool::MiscGeneralTool(QWidget *parent) : QWidget(parent)
 {
     createObjects();
-
-    m_MiscToolGrd->addWidget(m_DxGroupGrp,0,0,Qt::AlignLeft | Qt::AlignTop);
-
-    setLayout(m_MiscToolGrd);
+    createInterface();
 }
 
 void MiscGeneralTool::createObjects()
 {
     m_DxGroupGrp    = new DxDiagGroup;
     m_MiscToolGrd   = new QGridLayout;
+}
+void MiscGeneralTool::createInterface()
+{
+    m_MiscToolGrd->addWidget(m_DxGroupGrp,0,0,Qt::AlignLeft | Qt::AlignTop);
+
+    setLayout(m_MiscToolGrd);
 }

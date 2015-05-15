@@ -14,7 +14,7 @@ DiagnoticsTab::DiagnoticsTab(QWidget *parent) : QWidget(parent)
     nlsGroup();
 
     QVBoxLayout *vbox = new QVBoxLayout;
-        vbox->addWidget(m_logsGrp);
+        vbox->addWidget(m_logsSha);
         vbox->addWidget(m_nlsGrp);
 
     setLayout(vbox);
@@ -33,30 +33,9 @@ bool DiagnoticsTab::nlsExist(QString filename)
 void DiagnoticsTab::logsGroup()
 {
     m_logsSha = new LogShare;
-
-    QHBoxLayout *hbbox = new QHBoxLayout;
-        hbbox->addWidget(m_logsSha);
-
-    m_logsGrp = new QGroupBox("Logs du jeu");
-    m_logsGrp->setLayout(hbbox);
-    m_logsGrp->setFixedWidth(300);
 }
 
 void DiagnoticsTab::nlsGroup()
 {
-    m_nlsWid = new NlsStatut("936");
-    m_nlsWid2 = new NlsStatut("950");
-    m_nlsWid3 = new NlsStatut("10002");
-    m_nlsWid4 = new NlsStatut("10008");
-
-    QVBoxLayout *vbox = new QVBoxLayout;
-        vbox->setAlignment(Qt::AlignHCenter);
-        vbox->addWidget(m_nlsWid);
-        vbox->addWidget(m_nlsWid2);
-        vbox->addWidget(m_nlsWid3);
-        vbox->addWidget(m_nlsWid4);
-
-    m_nlsGrp = new QGroupBox("Error Load DB");
-        m_nlsGrp->setLayout(vbox);
-        m_nlsGrp->setFixedSize(300, 220);
+    m_nlsGrp = new NlsStatut;
 }

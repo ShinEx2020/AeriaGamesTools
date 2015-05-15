@@ -8,73 +8,93 @@
 
 #include "NlsStatut.hpp"
 
-NlsStatut::NlsStatut(QString filename, QWidget *parent) : QWidget(parent)
+NlsStatut::NlsStatut() : QGroupBox()
 {
-    m_nameLabel = new QLabel(filename);
-        m_nameLabel->setFixedSize(80,30);
-        m_nameLabel->setObjectName("nameLab");
-        m_nameLabel->setAlignment(Qt::AlignCenter);
-    m_filPush = new QPushButton;
-        m_filPush->setFixedSize(50,30);
-        m_filPush->setObjectName("filPush");
-    m_regPush = new QPushButton;
-        m_regPush->setFixedSize(50,30);
-        m_regPush->setObjectName("regPush");
-    m_checkLabel = new QLabel(filename);
-        m_checkLabel->setFixedSize(80,30);
-        m_checkLabel->setObjectName("checkLab");
-        m_checkLabel->setAlignment(Qt::AlignCenter);
+    createObjects();
+    createInterface();
 
-    QFile *file = new QFile("C:/Windows/System32/c_"+filename+".nls");
+    checkFile();
+    checkReg();
+}
 
-    if(file->exists())
+void NlsStatut::createObjects()
+{
+    m_nlsReg        = new QSettings("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Nls\\CodePage", QSettings::NativeFormat);
+
+    m_fileIconBtn   = new QPushButton;
+    m_regIconBtn    = new QPushButton;
+    m_936FileBtn    = new QPushButton;
+    m_936RegBtn     = new QPushButton;
+    m_950FileBtn    = new QPushButton;
+    m_950RegBtn     = new QPushButton;
+    m_10002FileBtn  = new QPushButton;
+    m_10002RegBtn   = new QPushButton;
+    m_10008FileBtn  = new QPushButton;
+    m_10008RegBtn   = new QPushButton;
+
+    m_nlsGrd        = new QGridLayout;
+}
+void NlsStatut::createConnexions()
+{
+
+}
+void NlsStatut::createInterface()
+{
+    m_fileIconBtn->setIcon(QIcon(":/icons/file"));
+    m_fileIconBtn->setObjectName("noBorder");
+
+    m_regIconBtn->setIcon(QIcon(":/icons/reg"));
+    m_regIconBtn->setObjectName("noBorder");
+
+    m_936FileBtn->setObjectName("noBorder");
+    m_936RegBtn->setObjectName("noBorder");
+
+    m_950FileBtn->setObjectName("noBorder");
+    m_950RegBtn->setObjectName("noBorder");
+
+    m_10002FileBtn->setObjectName("noBorder");
+    m_10002RegBtn->setObjectName("noBorder");
+
+    m_10008FileBtn->setObjectName("noBorder");
+    m_10008RegBtn->setObjectName("noBorder");
+
+    m_nlsGrd->addWidget(m_fileIconBtn,0,1);
+    m_nlsGrd->addWidget(m_regIconBtn,0,2);
+    m_nlsGrd->addWidget(new QLabel("936"),1,0, Qt::AlignHCenter);
+    m_nlsGrd->addWidget(m_936FileBtn,1,1);
+    m_nlsGrd->addWidget(m_936RegBtn,1,2);
+    m_nlsGrd->addWidget(new QLabel("950"),2,0, Qt::AlignHCenter);
+    m_nlsGrd->addWidget(m_950FileBtn,2,1);
+    m_nlsGrd->addWidget(m_950RegBtn,2,2);
+    m_nlsGrd->addWidget(new QLabel("10002"),3,0, Qt::AlignHCenter);
+    m_nlsGrd->addWidget(m_10002FileBtn,3,1);
+    m_nlsGrd->addWidget(m_10002RegBtn,3,2);
+    m_nlsGrd->addWidget(new QLabel("10008"),4,0, Qt::AlignHCenter);
+    m_nlsGrd->addWidget(m_10008FileBtn,4,1);
+    m_nlsGrd->addWidget(m_10008RegBtn,4,2);
+
+    setTitle("NLS Checker");
+    setLayout(m_nlsGrd);
+    setFixedSize(280, 200);
+}
+
+void NlsStatut::checkFile()
+{
+    for(int i=1; i<=4; i++)
     {
-        m_filPush->setIcon(QIcon(":icons/good"));
-        m_exFile = true;
+        if(QFile("C:/Windows/System32/c_"+qobject_cast<QLabel *>(m_nlsGrd->itemAtPosition(i,0)->widget())->text()+".nls").exists())
+            qobject_cast<QPushButton*>(m_nlsGrd->itemAtPosition(i,1)->widget())->setIcon(QIcon(":icons/good"));
+        else
+            qobject_cast<QPushButton*>(m_nlsGrd->itemAtPosition(i,1)->widget())->setIcon(QIcon(":icons/bad"));
     }
-    else
+}
+void NlsStatut::checkReg()
+{
+    for(int i=1; i<=4; i++)
     {
-        m_filPush->setIcon(QIcon(":icons/bad"));
-        m_exFile = false;
+        if(m_nlsReg->contains(qobject_cast<QLabel *>(m_nlsGrd->itemAtPosition(i,0)->widget())->text()))
+            qobject_cast<QPushButton*>(m_nlsGrd->itemAtPosition(i,2)->widget())->setIcon(QIcon(":icons/good"));
+        else
+            qobject_cast<QPushButton*>(m_nlsGrd->itemAtPosition(i,2)->widget())->setIcon(QIcon(":icons/bad"));
     }
-
-    QSettings *settings = new QSettings("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Nls\\CodePage", QSettings::NativeFormat);
-
-    if(settings->contains(filename))
-    {
-        m_regPush->setIcon(QIcon(":icons/good"));
-        m_exReg = true;
-    }
-    else
-    {
-        m_regPush->setIcon(QIcon(":icons/bad"));
-        m_exReg = false;
-    }
-
-    if(m_exFile && m_exReg)
-    {
-        m_checkLabel->setText("GOOD");
-        m_checkLabel->setStyleSheet("#checkLab{background: #282;}");
-    }
-    else
-    {
-        m_checkLabel->setText("BAD");
-        m_checkLabel->setStyleSheet("#checkLab{background: #822;}");
-    }
-
-
-    QHBoxLayout *hbox = new QHBoxLayout;
-        hbox->setSpacing(0);
-        hbox->addWidget(m_nameLabel);
-        hbox->addWidget(m_filPush);
-        hbox->addWidget(m_regPush);
-        hbox->addWidget(m_checkLabel);
-
-    setLayout(hbox);
-    setFixedWidth(sizeHint().width());
-
-    setStyleSheet("#nameLab{font-weight: bold; color: white; background: #333; border: 1px solid white; border-top-left-radius: 13px; border-bottom-left-radius: 13px;}"
-                    "#filPush{background: #666; border-radius: none; border: 1px solid white; margin-bottom: 2px;}"
-                    "#regPush{background: #666; border-radius: none; border: 1px solid white; margin-bottom: 2px;}"
-                    "#checkLab{font-weight: bold; background: white; border: 1px solid white; border-top-right-radius: 13px; border-bottom-right-radius: 13px;}");
 }

@@ -8,7 +8,39 @@
 
 #include "FreeUpload.hpp"
 
-FreeUpload::FreeUpload(GameName name, QFile *file) : QObject()
+FreeUpload::FreeUpload() : QObject()
+{
+    createObjects();
+    createConnexions();
+}
+
+void FreeUpload::createObjects()
+{
+    m_uplMan  = new QNetworkAccessManager;
+    m_linkEdt = new QLineEdit;
+
+    //Generer un ID en fonction d'une partie du timestamp
+    m_timeStamp = QString::number(QDateTime::currentMSecsSinceEpoch()).section("143",1,1);
+
+    m_uplUrl.setScheme("ftp");
+    m_uplUrl.setHost("dl.free.fr");
+}
+void FreeUpload::createConnexions()
+{
+    connect(m_uplMan, SIGNAL(authenticationRequired(QNetworkReply*, QAuthenticator*)), this, SLOT(auth(QNetworkReply*, QAuthenticator*)));
+    connect(m_uplMan, SIGNAL(finished(QNetworkReply*)), this, SLOT(finish(QNetworkReply*)));
+
+}
+
+void FreeUpload::auth(QNetworkReply *rep, QAuthenticator *auth)
+{
+    m_uplMail = m_GameName+m_timeStamp+"@yopmail.com";
+
+    auth->setUser(m_uplMail);
+    auth->setPassword("aeriatool");
+}
+
+void FreeUpload::setGameName(GameName name)
 {
     if(name == GameName::Eden)
         m_GameName = "EdenLogs_";
@@ -30,28 +62,6 @@ FreeUpload::FreeUpload(GameName name, QFile *file) : QObject()
         m_GameName = "MaesLogs_";
     else if(name == GameName::Echo)
         m_GameName = "EchoLogs_";
-
-
-    m_logsFile = file;
-
-    m_timeStamp = QString::number(QDateTime::currentMSecsSinceEpoch()).section("143",1,1);
-
-    m_uplMail = m_GameName+m_timeStamp+"@yopmail.com";
-
-    m_uplUrl.setScheme("ftp");
-    m_uplUrl.setHost("dl.free.fr");
-
-    m_uplMan  = new QNetworkAccessManager;
-    m_linkEdt = new QLineEdit;
-
-    connect(m_uplMan, SIGNAL(authenticationRequired(QNetworkReply*, QAuthenticator*)), this, SLOT(auth(QNetworkReply*, QAuthenticator*)));
-    connect(m_uplMan, SIGNAL(finished(QNetworkReply*)), this, SLOT(finish(QNetworkReply*)));
-}
-
-void FreeUpload::auth(QNetworkReply *rep, QAuthenticator *auth)
-{
-    auth->setUser(m_uplMail);
-    auth->setPassword("aeriatool");
 }
 
 void FreeUpload::upload()

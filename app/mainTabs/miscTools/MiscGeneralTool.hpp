@@ -22,6 +22,7 @@ public:
     MiscGeneralTool(QWidget *parent = 0);
 
     void createObjects();
+    void createInterface();
 
 private:
 

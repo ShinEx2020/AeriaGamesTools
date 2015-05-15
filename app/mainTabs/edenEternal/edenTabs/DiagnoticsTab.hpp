@@ -32,14 +32,8 @@ public slots:
 private:
 
     LogShare    *m_logsSha;
+    NlsStatut   *m_nlsGrp;
 
-    NlsStatut   *m_nlsWid;
-    NlsStatut   *m_nlsWid2;
-    NlsStatut   *m_nlsWid3;
-    NlsStatut   *m_nlsWid4;
-
-    QGroupBox   *m_logsGrp;
-    QGroupBox   *m_nlsGrp;
 
     FreeUpload  *m_uplo;
     QLineEdit   *m_line;

@@ -32,8 +32,12 @@ public:
         Echo
     };
 
-    FreeUpload(GameName name, QFile *file);
+    FreeUpload();
 
+    void createObjects();
+    void createConnexions();
+
+    void setGameName(GameName name);
     void setUploadFile(QFile *file);
 
 signals:

@@ -11,62 +11,47 @@ class DxDiagGroup : public QGroupBox
 {
     Q_OBJECT
 public:
+
     DxDiagGroup();
 
-    createObjects();
-    createConnexions();
-
-    void dxDiagDate();
-
-    void dxDiagUpload();
-
-    void dxDiagGroup();
+    void createObjects();
+    void createConnexions();
+    void createInterface();
 
 public slots:
 
-    void refreshDiagStat();
-
-    bool dxDiagExist();
-
-    void linkToClip();
-
-    void uploadSuccessful(QString link);
-
-    void makeDxDiag();
-    void timeOutDxDiag();
-    void timeOutUpPast();
-
-    void pastebinLink();
+    //DIAG
+    void launchDxDiag();
+    void finishDxDiag();
+    void timeoutDxDiag();
+    void statutDiag();
+    //PASTEBIN
+    void launchPastebin();
+    void finishPastebin(QString link);
+    void timeoutPastebin();
+    void clipboardPastebin();
 
 private:
 
-    bool            m_DxExist;
-
-    Config          m_settingsHdr;
-
-    QMovie          *m_WaitAnim;
-
+    //GENERAL
+    Config          m_dxDiagConf;
     QClipboard      *m_UploadLinkClp;
-
+    QFile           *m_dxDiagFil;
+    QMovie          *m_waitMov;
+    DirectXDiag     *m_directxDiag;
+    QPastebinQuery  *m_pasteQuery;
+    QGridLayout     *m_DxDiagGrd;
+    //DIAG
     QTimer          *m_DxDiagTim;
+    QLabel          *m_dxDiagIconLbl;
+    QPushButton     *m_DiagLaunchBtn;
+    QLabel          *m_DiagDateLbl;
+    //PASTEBIN
     QTimer          *m_PastUpTim;
-
     QLabel          *m_UploadStatutLbl;
     QPushButton     *m_UploadStatutBtn;
-    QPushButton     *m_UploadClipBtn;
-
-    QGridLayout     *m_DxDiagGrd;
-    QLabel          *m_DiagStatutLbl;
-    QPushButton     *m_DiagStatutBtn;
-    QLabel          *m_DiagDateLbl;
-
-    QPastebinQuery  *m_pasteQuery;
-
-    DirectXDiag     *m_directxDiag;
-
+    QPushButton     *m_pastebinClipBtn;
     QLineEdit       *m_pastebinLineEdit;
-
-    QFile           *m_DxDiagFil;
 };
 
 #endif // DXDIAGGROUP_HPP

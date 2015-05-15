@@ -499,3 +499,13 @@ QMessageBox
 {
     background: #5C5;
 }
+#noBorder
+{
+    border: none;
+    outline: none;
+}
+#customLine
+{
+    border: 1px solid white;
+    width: 200px;
+}

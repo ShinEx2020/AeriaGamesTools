@@ -10,67 +10,186 @@
 
 LogShare::LogShare()
 {
-    m_settingsHdr = new Settings;
+    createObjects();
+    createConnexions();
+    createInterface();
 
-    m_compress = new FilesCompress(FilesCompress::GameName::Eden,
-                m_settingsHdr->gamePath(Settings::GamePath::Eden).toString());
-
-    QFile *m_logsArchive = new QFile(QCoreApplication::applicationDirPath()+"/Storage/EdenEternal_Logs.7z");
-
-    m_uplo = new FreeUpload(FreeUpload::GameName::Eden , m_logsArchive);
-
-    m_line = new QLineEdit("Cliquez pour obtenir un lien");
-        m_line->setReadOnly(true);
-        m_line->setStyleSheet("QLineEdit{border: 2px solid white; border-top-left-radius: 12px; border-bottom-left-radius: 12px;}");
-        m_line->setFixedSize(200, 25);
-
-    m_push = new QPushButton("PARTAGER");
-        m_push->setFixedSize(100, 25);
-        m_push->setStyleSheet("QPushButton{border-bottom-left-radius: 0px; border-top-left-radius: 0px; background: white; color: black;}");
-
-    QHBoxLayout *hbox = new QHBoxLayout;
-        hbox->addWidget(m_line, 0,Qt::AlignRight);
-        hbox->addWidget(m_push, 0);
-        hbox->setSpacing(0);
-
-
-
-    connect(m_push, SIGNAL(clicked()), this, SLOT(logCompress()));
-    connect(m_compress, SIGNAL(finished()), this, SLOT(logUpload()));
-    connect(m_uplo, SIGNAL(replyLink(QString)), this, SLOT(logUrl(QString)));
-
-    setLayout(hbox);
+    statutZipLogs();
 }
 
-void LogShare::logCompress()
+void LogShare::createObjects()
 {
-    m_compress->start();
+    //GENERAL
+    m_settingsSet       = new Settings;
+    m_zipLinkClp        = QApplication::clipboard();
+    m_zipLogsFil        = new QFile;
+    m_waitMov           = new QMovie;
+    m_filesCompress     = new FilesCompress(FilesCompress::GameName::Eden, m_settingsSet->gamePath(Settings::GamePath::Eden).toString());
+    m_freeUpload        = new FreeUpload;
+    m_logsGameGrd       = new QGridLayout;
+    //LOGS
+    m_zipLogsTim        = new QTimer;
+    m_zipLogsIconLbl    = new QLabel;
+    m_zipLogsLaunchBtn  = new QPushButton;
+    m_zipLogsDateLbl    = new QLabel;
+    //UPLOAD
+    m_uploadLogsTim     = new QTimer;
+    m_uploadLogsIconLbl = new QLabel;
+    m_SendLogsBtn       = new QPushButton;
+    m_UploadClipBtn     = new QPushButton;
+    m_LinkUploadEdt     = new QLineEdit;
+}
+void LogShare::createConnexions()
+{
+    //LOGS
+    connect(m_zipLogsLaunchBtn, SIGNAL(clicked()), this, SLOT(launchZipLogs()));
+    connect(m_filesCompress, SIGNAL(finished()), this, SLOT(finishZipLogs()));
+    connect(m_zipLogsTim, SIGNAL(timeout()), this, SLOT(timeoutZipLogs()));
+    //UPLOAD
+    connect(m_SendLogsBtn, SIGNAL(clicked()), this, SLOT(launchUploadLogs()));
+    connect(m_freeUpload, SIGNAL(replyLink(QString)), this, SLOT(finishUploadLogs(QString)));
+    connect(m_uploadLogsTim, SIGNAL(timeout()), this, SLOT(timeoutUploadLogs()));
+    connect(m_UploadClipBtn, SIGNAL(clicked()), this, SLOT(clipboardUploadLogs()));
+}
+void LogShare::createInterface()
+{
+    //GENERAL
+    m_zipLogsFil->setFileName(QCoreApplication::applicationDirPath()+"/Storage/EdenEternal_Logs.7z");
 
-    m_line->setText("Veuillez patientez");
-    m_push->setText("COMPRESS...");
+    m_waitMov->setFileName(":/icons/wait");
+
+    m_logsGameGrd->addWidget(new QLabel("Journaux :"),0,0,Qt::AlignRight);
+    m_logsGameGrd->addWidget(m_zipLogsIconLbl,0,1,Qt::AlignLeft);
+    m_logsGameGrd->addWidget(m_zipLogsLaunchBtn,0,2,Qt::AlignRight);
+    m_logsGameGrd->addWidget(new QLabel("Dernier :"),1,0,Qt::AlignRight);
+    m_logsGameGrd->addWidget(m_zipLogsDateLbl,1,1,1,2,Qt::AlignRight);
+    m_logsGameGrd->addWidget(new QLabel("Uploadé :"),2,0,Qt::AlignRight);
+    m_logsGameGrd->addWidget(m_uploadLogsIconLbl,2,1,Qt::AlignLeft);
+    m_logsGameGrd->addWidget(m_SendLogsBtn,2,2,Qt::AlignRight);
+    m_logsGameGrd->addWidget(new QLabel("Partage :"),3,0,Qt::AlignRight);
+    m_logsGameGrd->addWidget(m_UploadClipBtn,3,1,Qt::AlignRight);
+    m_logsGameGrd->addWidget(m_LinkUploadEdt,3,2,Qt::AlignRight);
+
+
+    //ZIP
+    m_zipLogsLaunchBtn->setObjectName("greenButton");
+
+
+    //UPLOAD
+    m_uploadLogsIconLbl->setPixmap(QPixmap(":/icons/bad"));
+
+    m_SendLogsBtn->setText("Envoyer");
+    m_SendLogsBtn->setObjectName("greenButton");
+
+    m_UploadClipBtn->setIcon(QIcon(":/icons/clip"));
+    m_UploadClipBtn->setObjectName("noBorder");
+
+    m_LinkUploadEdt->setObjectName("customLine");
+    m_LinkUploadEdt->setReadOnly(true);
+
+
+    //SETTINGS
+    setTitle(("Logs du jeu"));
+    setLayout(m_logsGameGrd);
+    setFixedSize(280,150);
 }
 
-void LogShare::logUpload()
+//SLOTS
+void LogShare::launchZipLogs()
 {
-    m_line->setText("Veuillez patientez");
-    m_push->setText("UPLOAD...");
-    m_uplo->upload();
+    m_zipLogsIconLbl->setMovie(m_waitMov);
+    m_waitMov->start();
+
+    m_filesCompress->start();
+    m_zipLogsTim->start(m_settingsConf.ZIP_TIMEOUT);
+
+    m_zipLogsLaunchBtn->setEnabled(false);
+}
+void LogShare::finishZipLogs()
+{
+    m_zipLogsTim->stop();
+
+    m_zipLogsLaunchBtn->setEnabled(true);
+    statutZipLogs();
+}
+void LogShare::timeoutZipLogs()
+{
+    finishZipLogs();
+
+    m_filesCompress->terminate();
+    m_filesCompress->wait();
+
+    QToolTip::showText(m_zipLogsLaunchBtn->mapToGlobal(QPoint()), tr("Temps ecoulé, veuillez réessayer"));
+}
+void LogShare::statutZipLogs()
+{
+    if(m_zipLogsFil->exists())
+    {
+        m_zipLogsIconLbl->setPixmap(QPixmap(":/icons/good"));
+
+        m_zipLogsLaunchBtn->setText("Rezipper Logs");
+
+        m_zipLogsDateLbl->setText(QFileInfo(*m_zipLogsFil).lastModified().toString("Le dddd d MMMM yyyy à hh:mm:ss"));
+    }
+    else
+    {
+        m_zipLogsIconLbl->setPixmap(QPixmap(":/icons/bad"));
+
+        m_zipLogsLaunchBtn->setText("Zipper Logs");
+
+        m_zipLogsDateLbl->setText("Aucune archive de logs existante");
+    }
 }
 
-void LogShare::logUrl(QString url)
+void LogShare::launchUploadLogs()
 {
-    m_url = url;
-    m_line->setText("Recuperez le lien");
-    m_push->setText("COPIEZ...");
-    connect(m_push, SIGNAL(clicked()), this, SLOT(logClip()));
+    if(m_zipLogsFil->exists())
+    {
+        m_uploadLogsIconLbl->setMovie(m_waitMov);
+        m_waitMov->start();
+
+        m_uploadLogsTim->start(m_settingsConf.TIMEOUT);
+
+        m_SendLogsBtn->setEnabled(false);
+
+        m_freeUpload->setGameName(FreeUpload::GameName::Eden);
+        m_freeUpload->setUploadFile(m_zipLogsFil);
+        m_freeUpload->upload();
+    }
+    else
+    {
+        QToolTip::showText(m_zipLogsLaunchBtn->mapToGlobal(QPoint()), tr("Générer d'abord votre archive !"));
+    }
 }
-
-void LogShare::logClip()
+void LogShare::finishUploadLogs(QString url)
 {
-    QClipboard  *m_clip = QApplication::clipboard();
-    m_clip->setText(m_url);
+    m_uploadLogsTim->stop();
 
-    m_line->setText("Lien dans le presse-papier");
-    m_push->setText("FINI !");
-    m_push->setEnabled(false);
+    m_LinkUploadEdt->setText(url);
+
+    m_uploadLogsIconLbl->setPixmap(QPixmap(":/icons/good"));
+}
+void LogShare::timeoutUploadLogs()
+{
+    m_uploadLogsTim->stop();
+
+    QToolTip::showText(m_SendLogsBtn->mapToGlobal(QPoint()), tr("Temps ecoulé, veuillez réessayer"));
+
+    m_uploadLogsIconLbl->setPixmap(QPixmap(":/icons/bad"));
+
+    m_SendLogsBtn->setEnabled(true);
+}
+void LogShare::clipboardUploadLogs()
+{
+    if(!m_LinkUploadEdt->text().isEmpty())
+    {
+        m_zipLinkClp->setText(m_LinkUploadEdt->text());
+
+        if(m_zipLinkClp->text() == m_LinkUploadEdt->text())
+            QToolTip::showText(m_LinkUploadEdt->mapToGlobal(QPoint()), tr("Lien dans le presse papier"));
+        else
+            QToolTip::showText(m_LinkUploadEdt->mapToGlobal(QPoint()), tr("Erreur de presse papier"));
+    }
+    else
+        QToolTip::showText(m_LinkUploadEdt->mapToGlobal(QPoint()), "Rien à copier");
 }

@@ -11,6 +11,8 @@
         <file alias="wait">assets/icons/wait.mng</file>
         <file alias="bot">assets/icons/bot.png</file>
         <file alias="top">assets/icons/top.png</file>
+        <file alias="file">assets/icons/file.png</file>
+        <file alias="reg">assets/icons/reg.png</file>
     </qresource>
     <qresource prefix="/style">
         <file alias="style">style.qss</file>
