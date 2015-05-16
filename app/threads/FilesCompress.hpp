@@ -14,22 +14,9 @@
 class FilesCompress : public QThread
 {
     Q_OBJECT
-
 public:
 
-    enum GameName
-    {
-        Eden,
-        Aura,
-        S4,
-        Fant,
-        Wolf,
-        Shai,
-        AVA,
-        Trib,
-        Maes,
-        Echo
-    };
+    enum GameName{Eden, Aura, S4, Fant, Wolf, Shai, AVA, Trib, Maes, Echo};
 
     FilesCompress(GameName name, QString path);
 

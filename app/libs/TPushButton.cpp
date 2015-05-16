@@ -21,10 +21,8 @@ void TPushButton::mousePressEvent(QMouseEvent *event)
 {
     positionPoint = event->globalPos() - m_parentWidget->pos();
 }
-
 void TPushButton::mouseMoveEvent(QMouseEvent *event)
 {
     const QPoint movePoint = event->globalPos() - positionPoint - pos();
     m_parentWidget->move(x() + movePoint.x(), y() + movePoint.y());
-    positionPoint = event->globalPos() - m_parentWidget->pos();
 }

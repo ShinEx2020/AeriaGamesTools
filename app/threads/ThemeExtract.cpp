@@ -8,9 +8,16 @@
 
 #include "ThemeExtract.hpp"
 
-ThemeExtract::ThemeExtract(QString path, QString archive)
+ThemeExtract::ThemeExtract()
+{
+}
+
+void ThemeExtract::setPath(QString path)
 {
     m_path = path;
+}
+void ThemeExtract::setArchive(QString archive)
+{
     m_archive = "\""+archive+"\"";;
 }
 

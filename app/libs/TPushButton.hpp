@@ -26,7 +26,6 @@ public:
 private:
 
     QPoint          positionPoint;
-
     QWidget         *m_parentWidget;
 };
 

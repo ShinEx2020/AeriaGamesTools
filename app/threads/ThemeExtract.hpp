@@ -14,17 +14,18 @@
 class ThemeExtract : public QThread
 {
     Q_OBJECT
-
 public:
-    ThemeExtract(QString path, QString archive);
 
+    ThemeExtract();
+
+    void setPath(QString path);
+    void setArchive(QString archive);
     void run();
 
 private:
 
     QString     m_path;
     QString     m_archive;
-
     QProcess    *m_ExtractThemePro;
 };
 

@@ -16,10 +16,10 @@ class Config
 public:
 
 	//Paramètres Globaux
-    //-- Temps en millisecondes
     int     TIMEOUT                 = 10000;
     int     ZIP_TIMEOUT             = 10000;
     int     DIAG_TIMEOUT            = 10000;
+    //-- Temps en millisecondes
 
     //Paramètres Dropbox
     QString CURRENT_BUILD_ID        = "1";

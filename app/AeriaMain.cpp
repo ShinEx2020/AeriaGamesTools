@@ -20,6 +20,7 @@ AeriaMain::AeriaMain(QWidget *parent) : QWidget(parent)
     createSettings();
 }
 
+//METHODES
 void AeriaMain::createObjects()
 {
 
@@ -75,20 +76,14 @@ void AeriaMain::createObjects()
 
 //--
 }
-
-void AeriaMain::createSettings()
+void AeriaMain::createConnections()
 {
-    m_StyleQss->setFileName(":/style/style");
-    m_StyleQss->open(QIODevice::ReadOnly | QIODevice::Text);
-
-    setWindowFlags(Qt::FramelessWindowHint);
-    setFixedSize(800, 595);
-    setWindowTitle(m_titleBtn->text());
-    setContentsMargins(-11, -11, -11, -11);
-
-    qApp->setStyleSheet(m_StyleQss->readAll());
+    connect(m_minimizeBtn, SIGNAL(clicked()), this, SLOT(minimizeTool()));
+    connect(m_closeBtn, SIGNAL(clicked()), qApp, SLOT(quit()));
+    connect(m_settingsBtn, SIGNAL(clicked()), m_settingsDlg, SLOT(show()));
+    connect(m_updatesBtn, SIGNAL(clicked()), m_updatesDlg, SLOT(show()));
+    connect(m_aboutBtn, SIGNAL(clicked()), m_aboutDlg, SLOT(show()));
 }
-
 void AeriaMain::createTitleBar()
 {
     m_titleBtn->setText("AERIA GAMES TOOLS");
@@ -111,7 +106,6 @@ void AeriaMain::createTitleBar()
     m_titleBarHbx->addWidget(m_closeBtn, 0, Qt::AlignRight);
     m_titleBarHbx->setSpacing(0);
 }
-
 void AeriaMain::createInfosBar()
 {
     m_settingsBtn->setIcon(QIcon(":/icons/settings"));
@@ -132,7 +126,6 @@ void AeriaMain::createInfosBar()
     m_infosBarHbx->setContentsMargins(0, 2, 10, 0);
     m_infosBarHbx->setSpacing(1);
 }
-
 void AeriaMain::createHeaderWid()
 {
     m_headerVbx->addLayout(m_titleBarHbx);
@@ -142,7 +135,6 @@ void AeriaMain::createHeaderWid()
     m_headerWid->setObjectName("headerWidget");
     m_headerWid->setLayout(m_headerVbx);
 }
-
 void AeriaMain::createTabWidget()
 {
     m_mainTabWid->setTabPosition(QTabWidget::West);
@@ -161,7 +153,6 @@ void AeriaMain::createTabWidget()
     m_mainTabWid->tabBar()->setIconSize(QSize(60, 60));
     m_mainTabWid->setObjectName("mTabMain");
 }
-
 void AeriaMain::createInterface()
 {
     m_mainVbx->addWidget(m_headerWid);
@@ -170,14 +161,17 @@ void AeriaMain::createInterface()
 
     setLayout(m_mainVbx);
 }
-
-void AeriaMain::createConnections()
+void AeriaMain::createSettings()
 {
-    connect(m_minimizeBtn, SIGNAL(clicked()), this, SLOT(minimizeTool()));
-    connect(m_closeBtn, SIGNAL(clicked()), qApp, SLOT(quit()));
-    connect(m_settingsBtn, SIGNAL(clicked()), m_settingsDlg, SLOT(show()));
-    connect(m_updatesBtn, SIGNAL(clicked()), m_updatesDlg, SLOT(show()));
-    connect(m_aboutBtn, SIGNAL(clicked()), m_aboutDlg, SLOT(show()));
+    m_StyleQss->setFileName(":/style/style");
+    m_StyleQss->open(QIODevice::ReadOnly | QIODevice::Text);
+
+    setWindowFlags(Qt::FramelessWindowHint);
+    setFixedSize(800, 595);
+    setWindowTitle(m_titleBtn->text());
+    setContentsMargins(-11, -11, -11, -11);
+
+    qApp->setStyleSheet(m_StyleQss->readAll());
 }
 
 //SLOTS

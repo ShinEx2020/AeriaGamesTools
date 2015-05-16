@@ -50,15 +50,12 @@ public slots:
 
 private:
     QString                 m_GameName;
-
+    QString                 m_uplMail;
     QString                 m_timeStamp;
     QUrl                    m_uplUrl;
-
-    QLineEdit               *m_linkEdt;
     QFile                   *m_logsFile;
-    QNetworkAccessManager   *m_uplMan;
-
-    QString                 m_uplMail;
+    QLineEdit               *m_linkEdt;
+    QNetworkAccessManager   *m_uplMan;    
 };
 
 #endif // FREECLIENT_HPP

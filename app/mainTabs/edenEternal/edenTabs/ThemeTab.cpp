@@ -86,6 +86,8 @@ ThemeTab::ThemeTab(QString edenpath)
 void ThemeTab::createObjects()
 {
     m_settingsCfg = new Settings;
+
+    m_themeExtract = new ThemeExtract;
 }
 
 //-----METHODS
@@ -210,9 +212,9 @@ void ThemeTab::extractTheme(QNetworkReply* sevenTheme)
         info->close();
 
 
-    qDebug() << m_edenPath;
 
-    m_themeExtract = new ThemeExtract(m_edenPath, info->fileName());
+    m_themeExtract->setPath(m_edenPath);
+    m_themeExtract->setArchive(info->fileName());
     m_themeExtract->start();
 }
 

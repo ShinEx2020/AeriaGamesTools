@@ -29,15 +29,6 @@ void FreeUpload::createConnexions()
 {
     connect(m_uplMan, SIGNAL(authenticationRequired(QNetworkReply*, QAuthenticator*)), this, SLOT(auth(QNetworkReply*, QAuthenticator*)));
     connect(m_uplMan, SIGNAL(finished(QNetworkReply*)), this, SLOT(finish(QNetworkReply*)));
-
-}
-
-void FreeUpload::auth(QNetworkReply *rep, QAuthenticator *auth)
-{
-    m_uplMail = m_GameName+m_timeStamp+"@yopmail.com";
-
-    auth->setUser(m_uplMail);
-    auth->setPassword("aeriatool");
 }
 
 void FreeUpload::setGameName(GameName name)
@@ -63,6 +54,18 @@ void FreeUpload::setGameName(GameName name)
     else if(name == GameName::Echo)
         m_GameName = "EchoLogs_";
 }
+void FreeUpload::setUploadFile(QFile *file)
+{
+    m_logsFile = file;
+}
+
+void FreeUpload::auth(QNetworkReply *rep, QAuthenticator *auth)
+{
+    m_uplMail = m_GameName+m_timeStamp+"@yopmail.com";
+
+    auth->setUser(m_uplMail);
+    auth->setPassword("aeriatool");
+}
 
 void FreeUpload::upload()
 {
@@ -79,7 +82,4 @@ void FreeUpload::finish(QNetworkReply* rep)
     emit replyLink("http://www.yopmail.com/"+m_uplMail);
 }
 
-void FreeUpload::setUploadFile(QFile *file)
-{
-    m_logsFile = file;
-}
+
