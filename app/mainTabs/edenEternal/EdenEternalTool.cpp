@@ -29,7 +29,7 @@ void EdenEternalTool::createObjects()
     m_buttonsHbx        = new QHBoxLayout;
     m_configsVbx        = new QVBoxLayout;
     //PRIMARY
-    m_themeWidget       = new ThemeTab(mPathsSettings->gamePath(Settings::GamePath::Eden).toString());
+    m_themeWidget       = new ThemeTab;
     m_configsWid        = new QWidget;
     m_repairWidget      = new DiagnoticsTab;
     m_edenPrimaryTbw    = new QTabWidget;
